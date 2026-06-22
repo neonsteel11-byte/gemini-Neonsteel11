@@ -4,6 +4,17 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    # This forces GitHub to give secrets to EVERY step automatically!
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+      YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+      YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+      YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+      YT_DEFAULT_TITLE: ${{ secrets.YT_DEFAULT_TITLE }}
+      YT_DEFAULT_DESCRIPTION: ${{ secrets.YT_DEFAULT_DESCRIPTION }}
+      YT_DEFAULT_TAGS: ${{ secrets.YT_DEFAULT_TAGS }}
+      YT_PRIVACY: ${{ secrets.YT_PRIVACY }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -14,9 +25,6 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
       - name: Run generator
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
         run: python main.py
       - name: Debug YT secrets presence
         run: |
@@ -26,17 +34,5 @@ jobs:
           else
             echo "YT_SECRETS_PRESENT"
           fi
-        env:
-          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
-          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
-          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
       - name: Upload to YouTube
-        env:
-          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
-          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
-          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
-          YT_DEFAULT_TITLE: ${{ secrets.YT_DEFAULT_TITLE }}
-          YT_DEFAULT_DESCRIPTION: ${{ secrets.YT_DEFAULT_DESCRIPTION }}
-          YT_DEFAULT_TAGS: ${{ secrets.YT_DEFAULT_TAGS }}
-          YT_PRIVACY: ${{ secrets.YT_PRIVACY }}
         run: python scripts/upload_to_youtube.py
