@@ -2,7 +2,10 @@ name: Automation Pipeline
 
 on:
   schedule:
-    - cron: '0 12 * * *'  # Runs daily at 12:00 PM UTC
+    # 9:00 AM UTC (Long-form)
+    - cron: '0 9 * * *'
+    # 6:00 PM UTC (Shorts)
+    - cron: '0 18 * * *'
   workflow_dispatch:
     inputs:
       test_mode:
@@ -18,7 +21,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    # Necessary to allow the bot to commit/push status updates
     permissions:
       contents: write
     env:
