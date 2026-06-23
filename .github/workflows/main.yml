@@ -1,19 +1,39 @@
 name: Automation Pipeline
+
 on:
   schedule:
-    - cron: '0 12 * * *'  # Automatically triggers every single day at 12:00 PM UTC
-  workflow_dispatch:      # Keeps the manual run button in the GitHub UI active
+    - cron: '0 12 * * *'  # Runs daily at 12:00 PM UTC
+  workflow_dispatch:
+    inputs:
+      test_mode:
+        description: 'Set true for Dry Run, false for Real Upload'
+        required: false
+        default: 'true'
+
+# Prevents multiple runs from conflicting
+concurrency:
+  group: "autopublish-syndicate"
+  cancel-in-progress: false
 
 jobs:
   build:
     runs-on: ubuntu-latest
+    # Necessary to allow the bot to commit/push status updates
+    permissions:
+      contents: write
     env:
       YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
       YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
       YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+      GMAIL_USER: ${{ secrets.GMAIL_USER }}
+      GMAIL_PASS: ${{ secrets.GMAIL_PASS }}
+      TEST_MODE: ${{ github.event.inputs.test_mode || 'true' }}
+    
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
+        with:
+          persist-credentials: true
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -25,8 +45,11 @@ jobs:
           python -m pip install --upgrade pip
           pip install google-api-python-client google-auth google-auth-oauthlib google-auth-httplib2
 
-      - name: Automatically Generate Video and Manifest
+      - name: Generate Content
         run: python scripts/generate_video.py
+
+      - name: Validate Manifest
+        run: python scripts/validate_manifest.py
 
       - name: Upload to YouTube
         run: python scripts/upload_to_youtube.py
