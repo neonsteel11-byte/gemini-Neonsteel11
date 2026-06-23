@@ -33,14 +33,24 @@ jobs:
           else
             echo "YT_SECRETS_PRESENT"
           fi
-      - name: Create test video if none exists
+      - name: Create or download test video if none exists
         run: |
           mkdir -p output
           if ls output/*.mp4 1> /dev/null 2>&1; then
-            echo "mp4 exists"
+            echo "mp4 exists; skipping creation"
           else
-            sudo apt-get update && sudo apt-get install -y ffmpeg
-            ffmpeg -y -f lavfi -i color=c=black:s=1280x720:d=2 -f lavfi -i anullsrc=cl=mono:r=44100 -shortest -c:v libx264 -c:a aac -pix_fmt yuv420p output/test.mp4
+            echo "Downloading small test mp4..."
+            curl -L --fail -o output/test.mp4 https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4 || true
+            if [ -s output/test.mp4 ]; then
+              echo "Downloaded output/test.mp4"
+            else
+              echo "Download failed or file empty, falling back to ffmpeg creation..."
+              sudo apt-get update && sudo apt-get install -y ffmpeg
+              ffmpeg -y -f lavfi -i color=c=black:s=1280x720:d=2 -f lavfi -i anullsrc=cl=mono:r=44100 -shortest -c:v libx264 -c:a aac -pix_fmt yuv420p output/test.mp4
+              echo "Created output/test.mp4 via ffmpeg"
+            fi
           fi
+      - name: List output folder
+        run: ls -al output || true
       - name: Upload to YouTube
         run: python scripts/upload_to_youtube.py
