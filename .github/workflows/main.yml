@@ -1,11 +1,8 @@
 name: Automation Pipeline
 on:
-  workflow_dispatch:
-    inputs:
-      test_mode:
-        description: 'Create and upload a test video (true/false)'
-        required: false
-        default: 'false'
+  schedule:
+    - cron: '0 12 * * *'  # Automatically triggers every single day at 12:00 PM UTC
+  workflow_dispatch:      # Keeps the manual run button in the GitHub UI active
 
 jobs:
   build:
@@ -28,11 +25,8 @@ jobs:
           python -m pip install --upgrade pip
           pip install google-api-python-client google-auth google-auth-oauthlib google-auth-httplib2
 
-      - name: Create test video
-        if: ${{ github.event.inputs.test_mode == 'true' }}
-        run: |
-          mkdir -p output
-          curl -L --fail -o output/test.mp4 https://www.w3schools.com/html/mov_bbb.mp4
+      - name: Automatically Generate Video and Manifest
+        run: python scripts/generate_video.py
 
       - name: Upload to YouTube
         run: python scripts/upload_to_youtube.py
