@@ -22,19 +22,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install google-api-python-client google-auth google-auth-oauthlib google-auth-httplib2
 
-      - name: Debug Secret Formats
-        run: |
-          echo "=== SECRET INSPECTOR ==="
-          echo "Client ID Length: ${#YT_CLIENT_ID}"
-          echo "Client ID Ends with .com?: $( [[ "$YT_CLIENT_ID" == *.apps.googleusercontent.com ]] && echo 'YES' || echo 'NO' )"
-          echo "Client Secret Length: ${#YT_CLIENT_SECRET}"
-          echo "Refresh Token Length: ${#YT_REFRESH_TOKEN}"
-          echo "========================"
-
       - name: Create test video
         run: |
           mkdir -p output
-          curl -L --fail -o output/test.mp4 https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4 || true
+          curl -L --fail -o output/test.mp4 https://www.w3schools.com/html/mov_bbb.mp4
 
       - name: Upload to YouTube
         run: python scripts/upload_to_youtube.py
