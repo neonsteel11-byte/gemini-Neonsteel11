@@ -4,28 +4,34 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    # This forces GitHub to give secrets to EVERY step automatically!
     env:
-      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-      PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
       YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
       YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
       YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
-      YT_DEFAULT_TITLE: ${{ secrets.YT_DEFAULT_TITLE }}
-      YT_DEFAULT_DESCRIPTION: ${{ secrets.YT_DEFAULT_DESCRIPTION }}
-      YT_DEFAULT_TAGS: ${{ secrets.YT_DEFAULT_TAGS }}
-      YT_PRIVACY: ${{ secrets.YT_PRIVACY }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          if [ -f requirements.txt ]; then
+            pip install -r requirements.txt
+          else
+            pip install google-api-python-client google-auth google-auth-oauthlib
+          fi
+
       - name: Run generator
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
         run: python main.py
+
       - name: Debug YT secrets presence
         run: |
           if [ -z "$YT_CLIENT_ID" ] || [ -z "$YT_CLIENT_SECRET" ] || [ -z "$YT_REFRESH_TOKEN" ]; then
@@ -34,5 +40,22 @@ jobs:
           else
             echo "YT_SECRETS_PRESENT"
           fi
+
+      - name: Create or download test video if none exists
+        run: |
+          mkdir -p output
+          echo "Downloading small test mp4..."
+          curl -L --fail -o output/test.mp4 https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4 || true
+          if [ -s output/test.mp4 ]; then
+            echo "Downloaded output/test.mp4 successfully"
+          else
+            echo "Download failed, creating short test video via ffmpeg..."
+            sudo apt-get update && sudo apt-get install -y ffmpeg
+            ffmpeg -y -f lavfi -i color=c=black:s=1280x720:d=2 -f lavfi -i anullsrc=cl=mono:r=44100 -shortest -c:v libx264 -c:a aac -pix_fmt yuv420p output/test.mp4
+          fi
+
+      - name: List output folder
+        run: ls -al output || true
+
       - name: Upload to YouTube
         run: python scripts/upload_to_youtube.py
