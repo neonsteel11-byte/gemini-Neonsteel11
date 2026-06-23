@@ -31,3 +31,4 @@ prompt.txt
 # Ignore all JSON key files
 gemini-youtube-automator-4ff94a2f3c8a.json
 test_upload.pyclient_secret.json
+client_secret.json
