@@ -2,7 +2,11 @@ name: Automation Pipeline
 
 on:
   schedule:
-    - cron: '0 12 * * *'  # Runs daily at 12:00 PM UTC
+    - cron: '0 9 * * *'
+
+on:
+  schedule:
+    - cron: '0 18 * * *'
   workflow_dispatch:
     inputs:
       test_mode:
