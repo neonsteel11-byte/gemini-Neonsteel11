@@ -1,33 +1,46 @@
 name: Automation Pipeline
-
 on:
-  workflow_dispatch: 
-
+  workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+      YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+      YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+      YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+      YT_DEFAULT_TITLE: ${{ secrets.YT_DEFAULT_TITLE }}
+      YT_DEFAULT_DESCRIPTION: ${{ secrets.YT_DEFAULT_DESCRIPTION }}
+      YT_DEFAULT_TAGS: ${{ secrets.YT_DEFAULT_TAGS }}
+      YT_PRIVACY: ${{ secrets.YT_PRIVACY }}
     steps:
       - uses: actions/checkout@v4
-      
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
       - name: Install dependencies
         run: |
-          pip install --upgrade pip
+          python -m pip install --upgrade pip
           pip install -r requirements.txt
-
-      - name: Run script
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+      - name: Run generator
         run: python main.py
-
-      - name: Debug Output
-        run: ls -R output/
-
-      - name: Upload Artifacts
-        uses: actions/upload-artifact@v4
-        with:
-          name: generated-files
-          path: output/
+      - name: Debug YT secrets presence
+        run: |
+          if [ -z "$YT_CLIENT_ID" ] || [ -z "$YT_CLIENT_SECRET" ] || [ -z "$YT_REFRESH_TOKEN" ]; then
+            echo "MISSING_YT_SECRETS"
+            exit 1
+          else
+            echo "YT_SECRETS_PRESENT"
+          fi
+      - name: Create test video if none exists
+        run: |
+          mkdir -p output
+          if ls output/*.mp4 1> /dev/null 2>&1; then
+            echo "mp4 exists"
+          else
+            sudo apt-get update && sudo apt-get install -y ffmpeg
+            ffmpeg -y -f lavfi -i color=c=black:s=1280x720:d=2 -f lavfi -i anullsrc=cl=mono:r=44100 -shortest -c:v libx264 -c:a aac -pix_fmt yuv420p output/test.mp4
+          fi
+      - name: Upload to YouTube
+        run: python scripts/upload_to_youtube.py
