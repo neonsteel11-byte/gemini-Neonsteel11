@@ -1,11 +1,15 @@
 name: Automation Pipeline
 on:
   workflow_dispatch:
+    inputs:
+      test_mode:
+        description: 'Create and upload a test video (true/false)'
+        required: false
+        default: 'false'
 
 jobs:
   build:
     runs-on: ubuntu-latest
-    # Expose secrets to the entire job so every step can use them
     env:
       YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
       YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
@@ -22,63 +26,13 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          # Install from requirements.txt if present, otherwise install google libs needed for uploader
-          if [ -f requirements.txt ]; then
-            pip install -r requirements.txt
-          else
-            pip install google-api-python-client google-auth google-auth-oauthlib
-          fi
+          pip install google-api-python-client google-auth google-auth-oauthlib google-auth-httplib2
 
-      - name: Run generator
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
-        run: python main.py
-
-      - name: Debug YT secrets presence (no secret values printed)
-        run: |
-          if [ -z "$YT_CLIENT_ID" ] || [ -z "$YT_CLIENT_SECRET" ] || [ -z "$YT_REFRESH_TOKEN" ]; then
-            echo "MISSING_YT_SECRETS"
-            exit 1
-          else
-            echo "YT_SECRETS_PRESENT"
-          fi
-
-      - name: Create or download test video if none exists
+      - name: Create test video
+        if: ${{ github.event.inputs.test_mode == 'true' }}
         run: |
           mkdir -p output
-          if ls output/*.mp4 1> /dev/null 2>&1; then
-            echo "mp4 exists; skipping creation"
-          else
-            echo "Attempting to download a sample mp4..."
-            curl -L --fail -o output/test.mp4 https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4 || true
-            if [ -s output/test.mp4 ]; then
-              echo "Downloaded output/test.mp4"
-            else
-              echo "Download failed or file empty — installing ffmpeg and creating short test video..."
-              sudo apt-get update
-              sudo apt-get install -y ffmpeg
-              ffmpeg -y -f lavfi -i color=c=black:s=1280x720:d=2 -f lavfi -i anullsrc -shortest \
-                -c:v libx264 -c:a aac -pix_fmt yuv420p output/test.mp4
-              echo "Created output/test.mp4 via ffmpeg"
-            fi
-          fi
-
-      - name: List output folder
-        run: ls -al output || true
-
-      - name: Check for video
-        id: find
-        run: |
-          videos=$(ls output/*.mp4 2>/dev/null || true)
-          echo "videos=$videos" >> $GITHUB_OUTPUT
+          curl -L --fail -o output/test.mp4 https://www.w3schools.com/html/mov_bbb.mp4
 
       - name: Upload to YouTube
-        if: steps.find.outputs.videos != ''
-        env:
-          # Optional: title/description/tags/privacy stored as repo secrets (if present)
-          YT_DEFAULT_TITLE: ${{ secrets.YT_DEFAULT_TITLE }}
-          YT_DEFAULT_DESCRIPTION: ${{ secrets.YT_DEFAULT_DESCRIPTION }}
-          YT_DEFAULT_TAGS: ${{ secrets.YT_DEFAULT_TAGS }}
-          YT_PRIVACY: ${{ secrets.YT_PRIVACY }}
         run: python scripts/upload_to_youtube.py
