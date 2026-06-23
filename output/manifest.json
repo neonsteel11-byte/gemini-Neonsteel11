@@ -1,0 +1,10 @@
+{
+  "status": "pending",
+  "youtube_video_id": "",
+  "metadata": {
+    "title": "Automated Content Loop: Testing The Syndicate Engine",
+    "description": "This video was fully staged, validated, and published via CI automation.\n\nTimestamps:\n0:00 - Introduction\n1:00 - Pipeline Run\n\n#Automation #Syndicate #Dev",
+    "privacyStatus": "private",
+    "categoryId": "22"
+  }
+}
