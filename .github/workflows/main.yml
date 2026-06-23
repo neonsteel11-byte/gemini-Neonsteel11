@@ -22,7 +22,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install google-api-python-client google-auth google-auth-oauthlib google-auth-httplib2
 
-      - name: Debug Exact Secret Formats
+      - name: Debug Secret Formats
         run: |
           echo "=== SECRET INSPECTOR ==="
           echo "Client ID Length: ${#YT_CLIENT_ID}"
