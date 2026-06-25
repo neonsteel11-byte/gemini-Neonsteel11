@@ -31,11 +31,19 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
         
-    - name: Execute Loop
-      run: python main.py
+    - name: Run Video Generator
       env:
         GEMINI_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+      run: |
+        echo "Starting video generation..."
+        python main.py
+        
+    - name: Upload to YouTube
+      env:
         YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
         YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
         YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
         TEST_MODE: ${{ github.event.inputs.TEST_MODE || 'true' }}
+      run: |
+        echo "Starting YouTube upload flow..."
+        python scripts/upload_to_youtube.py
