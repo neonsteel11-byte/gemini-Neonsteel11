@@ -1,43 +1,33 @@
 name: Run Funny Finance Bot
 
 on:
-  schedule:
-    - cron: '0 */2 * * *'
   workflow_dispatch:
     inputs:
       TEST_MODE:
-        description: 'Set to false for real YouTube uploads'
+        description: 'Run in test mode (true/false)'
         required: true
         default: 'true'
 
-permissions:
-  contents: write
-
 jobs:
-  build-and-run:
+  run-bot:
     runs-on: ubuntu-latest
+    environment: production
+    
     steps:
-      - name: Run actions/checkout@v4
+      - name: Checkout repository
         uses: actions/checkout@v4
-        with:
-          persist-credentials: true
-          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.11'
 
-      - name: Install Dependencies
+      - name: Install dependencies
         run: |
-          pip install google-generativeai gTTS google-api-python-client google-auth-oauthlib google-auth-httplib2
+          python -m pip install --upgrade pip
+          pip install google-api-python-client google-auth-oauthlib google-auth-httplib2
 
-      - name: Run Video Generator
-        env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY || secrets.GOOGLE_API_KEY }}
-        run: python main.py
-
-      - name: Upload to YouTube
+      - name: Run YouTube Upload
         env:
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
