@@ -1,16 +1,14 @@
 #!/usr/bin/env python3
-import os, json, subprocess, glob
+import os, json, subprocess
 from datetime import datetime, timedelta, timezone
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 from google.oauth2.credentials import Credentials
 
 MANIFEST_PATH = "output/manifest.json"
-STATE_PATH = "output/system_state.json"
 TEST_MODE = os.environ.get("TEST_MODE", "true") == "true"
 
 def get_authenticated_service():
-    """Builds the YouTube API service object using individual environment secrets."""
     client_id = os.environ.get("YT_CLIENT_ID")
     client_secret = os.environ.get("YT_CLIENT_SECRET")
     refresh_token = os.environ.get("YT_REFRESH_TOKEN")
@@ -28,85 +26,109 @@ def get_authenticated_service():
     creds = Credentials.from_authorized_user_info(token_info)
     return build('youtube', 'v3', credentials=creds)
 
-def calculate_publish_time():
-    """Computes the next 09:00 UTC publishing slot with a safety buffer."""
+def determine_current_slot():
+    """Determines which content wave to deploy based on the closest target hour."""
     now = datetime.now(timezone.utc)
-    target = datetime.combine(now.date(), datetime.min.time()).replace(hour=9, tzinfo=timezone.utc)
     
-    if target <= now + timedelta(minutes=15):
-        target += timedelta(days=1)
+    # Run 1: Noon Short (Target 06:15 UTC)
+    # Run 2: Evening Long (Target 12:30 UTC)
+    if now.hour < 10:
+        return "short", 6, 15
+    else:
+        return "long", 12, 30
+
+def apply_viral_hooks(title, description, video_type):
+    """Auto-hooks metadata with viral formatting parameters optimized for finance content."""
+    # Ensure title uses clean capitalization or emotional psychological anchors
+    clean_title = title.strip()
+    
+    if video_type == "short":
+        # Shorts require immediate context hooks and loop tags
+        if not clean_title.endswith("!") and "#" not in clean_title:
+            clean_title += " 🤯"
+        if "#shorts" not in clean_title.lower():
+            clean_title += " #shorts"
         
-    return target.replace(microsecond=0).isoformat().replace("+00:00", "Z")
+        hooked_desc = f"{description}\n\n#shorts #finance #money #wealth #funnyfinance"
+    else:
+        # Long form optimization requires algorithmic spacing
+        hooked_desc = (
+            f"⚡ {clean_title} ⚡\n\n"
+            f"{description}\n\n"
+            "--- \n"
+            "📈 Welcome to the Syndicate System. Don't forget to Like and Subscribe for daily financial comedy loops!\n\n"
+            "#finance #investing #wealth #stocks #comedy"
+        )
+        
+    return clean_title, hooked_desc
 
 def run_upload():
     if not os.path.exists(MANIFEST_PATH):
-        print(f"-> [WARN] {MANIFEST_PATH} not found. Creating fallback default manifest.")
-        manifest = {"status": "ready", "metadata": {"title": "Automated Upload", "description": "#Shorts"}}
-    else:
-        with open(MANIFEST_PATH, "r", encoding="utf-8") as f:
-            manifest = json.load(f)
-
-    if manifest.get("status") != "ready":
-        print(f"-> Manifest status is '{manifest.get('status')}'. No upload required.")
+        print("-> No operational manifest found. Skipping runtime execution.")
         return
 
-    metadata = manifest.get("metadata", {})
-    title = metadata.get("title", "").strip()
-    description = metadata.get("description", "").strip()
-    category_id = metadata.get("categoryId", "22")
-    
-    # DETERMINE VIDEO FILE PATH WITH CO-PILOT AUTOMATIC FALLBACK GUARDS
-    file_path = manifest.get("file_path", "output/final_output.mp4")
-    
+    with open(MANIFEST_PATH, "r", encoding="utf-8") as f:
+        manifest = json.load(f)
+
+    video_type, target_hour, target_minute = determine_current_slot()
+    status_key = f"{video_type}_status"
+    file_path = f"output/final_{video_type}.mp4"
+
+    if manifest.get(status_key) != "ready":
+        print(f"-> Segment slot '{video_type}' is not marked as ready in the tracking ledger.")
+        return
+
     if not os.path.exists(file_path):
-        print(f"-> [WARN] Target video file missing at {file_path}. Searching workspace...")
-        # Check if the generator outputted an alternative .mp4 in the directory
-        alternative_mp4s = glob.glob("output/*.mp4")
-        if alternative_mp4s:
-            file_path = alternative_mp4s[0]
-            print(f"-> [SUCCESS] Auto-discovered alternative media asset: {file_path}")
-        else:
-            if TEST_MODE:
-                print("-> [INFO] Video missing during test mode. Generating fallback structural header.")
-                os.makedirs("output", exist_ok=True)
-                with open(file_path, "wb") as f:
-                    f.write(b"\x00\x00\x00\x18ftypmp42")
-            else:
-                raise SystemExit(f"CRITICAL ERROR: No video media found anywhere in output/ directory.")
+        print(f"-> Media missing at path: {file_path}. Aborting automation step.")
+        return
 
-    publish_at = calculate_publish_time()
+    # Calculate release window timestamp
+    now = datetime.now(timezone.utc)
+    target_time = datetime.combine(now.date(), datetime.min.time()).replace(
+        hour=target_hour, minute=target_minute, tzinfo=timezone.utc
+    )
+    if target_time <= now + timedelta(minutes=15):
+        target_time += timedelta(days=1)
+    publish_at = target_time.replace(microsecond=0).isoformat().replace("+00:00", "Z")
 
-    print(f"-> Starting Guarded Upload Flow (Test Mode: {TEST_MODE})")
-    print(f"-> Selected Media: {file_path}")
-    print(f"-> Target release slot (UTC): {publish_at}")
+    # Extract baseline raw metadata
+    metadata = manifest.get(f"{video_type}_metadata", {})
+    raw_title = metadata.get("title", f"The Ultimate Secret to Wealth Ep. {now.day}")
+    raw_desc = metadata.get("description", "Automated distribution run.")
+
+    # Apply the Auto-Hook Optimization layer
+    viral_title, viral_desc = apply_viral_hooks(raw_title, raw_desc, video_type)
+
+    print(f"-> Executing Hooked Upload Pipeline [{video_type.upper()} SLOT]")
+    print(f"-> Title: {viral_title}")
+    print(f"-> Scheduled Release Time: {publish_at}")
 
     if TEST_MODE:
-        video_id = "DRYRUN_TEST_ID"
-        print("-> Dry run successful. Media validations cleared.")
+        video_id = f"DRYRUN_{video_type.upper()}_ID"
+        print("-> Test configuration verification complete.")
     else:
         youtube = get_authenticated_service()
         body = {
             "snippet": {
-                "title": title,
-                "description": description,
-                "categoryId": category_id
+                "title": viral_title,
+                "description": viral_desc,
+                "categoryId": "22" # People & Blogs/Entertainment fallback
             },
             "status": {
                 "privacyStatus": "private",
                 "publishAt": publish_at
             }
         }
-        
         media = MediaFileUpload(file_path, chunksize=-1, resumable=True)
         response = youtube.videos().insert(part="snippet,status", body=body, media_body=media).execute()
         video_id = response.get("id")
-        print(f"-> Video successfully uploaded and scheduled! ID: {video_id}")
+        print(f"-> Asset pushed successfully! Video ID reference: {video_id}")
 
-    # Track status change back to repository ledger
-    manifest["status"] = "scheduled"
-    manifest["youtube_video_id"] = video_id
-    manifest["publish_at"] = publish_at
-    manifest["file_path"] = file_path
+    # Log changes to the manifest ledger
+    manifest[status_key] = "scheduled"
+    manifest[f"youtube_{video_type}_id"] = video_id
+    manifest[f"{video_type}_publish_at"] = publish_at
+    
     with open(MANIFEST_PATH, "w", encoding="utf-8") as f:
         json.dump(manifest, f, indent=2)
 
@@ -114,10 +136,10 @@ def run_upload():
         subprocess.run(["git", "config", "user.name", "Syndicate Bot"], check=True)
         subprocess.run(["git", "config", "user.email", "bot@syndicate.local"], check=True)
         subprocess.run(["git", "add", MANIFEST_PATH], check=True)
-        subprocess.run(["git", "commit", "-m", "chore: track video media allocation [skip ci]"], check=True)
+        subprocess.run(["git", "commit", "-m", f"chore: schedule daily {video_type} release window [skip ci]"], check=True)
         subprocess.run(["git", "push", "origin", "main"], check=True)
     except Exception as e:
-        print(f"-> Git sync skipped: {e}")
+        print(f"-> Synchronization tracking skipped: {e}")
 
 if __name__ == "__main__":
     run_upload()
