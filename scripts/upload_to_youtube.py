@@ -10,10 +10,24 @@ STATE_PATH = "output/system_state.json"
 TEST_MODE = os.environ.get("TEST_MODE", "true") == "true"
 
 def get_authenticated_service():
-    """Builds the YouTube API service object using the environment secrets."""
-    # Read the token details directly from environment variable to avoid missing local files
-    token_info = json.loads(os.environ.get("YOUTUBE_TOKEN_JSON", "{}"))
-    creds = Credentials.from_authorized_user_info(token_info, ['https://www.googleapis.com/auth/youtube.upload'])
+    """Builds the YouTube API service object using individual environment secrets."""
+    client_id = os.environ.get("YT_CLIENT_ID")
+    client_secret = os.environ.get("YT_CLIENT_SECRET")
+    refresh_token = os.environ.get("YT_REFRESH_TOKEN")
+
+    if not all([client_id, client_secret, refresh_token]):
+        raise RuntimeError("FATAL: Missing one or more YouTube environment secrets (ID, Secret, or Refresh Token).")
+
+    # Assemble the token configuration on the fly
+    token_info = {
+        "client_id": client_id,
+        "client_secret": client_secret,
+        "refresh_token": refresh_token,
+        "token_uri": "https://oauth2.googleapis.com/token",
+        "scopes": ["https://www.googleapis.com/auth/youtube.upload"]
+    }
+    
+    creds = Credentials.from_authorized_user_info(token_info)
     return build('youtube', 'v3', credentials=creds)
 
 def check_safety():
@@ -41,7 +55,6 @@ def run_upload():
     with open(MANIFEST_PATH, "r") as f:
         manifest = json.load(f)
 
-    # Match root-level status check
     if manifest.get("status") != "ready":
         raise SystemExit(f"Manifest status is '{manifest.get('status')}'. Needs to be 'ready' to upload.")
 
@@ -50,8 +63,6 @@ def run_upload():
     description = metadata.get("description", "").strip()
     category_id = metadata.get("categoryId", "22")
     privacy_status = metadata.get("privacyStatus", "private")
-    
-    # Locate video file from default fallback if not explicitly in metadata
     file_path = manifest.get("file_path", "output/final_output.mp4")
 
     if not title or not description:
@@ -79,7 +90,7 @@ def run_upload():
         video_id = response.get("id")
         print(f"-> Video uploaded successfully: {video_id}")
 
-    # Update manifest back to published status
+    # Update manifest
     manifest["status"] = "published"
     manifest["youtube_video_id"] = video_id
     with open(MANIFEST_PATH, "w") as f:
