@@ -1,12 +1,15 @@
 {
-  "long_status": "ready",
+  "long_status": "scheduled",
   "short_status": "ready",
   "long_metadata": {
-    "title": "When the Stock Market Drops but You Own Zero Assets",
-    "description": "The ultimate financial hedge is having no money to lose in the first place. #Finance #Comedy #Wealth"
+    "title": "Day Trading vs Financial Sanity Explained",
+    "description": "An in-depth comedy look at portfolio optimization.",
+    "categoryId": "22"
   },
   "short_metadata": {
     "title": "Day Trading vs Financial Sanity",
     "description": "A quick look at portfolio optimization strategies. #Shorts #FunnyFinance"
-  }
+  },
+  "youtube_long_id": "DRYRUN_LONG_ID",
+  "long_publish_at": "2026-06-26T12:30:00Z"
 }
