@@ -1,6 +1,7 @@
+cat << 'EOF' > output/manifest.json
 {
-  `"status": "published"` to **`"status": "ready"`**,
-  "youtube_video_id": ""`**.,
+  "status": "ready",
+  "youtube_video_id": "",
   "metadata": {
     "title": "Autonomous Stream: System Run Alpha",
     "description": "This stream was systematically harvested, rendered, and pushed via automated cloud runtime.\n\n#Automation #Syndicate #Dev",
@@ -8,3 +9,4 @@
     "categoryId": "28"
   }
 }
+EOF
