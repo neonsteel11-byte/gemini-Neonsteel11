@@ -1,6 +1,5 @@
 {
-  "paused": false,
-  "max_daily_uploads": 2,
+  "paused": false, 
   "uploads_today": 0,
-  "last_run_date": "2026-06-23"
+  "max_daily_uploads": 2
 }
