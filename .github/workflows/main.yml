@@ -34,7 +34,7 @@ jobs:
 
       - name: Run Video Generator
         env:
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY || secrets.GOOGLE_API_KEY }}
         run: python main.py
 
       - name: Upload to YouTube
