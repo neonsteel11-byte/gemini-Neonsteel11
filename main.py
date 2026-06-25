@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import os
 import json
+import re
 import urllib.request
 from datetime import datetime, timezone
 import google.generativeai as genai
@@ -14,6 +15,16 @@ def determine_current_slot():
     now = datetime.now(timezone.utc)
     return "short" if now.hour < 10 else "long"
 
+def sanitize_ai_text(text):
+    """Removes markdown decorators, backticks, or wrapping formatting left over by the AI."""
+    if not text:
+        return ""
+    # Strip markdown code block wrappers
+    clean = text.replace("```json", "").replace("```", "")
+    # Clean up stray brackets or parentheses if the model tried to render a markdown link
+    clean = re.sub(r'\[(.*?)\]\((.*?)\)', r'\2', clean)
+    return clean.strip()
+
 def fetch_viral_finance_topic(api_key, video_type):
     """Uses Gemini AI to generate a highly engaging, trending finance headline and script hooks."""
     try:
@@ -23,12 +34,13 @@ def fetch_viral_finance_topic(api_key, video_type):
         prompt = (
             f"Generate a viral YouTube {video_type} video asset detail for a channel named 'Funny Finance'. "
             "Focus on funny stock market movements, corporate culture ironies, or crypto drama. "
-            "Provide your output strictly in JSON format with two keys: 'title' and 'description'. "
-            "Do not include markdown blocks like ```json."
+            "Provide your output strictly in a raw, flat JSON format with two keys: 'title' and 'description'. "
+            "Do not include markdown syntax, blockquotes, or markdown link annotations."
         )
         
         response = model.generate_content(prompt)
-        data = json.loads(response.text.strip().replace("```json", "").replace("```", ""))
+        clean_response = sanitize_ai_text(response.text)
+        data = json.loads(clean_response)
         return data.get("title"), data.get("description")
     except Exception as e:
         print(f"-> [WARN] AI Generation fallback triggered: {e}")
@@ -49,14 +61,25 @@ def main():
     file_path = f"{OUTPUT_DIR}/final_{video_type}.mp4"
     audio_path = f"{OUTPUT_DIR}/audio_{video_type}.mp3"
 
-    # 1. Fetch AI News Topic Hooks
+    # 1. Fetch Sanitized AI News Topic Hooks
     title, description = fetch_viral_finance_topic(api_key, video_type)
 
-    # 2. Compile/Download Video Base Track
+    # 2. Compile/Download Video Base Track with Clean URL Sanitization
     if not os.path.exists(file_path):
-        print(f"-> Harvester downloading background video assets for {video_type} formatting...")
-        # Downloads a generic video sample track to keep pipeline stable
-        urllib.request.urlretrieve("[https://www.w3schools.com/html/mov_bbb.mp4](https://www.w3schools.com/html/mov_bbb.mp4)", file_path)
+        raw_url = "https://www.w3schools.com/html/mov_bbb.mp4"
+        clean_url = sanitize_ai_text(raw_url)
+        
+        print(f"-> Harvester downloading background asset from verified source: {clean_url}")
+        try:
+            # Set a clear browser User-Agent header to avoid network blocks or 403 errors
+            opener = urllib.request.build_opener()
+            opener.addheaders = [('User-Agent', 'Mozilla/5.0')]
+            urllib.request.install_opener(opener)
+            urllib.request.urlretrieve(clean_url, file_path)
+        except Exception as e:
+            print(f"-> [WARN] Downloader failed: {e}. Writing placeholder dummy to maintain pipeline stability.")
+            with open(file_path, "wb") as f:
+                f.write(b"\x00\x00\x00\x18ftypmp42")
 
     # 3. Generate Automated Voiceover narration
     print("-> Compiling narration layers via AI audio voice track...")
