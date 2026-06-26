@@ -1,11 +1,9 @@
 #!/usr/bin/env python3
 import os
 import json
-import io
 from google import genai
-from google.genai import types
 from elevenlabs.client import ElevenLabs
-from PIL import Image
+from PIL import Image, ImageDraw, ImageFont
 
 # Initialize official GenAI Client
 client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
@@ -15,7 +13,6 @@ def generate_satirical_script(topic):
     print(f"-> Generating human-style comedy roast for: {topic}")
     prompt = f"You are a cynical, hilarious corporate satirist. Write a short 3-sentence voiceover script roasting the absurdity of this topic: '{topic}'. Keep it punchy like a corporate TikTok. End with: 'Subscribe for more corporate burns.'"
     try:
-        # Utilizing the optimal Gemini 2.5 flash engine
         response = client.models.generate_content(
             model='gemini-2.5-flash',
             contents=prompt,
@@ -23,31 +20,49 @@ def generate_satirical_script(topic):
         return response.text.strip()
     except Exception as e:
         print(f"Text generation failed: {e}")
-        return "Big Tech just had another spectacular meltdown. Subscribe for more corporate burns."
+        return "Corporate realities just hit another spectacular all-time low. Subscribe for more corporate burns."
 
-def generate_cartoon_visual(scene_description, output_path):
-    print(f"-> Generating cartoon frame using Gemini native image generation...")
-    prompt = f"A vibrant 2D vector cartoon illustration, corporate satire style, clean digital lines, comedic financial parody depicting: {scene_description}"
+def generate_cartoon_visual(scene_description, output_path, video_type):
+    """Generates an instantaneous, high-retention typography background asset locally."""
+    print(f"-> Programmatically generating custom graphic layout framework for {video_type}...")
     try:
-        # In the unified SDK, native image modalities are handled natively through generate_content image configs
-        response = client.models.generate_content(
-            model='gemini-2.5-flash-image',
-            contents=prompt,
-            config=types.GenerateContentConfig(
-                response_modalities=["IMAGE"],
-                image_config=types.ImageConfig(
-                    aspect_ratio="9:16"
-                )
-            )
-        )
-        for part in response.parts:
-            if part.inline_data:
-                image = part.as_image()
-                image.save(output_path)
-                return True
-        raise RuntimeError("No image data found in response parts.")
+        # Create a professional 9:16 portrait canvas (720x1280)
+        width, height = 720, 1280
+        img = Image.new('RGB', (width, height), color=(18, 18, 24)) # Sleek dark mode background
+        draw = ImageDraw.Draw(img)
+        
+        # Draw accent bounding blocks for the financial corporate satire theme
+        draw.rectangle([30, 30, width-30, height-30], outline=(0, 230, 115), width=4) # Neon green border
+        draw.rectangle([50, 100, width-50, 250], fill=(30, 30, 42)) # Header plate block
+        
+        # Universal local font safe-fallback processing configuration
+        draw.text((70, 140), "THE SYNDICATE REPORT", fill=(0, 230, 115), stroke_width=1)
+        draw.text((70, 190), f"CLASSIFIED // UNIT SLOT: {video_type.upper()}", fill=(200, 200, 220))
+        
+        # Splitting the topic content to write across the center presentation layer cleanly
+        words = scene_description.split()
+        lines = []
+        current_line = []
+        for word in words:
+            current_line.append(word)
+            if len(current_line) >= 3:
+                lines.append(" ".join(current_line))
+                current_line = []
+        if current_line:
+            lines.append(" ".join(current_line))
+            
+        y_text = 450
+        for line in lines[:8]:
+            draw.text((80, y_text), line, fill=(255, 255, 255))
+            y_text += 50
+            
+        # Footnote stamp branding
+        draw.text((80, 1150), "STATUS: SYSTEM CHORE RUN COMPLETED //", fill=(100, 100, 120))
+        
+        img.save(output_path)
+        return True
     except Exception as e:
-        print(f"Visual frame generation failed: {e}. Creating fallback.")
+        print(f"Local framework graphic compiler failed: {e}")
         img = Image.new('RGB', (720, 1280), color=(30, 30, 40))
         img.save(output_path)
         return False
@@ -76,7 +91,7 @@ def build_autonomous_video():
         frame_path = f"output/frame_{video_type}.png"
         
         script_text = generate_satirical_script(selected_topic)
-        generate_cartoon_visual(selected_topic, frame_path)
+        generate_cartoon_visual(selected_topic, frame_path, video_type)
         
         print(f"-> Creating human narration track for {video_type}...")
         try:
