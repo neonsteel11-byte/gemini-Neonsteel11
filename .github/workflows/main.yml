@@ -27,12 +27,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install google-api-python-client google-auth-oauthlib google-auth-httplib2 google-generativeai elevenlabs pillow
 
-      - name: Run YouTube Upload
+      - name: Step 1 - Generate Human Voice & Cartoon Assets
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+        run: python scripts/generate_video.py
+
+      - name: Step 2 - Run YouTube Upload Framework
         env:
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
           TEST_MODE: ${{ github.event.inputs.TEST_MODE || 'true' }}
         run: python scripts/upload_to_youtube.py
