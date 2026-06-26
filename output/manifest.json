@@ -1,15 +1,19 @@
 {
   "long_status": "ready",
-  "short_status": "ready",
+  "short_status": "scheduled",
   "long_metadata": {
-    "title": "Day Trading vs Financial Sanity Explained",
-    "description": "An in-depth comedy look at portfolio optimization.",
-    "categoryId": "22"
+    "title": "The Full Corporate Tech Reality Check",
+    "description": "Alright, corporate drones, listen up!\n\nYour multi-billion dollar EV just got recalled because the \"future of driving\" won't let you roll down a window. Turns out, a simple breath of fresh air now requires a software patch, a dedicated diagnostics team, and probably sacrificing a goat to the algorithm gods. Progress! We've traded manual cranks for an existential crisis about basic aerodynamics. Subscribe for more corporate burns.\n\nAutomated corporate comedy loop.",
+    "categoryId": "23"
   },
   "short_metadata": {
-    "title": "Day Trading vs Financial Sanity",
-    "description": "A quick look at portfolio optimization strategies. #Shorts #FunnyFinance"
+    "title": "Why Big Tech is Overrated",
+    "description": "Alright, gather 'round the digital water cooler.\n\nGuess who just \"streamlined operations\" by laying off 10,000 employees? Your friendly neighborhood tech megacorp, obviously. All to bankroll a \"revolutionary\" AI chatbot that *exclusively* hallucinates soup recipes like \"Sour Cream and Broken Dreams Gumbo.\" Because apparently, job security is less valuable than a bot suggesting cream of mushroom with a hint of existential dread.\n\nSubscribe for more corporate burns.\n\nAutomated corporate comedy loop.",
+    "categoryId": "23"
   },
   "youtube_long_id": "DRYRUN_LONG_ID",
-  "long_publish_at": "2026-06-26T12:30:00Z"
+  "long_publish_at": "2026-06-26T12:30:00Z",
+  "headline": "A multi-billion dollar EV company recalling all cars because the touch screen won't let you roll down the windows",
+  "youtube_short_id": "75jC4nKS6Gg",
+  "short_publish_at": "2026-06-27T06:15:00Z"
 }
