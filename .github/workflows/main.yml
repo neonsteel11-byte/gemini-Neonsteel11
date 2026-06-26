@@ -25,7 +25,7 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install google-api-python-client google-auth-oauthlib google-auth-httplib2 google-generativeai elevenlabs
+          pip install google-api-python-client google-auth-oauthlib google-auth-httplib2 google-generativeai流量 elevenlabs pillow
 
       - name: Run YouTube Upload
         env:
