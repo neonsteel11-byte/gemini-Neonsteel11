@@ -7,7 +7,7 @@ from google.genai import types
 from elevenlabs.client import ElevenLabs
 from PIL import Image
 
-# Initialize GenAI Client
+# Initialize official GenAI Client
 client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
 elevenlabs_client = ElevenLabs(api_key=os.environ.get("ELEVENLABS_API_KEY"))
 
@@ -15,9 +15,9 @@ def generate_satirical_script(topic):
     print(f"-> Generating human-style comedy roast for: {topic}")
     prompt = f"You are a cynical, hilarious corporate satirist. Write a short 3-sentence voiceover script roasting the absurdity of this topic: '{topic}'. Keep it punchy like a corporate TikTok. End with: 'Subscribe for more corporate burns.'"
     try:
-        # Fixed model string for new SDK format
+        # Utilizing the optimal Gemini 2.5 flash engine
         response = client.models.generate_content(
-            model='gemini-1.5-flash',
+            model='gemini-2.5-flash',
             contents=prompt,
         )
         return response.text.strip()
@@ -26,23 +26,26 @@ def generate_satirical_script(topic):
         return "Big Tech just had another spectacular meltdown. Subscribe for more corporate burns."
 
 def generate_cartoon_visual(scene_description, output_path):
-    print(f"-> Generating cartoon frame using Gemini Imagen: {scene_description[:40]}...")
+    print(f"-> Generating cartoon frame using Gemini native image generation...")
     prompt = f"A vibrant 2D vector cartoon illustration, corporate satire style, clean digital lines, comedic financial parody depicting: {scene_description}"
     try:
-        # Fixed image generator naming matching v1 standard structures
-        result = client.models.generate_images(
-            model='imagen-3.0-generate-002',
-            prompt=prompt,
-            config=types.GenerateImagesConfig(
-                number_of_images=1,
-                output_mime_type="image/png",
-                aspect_ratio="9:16"
+        # In the unified SDK, native image modalities are handled natively through generate_content image configs
+        response = client.models.generate_content(
+            model='gemini-2.5-flash-image',
+            contents=prompt,
+            config=types.GenerateContentConfig(
+                response_modalities=["IMAGE"],
+                image_config=types.ImageConfig(
+                    aspect_ratio="9:16"
+                )
             )
         )
-        for generated_image in result.generated_images:
-            image = Image.open(io.BytesIO(generated_image.image_bytes))
-            image.save(output_path)
-        return True
+        for part in response.parts:
+            if part.inline_data:
+                image = part.as_image()
+                image.save(output_path)
+                return True
+        raise RuntimeError("No image data found in response parts.")
     except Exception as e:
         print(f"Visual frame generation failed: {e}. Creating fallback.")
         img = Image.new('RGB', (720, 1280), color=(30, 30, 40))
