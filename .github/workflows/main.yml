@@ -12,6 +12,8 @@ jobs:
   run-bot:
     runs-on: ubuntu-latest
     environment: production
+    permissions:
+      contents: write # Explicitly force push permission inside the runtime execution runner
     
     steps:
       - name: Checkout repository
