@@ -3,3 +3,6 @@ output/
 __pycache__/
 youtube_token.pickle
 youtube_token.pickle
+
+# Allow tracking of pipeline manifests
+!output/manifest.json
