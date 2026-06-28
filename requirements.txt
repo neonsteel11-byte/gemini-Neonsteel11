@@ -1,6 +1,6 @@
 google-genai
+elevenlabs
+pillow
 google-api-python-client
-google-auth-httplib2
 google-auth-oauthlib
-gtts
-requests
+google-auth-httplib2
