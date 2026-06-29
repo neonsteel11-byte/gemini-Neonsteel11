@@ -2,6 +2,11 @@ name: Run Funny Finance Bot
 
 on:
   workflow_dispatch:
+  schedule:
+    # Runs everyday at 09:00 UTC (Perfect morning coffee scroll window)
+    - cron: '0 9 * * *'
+    # Runs everyday at 17:00 UTC (Perfect evening rush-hour scroll window)
+    - cron: '0 17 * * *'
 
 jobs:
   run-bot:
@@ -24,7 +29,6 @@ jobs:
       - name: Install Python Dependencies
         run: |
           python -m pip install --upgrade pip
-          sudo apt-get install -y ffmpeg
           pip install -r requirements.txt
 
       - name: Run Video Generation Engine
