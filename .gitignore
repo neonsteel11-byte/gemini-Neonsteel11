@@ -1,3 +1,6 @@
 *.json
 *.pickle
 output/
+__pycache__/
+*.pyc
+.env
