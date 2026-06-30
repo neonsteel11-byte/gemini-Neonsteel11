@@ -5,3 +5,9 @@ google-api-python-client
 google-auth-oauthlib
 google-auth-httplib2
 edge-tts
+torch
+torchvision
+torchaudio
+gdown
+face-alignment
+resampy
