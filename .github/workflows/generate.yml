@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch: # Allows you to run this manually from the GitHub Actions tab
+  workflow_dispatch:
 
 jobs:
   build-and-render:
@@ -17,7 +17,7 @@ jobs:
       - name: Set up Python
         uses: actions/actions-setup-python@v5
         with:
-          python-version: '3.11' # Stable version for video rendering dependencies
+          python-version: '3.11'
 
       - name: Install System Dependencies
         run: |
