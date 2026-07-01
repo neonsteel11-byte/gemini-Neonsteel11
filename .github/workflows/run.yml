@@ -2,14 +2,14 @@ name: Comprehensive YouTube Factory
 
 on:
   schedule:
-    # 17:30 UTC launches the primary video assembly line
-    - cron: '30 17 * * *'
-    # 23:30 UTC triggers the performance checking/CTR rewriting sequence
-    - cron: '30 23 * * *'
+    # 💥 Task 1: 08:00 UTC (1:45 PM NPT) -> Generates & uploads unlisted drafts
+    - cron: '00 08 * * *'
+    # 💥 Task 2: 11:00 UTC (4:45 PM NPT) -> Automatically pushes them to Public 3 hours later
+    - cron: '00 11 * * *'
   workflow_dispatch:
 
 jobs:
-  build-and-optimize:
+  build-and-publish:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Codebase
@@ -21,24 +21,22 @@ jobs:
           python-file-v: '3.11'
           cache: 'pip'
 
-      - name: Setup System Enablers
-        run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      - name: Setup Dependencies
+        run: |
+          sudo apt-get update && sudo apt-get install -y ffmpeg
+          pip install -r requirements.txt
 
-      - name: Build Libraries
-        run: pip install -r requirements.txt
-
-      - name: Run Self-Healing Assembly Line
+      - name: Route Execution Step
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
-          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
-          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
-        run: python scripts/generate_video.py
-
-      - name: Run Analytics Optimizer Check
-        env:
-          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
-          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
-          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
-        run: python scripts/optimize_ctr.py
+        run: |
+          # If triggered during production window, generate content
+          if [ "${{ github.event.schedule }}" = "00 08 * * *" ] || [ "${{ github.event_parent }}" = "true" ]; then
+            python scripts/generate_video.py
+          fi
+          
+          # If triggered 3 hours later, publish it live
+          if [ "${{ github.event.schedule }}" = "00 11 * * *" ]; then
+            python scripts/publish_video.py
+          fi
