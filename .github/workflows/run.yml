@@ -2,10 +2,8 @@ name: Comprehensive YouTube Factory
 
 on:
   schedule:
-    # 💥 Task 1: 08:00 UTC (1:45 PM NPT) -> Generates & uploads unlisted drafts
-    - cron: '00 08 * * *'
-    # 💥 Task 2: 11:00 UTC (4:45 PM NPT) -> Automatically pushes them to Public 3 hours later
-    - cron: '00 11 * * *'
+    - cron: '0 8 * * *'
+    - cron: '0 11 * * *'
   workflow_dispatch:
 
 jobs:
@@ -18,25 +16,21 @@ jobs:
       - name: Initialize Environment
         uses: actions/setup-python@v5
         with:
-          python-file-v: '3.11'
+          python-version: '3.11'
           cache: 'pip'
 
       - name: Setup Dependencies
         run: |
           sudo apt-get update && sudo apt-get install -y ffmpeg
-          pip install -r requirements.txt
+          pip install --upgrade pip
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - name: Route Execution Step
+      - name: Execute Factory Modules
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
         run: |
-          # If triggered during production window, generate content
-          if [ "${{ github.event.schedule }}" = "00 08 * * *" ] || [ "${{ github.event_parent }}" = "true" ]; then
-            python scripts/generate_video.py
-          fi
-          
-          # If triggered 3 hours later, publish it live
-          if [ "${{ github.event.schedule }}" = "00 11 * * *" ]; then
-            python scripts/publish_video.py
-          fi
+          python scripts/generate_video.py
+          python scripts/publish_video.py
