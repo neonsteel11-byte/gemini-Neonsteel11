@@ -6,8 +6,12 @@ import json
 HISTORY_FILE = "output/published_history.json"
 MONITOR_FILE = "output/active_monitoring.json"
 
-# The rotation deck of target companies
-COMPANY_POOL = ["Apple", "Tesla", "Google", "Amazon", "Microsoft", "Meta", "Netflix"]
+# Expanded high-variety pool of funny financial stories, corporate blunders, and chaotic market crashes
+COMPANY_POOL = [
+    "Apple", "Tesla", "Google", "Amazon", "Microsoft", "Meta", "Netflix",
+    "WeWork", "Enron", "Blockbuster", "Theranos", "Yahoo", "Pets_Com", 
+    "Juicero", "Lehman_Brothers", "Nokia", "Kodak", "Xerox", "Blackberry", "Wirecard"
+]
 
 def select_daily_topic():
     """Selects one company for the day that hasn't been used yet."""
@@ -23,7 +27,7 @@ def select_daily_topic():
             return company
             
     # Fallback if every single company in the pool has been used once
-    print("🔄 All companies have been roasted! Resetting history tracking pool...")
+    print("🔄 All historical roasts have been completed! Resetting tracking pool...")
     if os.path.exists(HISTORY_FILE):
         os.remove(HISTORY_FILE)
     return COMPANY_POOL[0]
@@ -32,7 +36,6 @@ def log_final_production(company_name, short_id, long_id):
     """Saves everything to history ONLY after BOTH videos successfully upload."""
     os.makedirs(os.path.dirname(HISTORY_FILE), exist_ok=True)
     
-    # 1. Update Duplicate History File
     history = []
     if os.path.exists(HISTORY_FILE):
         with open(HISTORY_FILE, "r") as f:
@@ -41,7 +44,6 @@ def log_final_production(company_name, short_id, long_id):
     with open(HISTORY_FILE, "w") as f:
         json.dump(history, f, indent=4)
         
-    # 2. Update Active Monitor File for the 3-Hour Auto-Public Release
     monitored = {}
     if os.path.exists(MONITOR_FILE):
         with open(MONITOR_FILE, "r") as f:
@@ -54,24 +56,21 @@ def log_final_production(company_name, short_id, long_id):
         json.dump(monitored, f, indent=4)
 
 def run_synchronized_production():
-    # Step 1: Pick the ONE topic for today's entire cycle
     daily_topic = select_daily_topic()
     print(f"🎯 TODAY'S COMBINED TARGET TOPIC: {daily_topic.upper()}")
     
     try:
-        # Step 2: Render & Upload the SHORT Video
+        # Step 1: Render & Upload the SHORT Video
         print(f"🎬 [1/2] Generating SHORT for {daily_topic}...")
-        # (Cartoon render processing here...)
         mock_short_id = f"yt_short_{int(time.time())}"
         print(f"✅ Short uploaded as Unlisted Draft: {mock_short_id}")
         
-        # Step 3: Render & Upload the LONG Video (Using the exact same topic!)
+        # Step 2: Render & Upload the LONG Video
         print(f"🎬 [2/2] Generating LONG-FORM for {daily_topic}...")
-        # (Cartoon render processing here...)
         mock_long_id = f"yt_long_{int(time.time())}"
         print(f"✅ Long-form uploaded as Unlisted Draft: {mock_long_id}")
         
-        # Step 4: Complete the cycle and lock it into the database
+        # Step 3: Complete cycle and lock into database
         log_final_production(daily_topic, mock_short_id, mock_long_id)
         print(f"🎉 Production suite completed successfully for {daily_topic}!")
         
