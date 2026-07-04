@@ -25,13 +25,7 @@ jobs:
 
       - name: 🎬 Render Video Assets
         run: |
-          # -------------------------------------------------------------
-          # CRITICAL STEP: Calling your automated video rendering modules
-          # This compiles the real audio, assets, and frames into output/
-          # -------------------------------------------------------------
           mkdir -p output
-          
-          # Replace the lines below with your exact engine command if different:
           if [ -f main.py ]; then python main.py; fi
           if [ -f scripts/render_video.py ]; then python scripts/render_video.py; fi
 
