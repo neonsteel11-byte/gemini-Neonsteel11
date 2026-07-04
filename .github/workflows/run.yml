@@ -2,8 +2,8 @@ name: Comprehensive YouTube Factory
 
 on:
   schedule:
-    - cron: '0 12 * * *' # Automatically kicks off daily
-  workflow_dispatch: # Allows you to press the manual run button whenever you want
+    - cron: '0 12 * * *'
+  workflow_dispatch:
 
 jobs:
   build-and-publish:
@@ -24,6 +24,8 @@ jobs:
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: 🎬 Render Video Assets
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         run: |
           mkdir -p output
           if [ -f main.py ]; then python main.py; fi
