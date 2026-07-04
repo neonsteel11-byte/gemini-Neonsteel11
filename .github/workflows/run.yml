@@ -2,9 +2,8 @@ name: Comprehensive YouTube Factory
 
 on:
   schedule:
-    - cron: '0 8 * * *'
-    - cron: '0 11 * * *'
-  workflow_dispatch:
+    - cron: '0 12 * * *' # Automatically kicks off daily
+  workflow_dispatch: # Allows you to press the manual run button whenever you want
 
 jobs:
   build-and-publish:
@@ -21,11 +20,22 @@ jobs:
 
       - name: Setup Dependencies
         run: |
-          sudo apt-get update && sudo apt-get install -y ffmpeg
-          pip install --upgrade pip
+          python -m pip install --upgrade pip
           if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
-      - name: Execute Factory Modules
+      - name: 🎬 Render Video Assets
+        run: |
+          # -------------------------------------------------------------
+          # CRITICAL STEP: Calling your automated video rendering modules
+          # This compiles the real audio, assets, and frames into output/
+          # -------------------------------------------------------------
+          mkdir -p output
+          
+          # Replace the lines below with your exact engine command if different:
+          if [ -f main.py ]; then python main.py; fi
+          if [ -f scripts/render_video.py ]; then python scripts/render_video.py; fi
+
+      - name: 🚀 Execute Factory Modules & Stream to YouTube
         env:
           GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
@@ -33,4 +43,3 @@ jobs:
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
         run: |
           python scripts/generate_video.py
-          python scripts/publish_video.py
