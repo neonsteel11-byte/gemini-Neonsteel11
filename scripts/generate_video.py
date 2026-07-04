@@ -3,7 +3,7 @@ import sys
 import json
 import random
 from datetime import datetime
-import google.generativeai as genai
+from google import genai
 import googleapiclient.discovery
 import googleapiclient.errors
 from googleapiclient.http import MediaFileUpload
@@ -16,11 +16,11 @@ COMPANY_POOL = [
     "WeWork", "Enron", "Blockbuster", "Theranos", "Yahoo"
 ]
 
-# Initialize Gemini for scripts
-genai.configure(api_key=os.environ.get("GEMINI_API_KEY"))
+# Initialize modern GenAI client using the correct environment variable
+ai_client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
 
 def get_authenticated_youtube_client():
-    """Authenticates using your actual YT OAuth tokens from your GitHub Secrets."""
+    """Authenticates using your authentic YT OAuth tokens from your GitHub Secrets."""
     client_id = os.environ.get("YT_CLIENT_ID")
     client_secret = os.environ.get("YT_CLIENT_SECRET")
     refresh_token = os.environ.get("YT_REFRESH_TOKEN")
@@ -29,16 +29,14 @@ def get_authenticated_youtube_client():
         print("❌ CRITICAL ERROR: Missing YT_CLIENT_ID, YT_CLIENT_SECRET, or YT_REFRESH_TOKEN in environment variables.")
         sys.exit(1)
 
-    # Build credentials object using your specific refresh token setup
     creds = Credentials(
-        token=None,  # Will be populated automatically via the refresh token
+        token=None,
         refresh_token=refresh_token,
         token_uri="https://oauth2.googleapis.com/token",
         client_id=client_id,
         client_secret=client_secret
     )
 
-    # Automatically refresh the access token if it has expired
     if not creds.valid:
         print("🔄 Refreshing YouTube OAuth Access Token...")
         creds.refresh(Request())
@@ -46,12 +44,17 @@ def get_authenticated_youtube_client():
     return googleapiclient.discovery.build("youtube", "v3", credentials=creds)
 
 class HumanDirectorSuite:
-    def __init__(self):
-        self.model = genai.GenerativeModel('gemini-1.5-flash')
-
     def generate_highly_monetizable_script(self, company_name, video_type):
-        prompt = f"Write a high-retention, engaging YouTube script roasting {company_name} for a {video_type}. Make the opening sentence incredibly hooking. Strictly avoid any AI tropes like 'delve' or 'testament'."
-        response = self.model.generate_content(prompt)
+        """Generates high-retention content using the fast, modern gemini-2.5-flash model."""
+        print(f"🪝 [Director]: Constructing high-retention script via gemini-2.5-flash for {video_type.upper()}...")
+        
+        prompt = f"Write a high-retention, engaging YouTube script roasting {company_name} for a {video_type}. Make the opening sentence incredibly hooking. Do not include structural notes or robotic AI words like 'delve' or 'testament'."
+        
+        # Switched to the modern client syntax and standard production model
+        response = ai_client.models.generate_content(
+            model='gemini-2.5-flash',
+            contents=prompt,
+        )
         return response.text.strip()
 
 def upload_to_youtube_studio(file_path, title, description):
@@ -112,7 +115,6 @@ def execute_master_production():
     short_mp4 = f"output/{daily_topic.lower()}_short.mp4"
     long_mp4 = f"output/{daily_topic.lower()}_long.mp4"
     
-    # Executing the live uploads
     short_id = upload_to_youtube_studio(short_mp4, f"The Absolute Chaos of {daily_topic} #shorts", short_script[:200])
     long_id = upload_to_youtube_studio(long_mp4, f"How {daily_topic} Blinded Investors with Pure Chaos", long_script[:200])
     
@@ -125,7 +127,7 @@ def execute_master_production():
         history.append(daily_topic)
         with open(HISTORY_FILE, "w") as f:
             json.dump(history, f, indent=4)
-        print(f"\n🎉 SUCCESS: Both formats logged. Run fully verified via live OAuth pipeline.")
+        print(f"\n🎉 SUCCESS: Both formats logged via modern verified SDK pipeline.")
 
 if __name__ == "__main__":
     execute_master_production()
