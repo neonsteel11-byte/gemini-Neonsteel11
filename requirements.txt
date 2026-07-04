@@ -11,3 +11,7 @@ torchaudio
 gdown
 face-alignment
 resampy
+google-generativeai
+google-api-python-client
+google-auth-oauthlib
+google-auth-httplib2
