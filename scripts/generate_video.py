@@ -131,3 +131,30 @@ def execute_master_production():
 
 if __name__ == "__main__":
     execute_master_production()
+    while response is None:
+        status, response = request.next_chunk()
+        if status:
+            print(f"📦 Streaming Data Block: {int(status.progress() * 100)}% pushed...")
+            
+    print(f"✅ Live Verification: Asset is officially uploaded! Video ID: {response['id']}")
+    return response["id"]
+
+def select_daily_topic():
+    return COMPANY_POOL[0]
+
+def execute_master_production():
+    daily_topic = select_daily_topic()
+    print(f"\n⚡ STARTING LIVE OAUTH FACTORY EXECUTION: {daily_topic.upper()} ⚡")
+    
+    director = HumanDirectorSuite()
+    short_script = director.generate_highly_monetizable_script(daily_topic, "short")
+    long_script = director.generate_highly_monetizable_script(daily_topic, "long")
+    
+    short_mp4 = f"output/{daily_topic.lower()}_short.mp4"
+    long_mp4 = f"output/{daily_topic.lower()}_long.mp4"
+    
+    upload_to_youtube_studio(short_mp4, f"The Absolute Chaos of {daily_topic} #shorts", short_script[:200])
+    upload_to_youtube_studio(long_mp4, f"How {daily_topic} Blinded Investors", long_script[:200])
+
+if __name__ == "__main__":
+    execute_master_production()
