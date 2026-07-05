@@ -1,16 +1,17 @@
 import os
 import sys
+import numpy as np
+import cv2
 from datetime import datetime
 from PIL import Image, ImageDraw, ImageFont
 
 class FutureProofVisualEngine:
     def __init__(self):
-        # Establish dynamic style shifting based on the exact calendar day of execution
         self.day_of_year = datetime.now().timetuple().tm_yday
-        self.evolution_cycle = self.day_of_year % 4  # 4 distinct visual style archetypes
-        
+        self.evolution_cycle = self.day_of_year % 4
+
     def determine_current_aesthetic_tier(self):
-        """Dynamically upgrades visual design parameters, text sizing, and color overlays over time."""
+        # RGB Formats
         if self.evolution_cycle == 0:
             return {"bg_tint": (15, 15, 25), "accent_color": (0, 255, 180), "style_name": "Neon Steel Kinetic"}
         elif self.evolution_cycle == 1:
@@ -21,38 +22,50 @@ class FutureProofVisualEngine:
             return {"bg_tint": (15, 20, 15), "accent_color": (212, 175, 55), "style_name": "Liquid Gold Minimalist"}
 
     def compile_high_retention_frames(self, company_name, video_type):
-        """Generates dynamic frame arrays with word-by-word word caption maps and Ken Burns zoom states."""
         style = self.determine_current_aesthetic_tier()
         print(f"🎬 [Visual Composer]: Activating Visual Architecture Tier: {style['style_name']}")
-        
-        # Determine exact video dimensions depending on standard formatting rules
+
         width, height = (1080, 1920) if video_type.lower() == "short" else (1920, 1080)
-        
-        # Step 1: Base Canvas Creation
-        canvas = Image.new("RGB", (width, height), color=style["bg_tint"])
-        draw = ImageDraw.Draw(canvas)
-        
-        # Step 2: Draw Kinetic Decorative Accent Grids/Grades
-        draw.rectangle([int(width*0.05), int(height*0.05), int(width*0.95), int(height*0.95)], outline=style["accent_color"], width=4)
-        
-        # Step 3: Overlay Word Captions & Kinetic Branding Headers
-        try:
-            # Fallback to default system loading pathways if custom true-type assets are initializing
-            font = ImageFont.load_default()
-        except IOError:
-            font = ImageFont.load_default()
-            
-        text_content = f"THE REAL REALITY OF {company_name.upper()}"
-        draw.text((int(width/2), int(height/2)), text_content, fill=(255, 255, 255), anchor="mm")
-        
-        # Step 4: Physical Disk Render
         os.makedirs("output", exist_ok=True)
         output_filename = f"output/{company_name.lower()}_{video_type.lower()}.mp4"
+
+        # 🎞️ Set up a real video writer (30 FPS, 5-second duration = 150 frames total)
+        fps = 30
+        total_frames = 150
         
-        # Simulate video file creation using a binary container signature for structural compatibility
-        with open(output_filename, "wb") as f:
-            f.write(b"COMPRESSED_VIDEO_FRAME_STREAM_DATA_" + company_name.encode() + b"_" + video_type.encode())
-            
+        # Use MP4V for native cross-platform runner compatibility
+        fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+        video_writer = cv2.VideoWriter(output_filename, fourcc, fps, (width, height))
+
+        text_content = f"THE REAL REALITY OF {company_name.upper()}"
+        font = ImageFont.load_default()
+
+        print(f"🔄 Encoding {total_frames} absolute video frames for {video_type} container...")
+
+        for frame_num in range(total_frames):
+            # Create a clean PIL canvas
+            canvas = Image.new("RGB", (width, height), color=style["bg_tint"])
+            draw = ImageDraw.Draw(canvas)
+
+            # Make the accent border pulsate slightly based on the frame index
+            pulse_offset = int(np.sin(frame_num * 0.1) * 10)
+            draw.rectangle(
+                [int(width*0.05) + pulse_offset, int(height*0.05) + pulse_offset, 
+                 int(width*0.95) - pulse_offset, int(height*0.95) - pulse_offset], 
+                outline=style["accent_color"], width=6
+            )
+
+            # Draw corporate text target
+            draw.text((int(width/2), int(height/2)), text_content, fill=(255, 255, 255), anchor="mm")
+
+            # Convert frame from RGB (PIL standard) to BGR (OpenCV standard)
+            frame_np = np.array(canvas)
+            frame_bgr = cv2.cvtColor(frame_np, cv2.COLOR_RGB2BGR)
+
+            # Write the raw frame array directly into the video output pipeline
+            video_writer.write(frame_bgr)
+
+        video_writer.release()
         print(f"✅ Visual Composer successfully synthesized production video asset: {output_filename}")
         return output_filename
 
@@ -66,4 +79,4 @@ if __name__ == "__main__":
     if len(sys.argv) > 1:
         execute_visual_pipeline(sys.argv[1])
     else:
-        execute_visual_pipeline("Apple")
+        execute_visual_pipeline("Airbnb")
