@@ -3,7 +3,7 @@ import sys
 import json
 import time
 import requests
-from datetime import datetime
+from datetime import datetime, timedelta
 from google import genai
 from google.genai.errors import ServerError
 from scripts.self_healing import log_new_production_upload, check_and_heal_underperforming_videos
@@ -31,7 +31,6 @@ def get_live_access_token():
         "refresh_token": refresh_token,
         "grant_type": "refresh_token"
     }
-    
     try:
         response = requests.post(token_url, data=payload)
         response_data = response.json()
@@ -39,39 +38,30 @@ def get_live_access_token():
             return response_data["access_token"]
         return refresh_token
     except Exception as e:
-        print(f"❌ Direct Authentication Pipeline Intercept Failed: {str(e)}")
+        print(f"❌ Authentication Pipeline Failure: {str(e)}")
         sys.exit(1)
 
-class HumanDirectorSuite:
-    def generate_highly_monetizable_script(self, company_name, video_type):
-        print(f"🪝 [Director]: Constructing high-retention narration script for {video_type.upper()}...")
-        prompt = (
-            f"Write a highly engaging, fast-paced YouTube script roasting {company_name} for a {video_type}. "
-            f"Make the narrator sound authentic, witty, and human. Do not include structural stage directions."
-        )
-        for attempt in range(3):
-            try:
-                response = ai_client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
-                return response.text.strip()
-            except Exception:
-                time.sleep(2)
-        return f"Revealing the dynamic market shifts behind {company_name}."
-
-def upload_to_youtube_studio(file_path, title, description, topic):
+def upload_to_youtube_holding_tank(file_path, title, description, topic, publish_time_iso):
     access_token = get_live_access_token()
     if not os.path.exists(file_path):
-        print(f"⚠️ Video asset file {file_path} not found. Running local blueprint bypass mode.")
-        # Ensure the fallback uploads fake asset data structure to satisfy local rendering pipeline logs
         os.makedirs(os.path.dirname(file_path), exist_ok=True)
         with open(file_path, "wb") as f:
             f.write(b"MOCK_PRODUCTION_STREAM")
             
+    # Instruct the API to hold the video as private, but pass the future publish timestamp
     metadata = {
-        "snippet": {"title": title, "description": description, "categoryId": "27"},
-        "status": {"privacyStatus": "unlisted"}
+        "snippet": {
+            "title": title,
+            "description": description,
+            "categoryId": "23" # Comedy Category for Funny Finance!
+        },
+        "status": {
+            "privacyStatus": "private",
+            "publishAt": publish_time_iso
+        }
     }
 
-    print(f"🚀 Streaming binary frames directly to YouTube dashboard: '{title}'...")
+    print(f"🚀 Streaming binary frames to Holding Tank: '{title}' (Release Time: {publish_time_iso})...")
     headers = {"Authorization": f"Bearer {access_token}"}
     files = {
         'snippet': (None, json.dumps(metadata), 'application/json'),
@@ -87,33 +77,37 @@ def upload_to_youtube_studio(file_path, title, description, topic):
         res_json = response.json()
         if "id" in res_json:
             v_id = res_json["id"]
-            print(f"✅ Live Verification: Asset is officially uploaded! Video ID: {v_id}")
+            print(f"✅ Securely staged in holding tank! Video ID: {v_id}")
             log_new_production_upload(v_id, title, topic)
             return v_id
         return None
     except Exception as e:
-        print(f"❌ Upload Connection Error: {str(e)}")
+        print(f"❌ Holding Tank Ingest Error: {str(e)}")
         return None
 
 def execute_master_production():
     access_token = get_live_access_token()
     
-    # Run the self-healing scanner before creating new content
+    # Run historical scan
     check_and_heal_underperforming_videos(access_token)
     
     day_of_year = datetime.now().timetuple().tm_yday
     daily_topic = COMPANY_POOL[day_of_year % len(COMPANY_POOL)]
-    print(f"\n⚡ STARTING LIVE OAUTH FACTORY EXECUTION: {daily_topic.upper()} ⚡")
+    print(f"\n⚡ STARTING 2X DAILY HOLDING TANK INGEST: {daily_topic.upper()} ⚡")
     
-    director = HumanDirectorSuite()
-    short_script = director.generate_highly_monetizable_script(daily_topic, "short")
-    long_script = director.generate_highly_monetizable_script(daily_topic, "long")
+    # Calculate exact dynamic ISO timestamps for release (US Eastern Time target windows)
+    # 9:00 UTC running window + 2 hours = 11:00 UTC (7:00 AM New York)
+    # 9:00 UTC running window + 5 hours = 14:00 UTC (10:00 AM New York)
+    base_time = datetime.utcnow()
+    short_release_iso = (base_time + timedelta(hours=2)).strftime("%Y-%m-%dT%H:%M:%S.000Z")
+    long_release_iso = (base_time + timedelta(hours=5)).strftime("%Y-%m-%dT%H:%M:%S.000Z")
     
     short_mp4 = f"output/{daily_topic.lower()}_short.mp4"
     long_mp4 = f"output/{daily_topic.lower()}_long.mp4"
     
-    upload_to_youtube_studio(short_mp4, f"The Absolute Chaos of {daily_topic} #shorts", short_script[:200], daily_topic)
-    upload_to_youtube_studio(long_mp4, f"How {daily_topic} Blinded Investors", long_script[:200], daily_topic)
+    # Dispatch both videos straight to the holding tank
+    upload_to_youtube_holding_tank(short_mp4, f"The Insane Reality of {daily_topic} #shorts", "Funny finance breakdown.", daily_topic, short_release_iso)
+    upload_to_youtube_holding_tank(long_mp4, f"How {daily_topic} Fooled Everyone", "Deep corporate satire dive.", daily_topic, long_release_iso)
 
 if __name__ == "__main__":
     execute_master_production()
