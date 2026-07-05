@@ -2,7 +2,7 @@ import os
 import sys
 from google import genai
 
-# Initialize the modern Gemini client framework
+# Initialize the correct modern Gemini client framework
 try:
     ai_client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
 except Exception as e:
