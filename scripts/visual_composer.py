@@ -2,81 +2,122 @@ import os
 import sys
 import numpy as np
 import cv2
-from datetime import datetime
 from PIL import Image, ImageDraw, ImageFont
 
-class FutureProofVisualEngine:
+class ProductionVisualEngine:
     def __init__(self):
-        self.day_of_year = datetime.now().timetuple().tm_yday
-        self.evolution_cycle = self.day_of_year % 4
+        # High-impact retention color combinations
+        self.themes = [
+            {"bg": (10, 10, 15), "text": (255, 255, 255), "accent": (0, 235, 150), "label": "FINANCE_DARK"},
+            {"bg": (15, 5, 10), "text": (255, 255, 255), "accent": (255, 60, 90), "label": "CRIMSON_PULSE"},
+            {"bg": (5, 15, 20), "text": (240, 240, 255), "accent": (0, 180, 255), "label": "CELESTIAL_METRIC"}
+        ]
 
-    def determine_current_aesthetic_tier(self):
-        # RGB Formats
-        if self.evolution_cycle == 0:
-            return {"bg_tint": (15, 15, 25), "accent_color": (0, 255, 180), "style_name": "Neon Steel Kinetic"}
-        elif self.evolution_cycle == 1:
-            return {"bg_tint": (20, 10, 15), "accent_color": (255, 70, 85), "style_name": "Cyber Obsidian Pulse"}
-        elif self.evolution_cycle == 2:
-            return {"bg_tint": (10, 20, 25), "accent_color": (0, 195, 255), "style_name": "Deep Celestial Aura"}
-        else:
-            return {"bg_tint": (15, 20, 15), "accent_color": (212, 175, 55), "style_name": "Liquid Gold Minimalist"}
+    def draw_gradient_background(self, draw, width, height, theme):
+        """Generates a high-contrast dynamic gradient backdrop to replace flat black panels."""
+        base_color = theme["bg"]
+        for y in range(height):
+            # Smoothly blend from dark to deep accent tone
+            ratio = y / height
+            r = int(base_color[0] * (1 - ratio) + theme["accent"][0] * 0.1 * ratio)
+            g = int(base_color[1] * (1 - ratio) + theme["accent"][1] * 0.1 * ratio)
+            b = int(base_color[2] * (1 - ratio) + theme["accent"][2] * 0.1 * ratio)
+            draw.line([(0, y), (width, y)], fill=(r, g, b))
 
-    def compile_high_retention_frames(self, company_name, video_type):
-        style = self.determine_current_aesthetic_tier()
-        print(f"🎬 [Visual Composer]: Activating Visual Architecture Tier: {style['style_name']}")
+    def create_scene_frame(self, width, height, frame_num, phrase, theme):
+        """Assembles a multi-layered cinematic asset frame with rapid pattern interrupts."""
+        canvas = Image.new("RGB", (width, height))
+        draw = ImageDraw.Draw(canvas)
+        
+        # 1. Background Generation
+        self.draw_gradient_background(draw, width, height, theme)
 
+        # 2. Add Active Framing Borders
+        border_pulse = int(np.sin(frame_num * 0.15) * 8)
+        draw.rectangle(
+            [40 + border_pulse, 40 + border_pulse, width - 40 - border_pulse, height - 40 - border_pulse],
+            outline=theme["accent"], width=8
+        )
+
+        # 3. Dynamic Pattern Interrupt: Alternating background contrast flash to retain eyes
+        if (frame_num // 15) % 2 == 0:
+            draw.rectangle([50, 50, width - 50, height - 50], outline=(255, 255, 255), width=2)
+
+        # 4. Heavy-Scale Text Layout Compilation
+        # Fallback to standard system true-type fonts if available, otherwise load scalable array
+        try:
+            font = ImageFont.truetype("Arial", 80 if width > height else 70)
+        except IOError:
+            font = ImageFont.load_default()
+
+        # Split long text arrays cleanly so they wrap inside mobile screens
+        words = phrase.split()
+        lines = []
+        current_line = []
+        for word in words:
+            current_line.append(word)
+            if len(" ".join(current_line)) > 15:
+                lines.append(" ".join(current_line[:-1]))
+                current_line = [word]
+        if current_line:
+            lines.append(" ".join(current_line))
+
+        # Render rows with heavy drop-shadowing for clarity and contrast
+        y_offset = height // 2 - (len(lines) * 45)
+        for line in lines:
+            # Draw shadow tracking
+            draw.text((width // 2 + 5, y_offset + 5), line, fill=(0, 0, 0), font=font, anchor="mm")
+            # Draw primary high-impact accent fill
+            draw.text((width // 2, y_offset), line, fill=theme["text"] if (frame_num // 10) % 2 == 0 else theme["accent"], font=font, anchor="mm")
+            y_offset += 95
+
+        return cv2.cvtColor(np.array(canvas), cv2.COLOR_RGB2BGR)
+
+    def compile_narrative_video(self, company_name, video_type):
+        theme = self.themes[0]
         width, height = (1080, 1920) if video_type.lower() == "short" else (1920, 1080)
         os.makedirs("output", exist_ok=True)
         output_filename = f"output/{company_name.lower()}_{video_type.lower()}.mp4"
 
-        # 🎞️ Set up a real video writer (30 FPS, 5-second duration = 150 frames total)
         fps = 30
-        total_frames = 150
-        
-        # Use MP4V for native cross-platform runner compatibility
+        duration_seconds = 30 if video_type.lower() == "short" else 60
+        total_frames = fps * duration_seconds
+
         fourcc = cv2.VideoWriter_fourcc(*'mp4v')
         video_writer = cv2.VideoWriter(output_filename, fourcc, fps, (width, height))
 
-        text_content = f"THE REAL REALITY OF {company_name.upper()}"
-        font = ImageFont.load_default()
+        # Dynamic narrative timeline structure to stop user scrolling
+        script_timeline = [
+            "THE INSANE REALITY OF " + company_name.upper(),
+            "HOW THEY FOOLED EVERYONE",
+            "THE SECRET MONETIZATION TRICK",
+            "THE REVENUE STREAM EXPOSED",
+            "WHY IT IS COLLAPSING RIGHT NOW",
+            "SUBSCRIBE TO THE SYSTEM FOR MORE"
+        ]
 
-        print(f"🔄 Encoding {total_frames} absolute video frames for {video_type} container...")
+        print(f"🎬 [VISION Core]: Rendering true {duration_seconds}s high-retention cinematic array for {output_filename}...")
 
         for frame_num in range(total_frames):
-            # Create a clean PIL canvas
-            canvas = Image.new("RGB", (width, height), color=style["bg_tint"])
-            draw = ImageDraw.Draw(canvas)
+            # Rotate phrases dynamically over time across the length of the video
+            phrase_index = (frame_num // (fps * 5)) % len(script_timeline)
+            active_phrase = script_timeline[phrase_index]
 
-            # Make the accent border pulsate slightly based on the frame index
-            pulse_offset = int(np.sin(frame_num * 0.1) * 10)
-            draw.rectangle(
-                [int(width*0.05) + pulse_offset, int(height*0.05) + pulse_offset, 
-                 int(width*0.95) - pulse_offset, int(height*0.95) - pulse_offset], 
-                outline=style["accent_color"], width=6
-            )
+            # Rotate style themes matching the phrase shifts
+            active_theme = self.themes[phrase_index % len(self.themes)]
 
-            # Draw corporate text target
-            draw.text((int(width/2), int(height/2)), text_content, fill=(255, 255, 255), anchor="mm")
-
-            # Convert frame from RGB (PIL standard) to BGR (OpenCV standard)
-            frame_np = np.array(canvas)
-            frame_bgr = cv2.cvtColor(frame_np, cv2.COLOR_RGB2BGR)
-
-            # Write the raw frame array directly into the video output pipeline
-            video_writer.write(frame_bgr)
+            frame_img = self.create_scene_frame(width, height, frame_num, active_phrase, active_theme)
+            video_writer.write(frame_img)
 
         video_writer.release()
-        print(f"✅ Visual Composer successfully synthesized production video asset: {output_filename}")
+        print(f"✅ Real-time asset render complete: {output_filename}")
         return output_filename
 
 def execute_visual_pipeline(company_name):
-    engine = FutureProofVisualEngine()
-    short_path = engine.compile_high_retention_frames(company_name, "short")
-    long_path = engine.compile_high_retention_frames(company_name, "long")
-    return short_path, long_path
+    engine = ProductionVisualEngine()
+    engine.compile_narrative_video(company_name, "short")
+    engine.compile_narrative_video(company_name, "long")
 
 if __name__ == "__main__":
-    if len(sys.argv) > 1:
-        execute_visual_pipeline(sys.argv[1])
-    else:
-        execute_visual_pipeline("Airbnb")
+    target = sys.argv[1] if len(sys.argv) > 1 else "Airbnb"
+    execute_visual_pipeline(target)
