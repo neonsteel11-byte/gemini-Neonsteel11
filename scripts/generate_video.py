@@ -3,12 +3,16 @@ import sys
 import json
 import time
 import requests
+from datetime import datetime
 from google import genai
 from google.genai.errors import ServerError
 
-COMPANY_POOL = ["Apple", "Tesla", "Google", "Amazon", "Microsoft", "Meta", "Netflix", "WeWork", "Enron"]
+# Expansive production tier of corporate targets
+COMPANY_POOL = [
+    "Apple", "Tesla", "Google", "Amazon", "Microsoft", "Meta", "Netflix", "WeWork", "Enron",
+    "Nvidia", "Intel", "AMD", "Sony", "Nintendo", "Disney", "Netflix", "Uber", "Airbnb"
+]
 
-# Initialize Gemini Client for high-retention narration generation
 try:
     ai_client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
 except Exception as e:
@@ -16,7 +20,6 @@ except Exception as e:
     sys.exit(1)
 
 def get_live_access_token():
-    """Fetches a pristine access token directly from Google OAuth without using strict library classes."""
     refresh_token = os.environ.get("YT_REFRESH_TOKEN")
     client_id = os.environ.get("YT_CLIENT_ID")
     client_secret = os.environ.get("YT_CLIENT_SECRET")
@@ -47,7 +50,6 @@ class HumanDirectorSuite:
             f"Make the narrator sound authentic, witty, and human. Do not include structural stage directions."
         )
         
-        # Safe retry mechanism for handling 503 high demand spikes
         for attempt in range(3):
             try:
                 response = ai_client.models.generate_content(model='gemini-2.5-flash', contents=prompt)
@@ -107,7 +109,10 @@ def upload_to_youtube_studio(file_path, title, description):
         return None
 
 def select_daily_topic():
-    return COMPANY_POOL[0]
+    # Dynamic Tier Switcher: Uses day of the year to mathematically pick a new topic every day
+    day_of_year = datetime.now().timetuple().tm_yday
+    pool_index = day_of_year % len(COMPANY_POOL)
+    return COMPANY_POOL[pool_index]
 
 def execute_master_production():
     daily_topic = select_daily_topic()
