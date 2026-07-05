@@ -1,7 +1,12 @@
 import os
 import sys
 from scripts.ai_ceo import SuperSmartAICEO
-from scripts.ai_clo import AICheifExecutiveOfficer if 'AICheifExecutiveOfficer' in dir() else None
+
+# Safely import the Chief Legal Officer without breaking Python syntax rules
+try:
+    from scripts.ai_clo import AICheifLegalOfficer
+except ImportError:
+    AICheifLegalOfficer = None
 
 def select_daily_topic_from_pool():
     from datetime import datetime
@@ -13,7 +18,7 @@ def select_daily_topic_from_pool():
     return COMPANY_POOL[day_of_year % len(COMPANY_POOL)]
 
 def run_production_compiler():
-    # 👑 Spin up the super-smart autonomous manager
+    # 👑 Initialize the executive manager safely
     ceo = SuperSmartAICEO()
     strategy = ceo.get_temporal_evolution_parameters()
     
@@ -28,8 +33,11 @@ def run_production_compiler():
     from scripts.generate_video import get_live_access_token
     token = get_live_access_token()
     
-    from scripts.ai_clo import AICheifLegalOfficer
-    clo = AICheifLegalOfficer(token)
+    if AICheifLegalOfficer is not None:
+        clo = AICheifLegalOfficer(token)
+        print("⚖️ [System]: AI Chief Legal Officer successfully attached to tracking runtime.")
+    else:
+        print("⚠️ [System Warning]: AI CLO module could not be attached.")
     
     print("🎉 Pipeline successfully finalized visual structures under CEO and CLO legal protection layers.")
 
