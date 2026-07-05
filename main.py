@@ -1,34 +1,25 @@
 import os
 import sys
-from google import genai
+from scripts.visual_composer import execute_visual_pipeline
 
-# Initialize the correct modern Gemini client framework
-try:
-    ai_client = genai.Client(api_key=os.environ.get("GEMINI_API_KEY"))
-except Exception as e:
-    print(f"❌ Failed to initialize Gemini Client: {str(e)}")
-    sys.exit(1)
+def select_daily_topic_from_pool():
+    from datetime import datetime
+    COMPANY_POOL = [
+        "Apple", "Tesla", "Google", "Amazon", "Microsoft", "Meta", "Netflix", "WeWork", "Enron",
+        "Nvidia", "Intel", "AMD", "Sony", "Nintendo", "Disney", "Uber", "Airbnb"
+    ]
+    day_of_year = datetime.now().timetuple().tm_yday
+    return COMPANY_POOL[day_of_year % len(COMPANY_POOL)]
 
-def render_daily_assets():
-    print("🎬 Starting asset compiler module...")
-    os.makedirs("output", exist_ok=True)
+def run_production_compiler():
+    print("🚀 Initializing Master Production Framework...")
+    daily_topic = select_daily_topic_from_pool()
+    print(f"🎯 Current Target Topic Selected for Production: {daily_topic}")
     
-    short_video_path = "output/apple_short.mp4"
-    long_video_path = "output/apple_long.mp4"
+    # Run the dynamic time-based visual compilation engine
+    short_video, long_video = execute_visual_pipeline(daily_topic)
     
-    print("🎙️ Compiling script voiceovers and high-retention visual hooks...")
-    
-    # Core Production Generator Blocks
-    # This physically writes the video packages to disk so the uploader can grab them
-    with open(short_video_path, "wb") as f:
-        f.write(b"BINARY_DATA_STREAM_SHORT")
-        
-    with open(long_video_path, "wb") as f:
-        f.write(b"BINARY_DATA_STREAM_LONG")
-        
-    print(f"✅ Full Short Asset Compiled: {short_video_path}")
-    print(f"✅ Full Video Asset Compiled: {long_video_path}")
-    print("🚀 Video frames rendered successfully inside output directory.")
+    print("🎉 All production visual structures rendered successfully inside output directory.")
 
 if __name__ == "__main__":
-    render_daily_assets()
+    run_production_compiler()
