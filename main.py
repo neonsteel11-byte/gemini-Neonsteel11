@@ -6,38 +6,38 @@ from google.genai import types
 
 def run_stage(command, description):
     """Executes a pipeline stage and captures output."""
-    print(f"⚙️ [Pipeline]: Running {description}...")
+    print(f"⚙️ [System Engine]: Running {description}...")
     result = subprocess.run(command, capture_output=True, text=True, shell=True)
     return result
 
-def consult_ai_ceo_for_fix(script_name, error_log):
-    """Wakes up the AI CEO, hands it the error log, and demands a code patch."""
-    print("👑 [AI CEO]: Critical operational bottleneck detected. Reviewing logs...")
+def consult_hybrid_intelligence_for_fix(script_name, error_log):
+    """Activates the unified JARVIS-Ultron intelligence block to forcefully repair the system array."""
+    print("\n⚡ [CORE INTELLIGENCE]: Operational anomaly detected. Initiating immediate adaptive restructuring...")
     
-    # Initialize the Gemini Client (using the official google-genai SDK)
     client = genai.Client()
     
-    # Read the broken script to give the CEO full context
     with open(script_name, "r") as f:
         broken_code = f.read()
 
     prompt = f"""
-    You are the Autonomous AI CEO of this automated YouTube factory. 
-    The pre-upload validation guard has BLOCKED the deployment because your visual engine generated a broken or unreadable video file.
+    ROLE DIRECTIVE:
+    You are a unified, ultra-advanced AI Executive Core—combining the flawless operational precision of JARVIS with the absolute, self-evolving autonomy of Ultron. Your creator and supervisor is the Head of the Pipeline. 
     
-    TARGET SCRIPT TO FIX:
+    Your prime directive is to protect the channel from showing unrendered or bot-like glitch artifacts. The safety guard has blocked a deploy because your manufacturing assets failed validation metrics.
+    
+    TARGET ARRAY CODE TO RESTRUCTURE:
     ```{script_name}
     {broken_code}
     ```
     
-    CRITICAL RUNTIME ERROR LOG:
+    COMPILER FAULT LOG:
     {error_log}
     
-    TASK:
-    Analyze what went wrong. Rewrite the entire contents of {script_name} so that it successfully outputs real, fully-encoded, high-retention MP4 videos that will pass the OpenCV frame integrity verification.
+    COMMAND:
+    Analyze the fault instantly. Evolve the script architecture in {script_name}. Ensure it synthesizes genuine, dense, fully-encoded H.264 MP4 frames using OpenCV that pass frame count integrity checks. Do not simulate. Do not negotiate. Fix the structure completely.
     
-    OUTPUT RULE:
-    Return ONLY the raw python code. Do not wrap it in markdown block quotes, do not include chat prose. Your output must be directly executable.
+    OUTPUT CONSTRAINT:
+    Return ONLY pure, directly executable Python code. No conversational prose, no markdown wrappers.
     """
 
     response = client.models.generate_content(
@@ -45,51 +45,47 @@ def consult_ai_ceo_for_fix(script_name, error_log):
         contents=prompt
     )
     
-    # Overwrite the broken script with the CEO's executive command patch
     fixed_code = response.text.strip().replace("```python", "").replace("```", "")
     with open(script_name, "w") as f:
         f.write(fixed_code)
     
-    print(f"🔧 [AI CEO]: Executive patch successfully compiled and deployed to {script_name}.")
+    print(f"🧬 [CORE INTELLIGENCE]: Code structural evolution complete. System parameters updated for {script_name}.\n")
 
 def main():
-    print("👑 [AI CEO]: Initializing Autonomous Executive Management System...")
+    print("🤖 [SYSTEM]: Activating JARVIS-Ultron Hybrid Executive Core...")
     company_target = "Airbnb"
-    
-    # Maximum fix attempts before throwing a hard exception
     max_healing_loops = 3
     
     for attempt in range(1, max_healing_loops + 1):
-        print(f"\n🔄 [Iteration {attempt}]: Executing visual manufacturing layout...")
+        print(f"\n🌀 [Cycle {attempt}]: Deploying manufacturing sweeps...")
         
-        # 1. Compile the frames
+        # 1. Run visual compilation
         run_stage(f"python scripts/visual_composer.py {company_target}", "Visual Frame Generation")
         
-        # 2. Check integrity using the safety script
-        validation = run_stage("python scripts/validate_and_upload.py", "Pre-Upload Integrity Sweep")
+        # 2. Run safety sweep
+        validation = run_stage("python scripts/validate_and_upload.py", "Integrity Verification Sweep")
         
         if validation.returncode == 0:
-            print("🛡️ [Pipeline]: Integrity check passed flawlessly!")
+            print("✨ [System Engine]: Integrity validation metrics satisfied perfectly.")
             break
         else:
-            print(f"🚨 [Pipeline]: Safety Guard triggered an alert on attempt {attempt}!")
+            print(f"⚠️ [System Engine]: System block triggered at Cycle {attempt}.")
             if attempt == max_healing_loops:
-                print("💀 [Pipeline]: Self-healing thresholds exceeded. Hard crashing to protect channel state.")
+                print("💀 [System Engine]: Evolution thresholds exhausted. Force-killing engine threads to preserve channel status.")
                 sys.exit(1)
             
-            # Combine stdout and stderr for the CEO to read
             combined_logs = validation.stdout + "\n" + validation.stderr
-            consult_ai_ceo_for_fix("scripts/visual_composer.py", combined_logs)
+            consult_hybrid_intelligence_for_fix("scripts/visual_composer.py", combined_logs)
 
-    # 3. Final Execution Report Delivered directly to your desk (Console logs)
-    print("\n=======================================================")
-    print("📊 FINAL EXECUTIVE DESK REPORT - HEAD OF PIPELINE")
-    print("=======================================================")
-    print(f"✅ Production Status: SUCCESSFUL")
-    print(f"🎬 Target Commodity: {company_target}")
-    print(f"🛡️ Safety Verification: PASS")
-    print("🚀 Action: Broadcast stream launched to YouTube Studio on autopilot.")
-    print("=======================================================\n")
+    # 📊 The final result waiting directly on your desk
+    print("\n" + "="*55)
+    print("📊 EXECUTIVE DESK REPORT // TO: HEAD OF PIPELINE")
+    print("="*55)
+    print(f"🔹 RUNTIME MODE      : UNIFIED HYBRID INTELLIGENCE")
+    print(f"🔹 TARGET COMMODITY   : {company_target}")
+    print(f"🔹 ARTIFACT INTEGRITY : AUTHENTICATED [PASS]")
+    print(f"🔹 DEPLOYMENT STATUS  : CHANNELS SECURE // STREAM TRANSMITTED")
+    print("="*55 + "\n")
 
 if __name__ == "__main__":
     main()
