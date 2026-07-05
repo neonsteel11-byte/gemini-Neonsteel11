@@ -1,5 +1,9 @@
 import os
 import sys
+
+# 🩺 Path Guard: Force Python to recognize the root repository directory
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 import json
 import time
 import requests
@@ -48,12 +52,11 @@ def upload_to_youtube_holding_tank(file_path, title, description, topic, publish
         with open(file_path, "wb") as f:
             f.write(b"MOCK_PRODUCTION_STREAM")
             
-    # Instruct the API to hold the video as private, but pass the future publish timestamp
     metadata = {
         "snippet": {
             "title": title,
             "description": description,
-            "categoryId": "23" # Comedy Category for Funny Finance!
+            "categoryId": "23" 
         },
         "status": {
             "privacyStatus": "private",
@@ -88,16 +91,12 @@ def upload_to_youtube_holding_tank(file_path, title, description, topic, publish
 def execute_master_production():
     access_token = get_live_access_token()
     
-    # Run historical scan
     check_and_heal_underperforming_videos(access_token)
     
     day_of_year = datetime.now().timetuple().tm_yday
     daily_topic = COMPANY_POOL[day_of_year % len(COMPANY_POOL)]
     print(f"\n⚡ STARTING 2X DAILY HOLDING TANK INGEST: {daily_topic.upper()} ⚡")
     
-    # Calculate exact dynamic ISO timestamps for release (US Eastern Time target windows)
-    # 9:00 UTC running window + 2 hours = 11:00 UTC (7:00 AM New York)
-    # 9:00 UTC running window + 5 hours = 14:00 UTC (10:00 AM New York)
     base_time = datetime.utcnow()
     short_release_iso = (base_time + timedelta(hours=2)).strftime("%Y-%m-%dT%H:%M:%S.000Z")
     long_release_iso = (base_time + timedelta(hours=5)).strftime("%Y-%m-%dT%H:%M:%S.000Z")
@@ -105,7 +104,6 @@ def execute_master_production():
     short_mp4 = f"output/{daily_topic.lower()}_short.mp4"
     long_mp4 = f"output/{daily_topic.lower()}_long.mp4"
     
-    # Dispatch both videos straight to the holding tank
     upload_to_youtube_holding_tank(short_mp4, f"The Insane Reality of {daily_topic} #shorts", "Funny finance breakdown.", daily_topic, short_release_iso)
     upload_to_youtube_holding_tank(long_mp4, f"How {daily_topic} Fooled Everyone", "Deep corporate satire dive.", daily_topic, long_release_iso)
 
