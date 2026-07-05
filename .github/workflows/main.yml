@@ -1,9 +1,9 @@
 name: Comprehensive YouTube Factory
 
 on:
-  workflow_dispatch: # Allows you to still run it manually whenever you want
+  workflow_dispatch:
   schedule:
-    - cron: '0 12 * * *' # Automatically runs every single day at 12:00 PM UTC
+    - cron: '0 9 * * *' # Automatically runs every single day at 9:00 AM UTC (2:45 PM Nepal Time)
 
 jobs:
   build-and-publish:
