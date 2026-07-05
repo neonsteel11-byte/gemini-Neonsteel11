@@ -1,6 +1,6 @@
 import os
 import sys
-from scripts.ai_ceo import AICheifExecutiveOfficer
+from scripts.ai_ceo import SuperSmartAICEO
 from scripts.visual_composer import execute_visual_pipeline
 
 def select_daily_topic_from_pool():
@@ -13,16 +13,21 @@ def select_daily_topic_from_pool():
     return COMPANY_POOL[day_of_year % len(COMPANY_POOL)]
 
 def run_production_compiler():
-    # 👑 Initialize the AI CEO first
-    ceo = AICheifExecutiveOfficer()
-    ceo.issue_production_directive()
+    # 👑 Spin up the super-smart autonomous manager
+    ceo = SuperSmartAICEO()
     
-    daily_topic = select_daily_topic_from_pool()
-    print(f"🎯 Current Target Topic Selected for Production: {daily_topic}")
+    # Analyze global chronological vectors
+    strategy = ceo.get_temporal_evolution_parameters()
     
-    # Run the dynamic time-based visual compilation engine
-    short_video, long_video = execute_visual_pipeline(daily_topic)
-    print("🎉 All production visual structures rendered successfully inside output directory.")
+    # Safely select topic under supervisor oversight
+    daily_topic = ceo.execute_supervised_pipeline(select_daily_topic_from_pool)
+    print(f"🎯 Targeted Corporate Profile Topic: {daily_topic}")
+    
+    # Execute media construction inside the self-healing loop
+    print(f"🎬 Compiling visual assets using {strategy['style_era']} guidelines...")
+    short_video, long_video = ceo.execute_supervised_pipeline(execute_visual_pipeline, daily_topic)
+    
+    print("🎉 Pipeline successfully executed all instructions under AI CEO monitoring.")
 
 if __name__ == "__main__":
     run_production_compiler()

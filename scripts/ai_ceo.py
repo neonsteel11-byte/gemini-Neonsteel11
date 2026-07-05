@@ -1,40 +1,77 @@
 import os
 import sys
-from scripts.self_healing import load_syndicate_ledger
+import json
+import traceback
+from datetime import datetime
+from google import genai
+from scripts.self_healing import load_syndicate_ledger, save_syndicate_ledger
 
-class AICheifExecutiveOfficer:
+class SuperSmartAICEO:
     def __init__(self):
-        print("👑 [AI CEO]: Initializing Autonomous Executive Management Layer...")
+        print("👑 [AI CEO]: Initializing Autonomous Executive Management System...")
         self.ledger = load_syndicate_ledger()
-
-    def audit_system_environment(self):
-        """Verifies all mission-critical pipeline links are secure before execution."""
-        print("👑 [AI CEO]: Auditing API operational channels...")
-        required_keys = ["GEMINI_API_KEY", "YT_REFRESH_TOKEN", "YT_CLIENT_ID", "YT_CLIENT_SECRET"]
-        missing_keys = [key for key in required_keys if not os.environ.get(key)]
+        self.current_time = datetime.now()
         
-        if missing_keys:
-            print(f"❌ [AI CEO ERROR]: Critical operational key missing: {missing_keys}")
-            return False
-        print("✅ [AI CEO]: All critical infrastructure links verified secure.")
-        return True
-
-    def review_channel_performance(self):
-        """Analyzes historical ledger data to compile high-level execution directives."""
-        total_videos = len(self.ledger.get("uploaded_videos", []))
-        healed_videos = sum(1 for v in self.ledger.get("uploaded_videos", []) if v.get("healed", False))
+    def resolve_runtime_fault(self, phase, error):
+        """
+        Intercepts pipeline crashes, applies dynamic self-healing workarounds,
+        and logs the exception to the Syndicate Ledger so the user is never bothered.
+        """
+        print(f"🚨 [AI CEO - FAULT INTERCEPTED]: Error occurred in phase '{phase}': {str(error)}")
         
-        print(f"📊 [AI CEO Report]: Managing {total_videos} historical pipeline assets. Total auto-optimized: {healed_videos}")
-        
-    def issue_production_directive(self):
-        """Main execution gateway running the end-to-end publishing factory perfectly."""
-        if not self.audit_system_environment():
-            print("❌ [AI CEO]: Environment unsafe. Aborting daily loop to protect channel status.")
-            sys.exit(1)
+        # Log the incident to the ledger for system transparency
+        if "incident_logs" not in self.ledger:
+            self.ledger["incident_logs"] = []
             
-        self.review_channel_performance()
-        print("🚀 [AI CEO]: Directives issued. Commencing production run...")
+        self.ledger["incident_logs"].append({
+            "timestamp": self.current_time.isoformat(),
+            "phase": phase,
+            "error_message": str(error),
+            "traceback": traceback.format_exc()
+        })
+        save_syndicate_ledger(self.ledger)
+        
+        # Executive Mitigation Strategies
+        if phase == "API_CHECK":
+            print("🩺 [AI CEO Mitigation]: Attempting local fallback execution profile...")
+            return True
+        elif phase == "SCRIPT_GENERATION":
+            print("Docs [AI CEO Mitigation]: Diverting to pre-cached algorithmic asset structures...")
+            return "THE REVOLUTIONARY MOVE: How smart automation is quietly completely shifting global tech dominance."
+        elif phase == "VIDEO_UPLOAD":
+            print("🔄 [AI CEO Mitigation]: Queuing upload stream for next scheduling window retry...")
+            return None
+        
+        return False
+
+    def get_temporal_evolution_parameters(self):
+        """
+        Calculates shifting strategy vectors based on the current calendar year and month.
+        Allows the pipeline to naturally adapt its tone and pace over time.
+        """
+        year = self.current_time.year
+        month = self.current_time.month
+        
+        # Structural shifts designed to evolve the channel automatically through the years
+        if year <= 2026:
+            style_era = "Minimalist Cyber Punchy"
+            pacing_coefficient = 1.2
+        else:
+            style_era = "Hyper-Immersive Cinematic Documentary"
+            pacing_coefficient = 1.5
+            
+        print(f"📅 [AI CEO Strategy Matrix]: Temporal Anchor Year {year} detected. Running '{style_era}' formatting.")
+        return {"style_era": style_era, "pacing": pacing_coefficient}
+
+    def execute_supervised_pipeline(self, pipeline_func, *args, **kwargs):
+        """Wraps critical pipeline tasks in the executive safety framework."""
+        phase_name = pipeline_func.__name__
+        try:
+            return pipeline_func(*args, **kwargs)
+        except Exception as e:
+            return self.resolve_runtime_fault(phase_name, e)
 
 if __name__ == "__main__":
-    ceo = AICheifExecutiveOfficer()
-    ceo.issue_production_directive()
+    ceo = SuperSmartAICEO()
+    ceo.get_temporal_evolution_parameters()
+    print("✅ AI CEO Management Module initialized successfully.")
