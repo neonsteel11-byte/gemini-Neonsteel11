@@ -1,6 +1,6 @@
-*.json
-*.pickle
+.env
+token.json
+client_secret.json
 output/
 __pycache__/
 *.pyc
-.env

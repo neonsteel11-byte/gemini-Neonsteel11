@@ -70,7 +70,8 @@ def build_video(scene_data, size, final_output_path, tmp_dir):
     concat_file_path = os.path.join(tmp_dir, "concat_list.txt")
     with open(concat_file_path, "w") as f:
         for path in clip_paths:
-            f.write(f"file '{os.path.abspath(path).replace('\\', '/')}'\n")
+            normalized_path = os.path.abspath(path).replace("\\", "/")
+            f.write(f"file '{normalized_path}'\n")
     print("      Stitching video tracks into final file...")
     if os.path.exists(final_output_path):
         os.remove(final_output_path)
