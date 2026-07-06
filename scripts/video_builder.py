@@ -1,4 +1,5 @@
 import os
+import re
 import subprocess
 import sys
 
@@ -13,15 +14,12 @@ def _check_ffmpeg():
 def build_scene_clip(image_path, audio_path, caption, duration, size, output_path):
     """Stitches a single image and audio file into an intermediate video clip using ffmpeg."""
     width, height = size
-    
-    # Clean up old existing clips
+
     if os.path.exists(output_path):
         os.remove(output_path)
 
-    # Clean text to prevent bash breaking
     safe_caption = caption.replace("'", "").replace('"', "")
 
-    # Direct ffmpeg call: pairs image + audio, scales to required size, burns simple text drawtext overlay
     cmd = [
         "ffmpeg", "-y",
         "-loop", "1", "-i", image_path,
@@ -32,16 +30,54 @@ def build_scene_clip(image_path, audio_path, caption, duration, size, output_pat
         "-c:a", "aac", "-b:a", "192k",
         "-shortest", output_path
     ]
-    
+
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
         print(f"Error compiling scene clip: {result.stderr}", file=sys.stderr)
         raise RuntimeError("FFmpeg stitching failure.")
 
+def verify_not_black(video_path: str, max_black_ratio: float = 0.15):
+    """
+    Runs ffmpeg blackdetect on the finished video. If too much of it is black
+    frames, fails LOUDLY instead of shipping a broken file silently -- this is
+    the exact class of bug that produced the original 6-second black screen.
+    """
+    cmd = ["ffmpeg", "-i", video_path, "-vf", "blackdetect=d=0.5:pic_th=0.98",
+           "-an", "-f", "null", "-"]
+    result = subprocess.run(cmd, capture_output=True, text=True)
+
+    black_durations = [float(m) for m in
+                        re.findall(r"black_duration:([\d.]+)", result.stderr)]
+    total_black = sum(black_durations)
+
+    duration_match = re.search(r"Duration: (\d+):(\d+):([\d.]+)", result.stderr)
+    if not duration_match:
+        print(f"WARNING: could not verify {video_path} isn't blank. Check manually.",
+              file=sys.stderr)
+        return
+
+    h, m, s = duration_match.groups()
+    total_duration = int(h) * 3600 + int(m) * 60 + float(s)
+
+    if total_duration == 0:
+        print(f"FATAL: {video_path} has zero duration.", file=sys.stderr)
+        sys.exit(1)
+
+    ratio = total_black / total_duration
+    if ratio > max_black_ratio:
+        print(f"FATAL: {video_path} is {ratio*100:.0f}% black frames "
+              f"({total_black:.1f}s of {total_duration:.1f}s). This is the "
+              f"black-screen bug resurfacing -- check drawtext escaping and "
+              f"scene clip generation before re-running.", file=sys.stderr)
+        sys.exit(1)
+
+    print(f"      Black-frame check passed ({ratio*100:.1f}% black, "
+          f"threshold {max_black_ratio*100:.0f}%).")
+
 def build_video(scene_data, size, final_output_path, tmp_dir):
     """Combines all scene clips into a final master video."""
     print("      Verifying environment core requirements...")
-    
+
     if not _check_ffmpeg():
         print("\n⚠️  [ENVIRONMENT NOTICE] ffmpeg was not found on your local machine.")
         print("💡 Skipping local video assembly rendering safely. Your generated assets are preserved.")
@@ -49,26 +85,22 @@ def build_video(scene_data, size, final_output_path, tmp_dir):
         return
 
     clip_paths = []
-    # 1. Compile individual scene segments
     for i, scene in enumerate(scene_data):
         clip_path = os.path.join(tmp_dir, f"scene_clip_{i}.mp4")
-        print(f"      Compiling Cloud Asset Layer [Scene {i+1}/{len(scene_data)}]...")
+        print(f"      Compiling scene [{i+1}/{len(scene_data)}]...")
         build_scene_clip(
             scene["image_path"], scene["audio_path"], scene["caption"],
             scene["duration"], size, clip_path
         )
         clip_paths.append(clip_path)
 
-    # 2. Generate a concatenation list file for ffmpeg
     concat_file_path = os.path.join(tmp_dir, "concat_list.txt")
     with open(concat_file_path, "w") as f:
         for path in clip_paths:
-            # Format absolute paths correctly for ffmpeg concat
             normalized_path = os.path.abspath(path).replace("\\", "/")
             f.write(f"file '{normalized_path}'\n")
 
-    # 3. Concatenate all clips into the final video file
-    print("      Stitching video tracks into final production file...")
+    print("      Stitching video tracks into final file...")
     if os.path.exists(final_output_path):
         os.remove(final_output_path)
 
@@ -76,10 +108,11 @@ def build_video(scene_data, size, final_output_path, tmp_dir):
         "ffmpeg", "-y", "-f", "concat", "-safe", "0",
         "-i", concat_file_path, "-c", "copy", final_output_path
     ]
-    
+
     result = subprocess.run(concat_cmd, capture_output=True, text=True)
     if result.returncode != 0:
         print(f"Error concatenating master video: {result.stderr}", file=sys.stderr)
         raise RuntimeError("FFmpeg master concatenation failure.")
-    
-    print(f"✅ Production complete! Master File: {final_output_path}")
+
+    verify_not_black(final_output_path)
+    print(f"✅ Production complete and verified: {final_output_path}")
