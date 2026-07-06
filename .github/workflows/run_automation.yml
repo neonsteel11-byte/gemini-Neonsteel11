@@ -2,6 +2,8 @@ name: Daily Finance Video Automation
 
 on:
   workflow_dispatch:
+  schedule:
+    - cron: '0 12 * * *'
 
 jobs:
   build-and-run:
@@ -26,14 +28,20 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt
 
-    - name: Execute Full Video Productions (Short & Long)
+    - name: Hydrate YouTube Authentication Token
+      env:
+        TOKEN_DATA: ${{ secrets.YOUTUBE_TOKEN_BASE64 }}
+      run: |
+        echo "$TOKEN_DATA" | base64 --decode > youtube_token.pickle
+
+    - name: Execute Full Video Productions and Upload to YouTube
       env:
         GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
         GEMINI_IMAGE_MODE: "false"
       run: |
-        echo "🎬 STEP 1: Launching YouTube Short Production..."
-        python main.py "Tesla" --type short
+        echo "🎬 STEP 1: Producing & Uploading YouTube Short..."
+        python main.py "Tesla" --type short --upload --privacy private
         
-        echo "🎬 STEP 2: Launching Long-Form Video Production..."
-        python main.py "Tesla" --type long
+        echo "🎬 STEP 2: Producing & Uploading Long-Form Video..."
+        python main.py "Tesla" --type long --upload --privacy private
