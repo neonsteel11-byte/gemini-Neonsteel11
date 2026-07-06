@@ -1,9 +1,7 @@
 name: Daily Finance Video Automation
 
 on:
-  workflow_dispatch: # Allows manual trigger from the GitHub Actions tab
-  schedule:
-    - cron: '0 12 * * *' # Runs automatically every day (adjust as needed)
+  workflow_dispatch:
 
 jobs:
   build-and-run:
@@ -14,11 +12,11 @@ jobs:
       uses: actions/checkout@v4
 
     - name: Set up Python Environment
-      uses: actions/python-env@v5
+      uses: actions/setup-python@v5
       with:
         python-version: '3.11'
 
-    - name: Install System FFmpeg (Cloud Dependency)
+    - name: Install System FFmpeg
       run: |
         sudo apt-get update
         sudo apt-get install -y ffmpeg
@@ -28,10 +26,14 @@ jobs:
         python -m pip install --upgrade pip
         python -m pip install -r requirements.txt
 
-    - name: Execute Video Automation Engine
+    - name: Execute Full Video Productions (Short & Long)
       env:
         GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
         ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
         GEMINI_IMAGE_MODE: "false"
       run: |
+        echo "🎬 STEP 1: Launching YouTube Short Production..."
         python main.py "Tesla" --type short
+        
+        echo "🎬 STEP 2: Launching Long-Form Video Production..."
+        python main.py "Tesla" --type long
