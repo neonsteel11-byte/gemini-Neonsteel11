@@ -1,7 +1,5 @@
-"""
-Uploads a finished video to YouTube using the YouTube Data API v3.
-Uses a refresh token directly -- works identically locally and in GitHub Actions.
-"""
+"""Uploads a finished video to YouTube using the YouTube Data API v3.
+Uses a refresh token directly -- works identically locally and in GitHub Actions."""
 import os
 import sys
 from google.oauth2.credentials import Credentials
@@ -13,13 +11,10 @@ from config import YT_CLIENT_ID, YT_CLIENT_SECRET, YT_REFRESH_TOKEN
 SCOPES = ["https://www.googleapis.com/auth/youtube.upload"]
 TOKEN_URI = "https://oauth2.googleapis.com/token"
 
-
 def _get_credentials():
     if not (YT_CLIENT_ID and YT_CLIENT_SECRET and YT_REFRESH_TOKEN):
-        print("FATAL: YT_CLIENT_ID, YT_CLIENT_SECRET, and YT_REFRESH_TOKEN must "
-              "all be set.", file=sys.stderr)
+        print("FATAL: YT_CLIENT_ID, YT_CLIENT_SECRET, and YT_REFRESH_TOKEN must all be set.", file=sys.stderr)
         sys.exit(1)
-
     creds = Credentials(
         token=None,
         refresh_token=YT_REFRESH_TOKEN,
@@ -31,26 +26,18 @@ def _get_credentials():
     try:
         creds.refresh(Request())
     except Exception as e:
-        print(f"FATAL: could not refresh YouTube access token -- your "
-              f"YT_REFRESH_TOKEN may be invalid or revoked: {e}", file=sys.stderr)
+        print(f"FATAL: could not refresh YouTube access token -- your YT_REFRESH_TOKEN may be invalid or revoked: {e}", file=sys.stderr)
         sys.exit(1)
-
     return creds
 
-
-def upload_video(video_path: str, title: str, description: str,
-                  tags: list, is_short: bool, privacy_status: str = "public"):
+def upload_video(video_path: str, title: str, description: str, tags: list, is_short: bool, privacy_status: str = "public"):
     if not os.path.exists(video_path):
-        print(f"FATAL: video file {video_path} does not exist, cannot upload.",
-              file=sys.stderr)
+        print(f"FATAL: video file {video_path} does not exist, cannot upload.", file=sys.stderr)
         sys.exit(1)
-
     if is_short and "#shorts" not in title.lower() and "#shorts" not in description.lower():
         description = description + "\n#shorts"
-
     creds = _get_credentials()
     youtube = build("youtube", "v3", credentials=creds)
-
     body = {
         "snippet": {
             "title": title[:100],
@@ -60,21 +47,16 @@ def upload_video(video_path: str, title: str, description: str,
         },
         "status": {"privacyStatus": privacy_status}
     }
-
     media = MediaFileUpload(video_path, chunksize=-1, resumable=True, mimetype="video/mp4")
     request = youtube.videos().insert(part="snippet,status", body=body, media_body=media)
-
     response = None
     while response is None:
         status, response = request.next_chunk()
         if status:
             print(f"  upload progress: {int(status.progress() * 100)}%")
-
     if "id" not in response:
-        print(f"FATAL: upload finished but response has no video id: {response}",
-              file=sys.stderr)
+        print(f"FATAL: upload finished but response has no video id: {response}", file=sys.stderr)
         sys.exit(1)
-
     video_id = response["id"]
     print(f"Uploaded successfully: https://youtube.com/watch?v={video_id}")
     return video_id
