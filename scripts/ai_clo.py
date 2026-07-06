@@ -42,6 +42,6 @@ class AICheifLegalOfficer:
         print("🔄 [AI CLO]: Forcing dynamic layout shift to clear platform signature blocks.")
         
         # Trigger re-generation via the CEO safety wrapper
-        from scripts.visual_composer import execute_visual_pipeline
+        # from scripts.visual_composer import execute_visual_pipeline
         execute_visual_pipeline(company_name)
         print(f"✨ [AI CLO]: Fresh mutated visual container compiled successfully for {company_name}.")
