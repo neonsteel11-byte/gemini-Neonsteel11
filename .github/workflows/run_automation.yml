@@ -1,6 +1,9 @@
 name: Daily Finance Video Automation
 on:
   workflow_dispatch:
+  schedule:
+    # 23:00 UTC = 7:00 PM Eastern (6:00 PM during EDT) -- start of US evening peak viewing window
+    - cron: '0 23 * * *'
 jobs:
   build-and-run:
     runs-on: ubuntu-latest
