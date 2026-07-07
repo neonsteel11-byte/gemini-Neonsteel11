@@ -1,0 +1,44 @@
+[
+  {
+    "video_id": "V1SqWluDyN0",
+    "company": "Tesla",
+    "video_type": "short",
+    "uploaded_at": "2026-07-07T11:02:26.262671+00:00",
+    "title_variants": [
+      "Tesla: Electric Dreams?",
+      "Tesla's Wild Ride",
+      "Is Tesla Charged?"
+    ],
+    "hashtags": [
+      "#Tesla",
+      "#ElectricVibes",
+      "#Stocks",
+      "#Finance",
+      "#MuskMania",
+      "#EVlife"
+    ],
+    "variant_index": 0,
+    "optimized": false
+  },
+  {
+    "video_id": "TSVf2SM1lh0",
+    "company": "Tesla",
+    "video_type": "long",
+    "uploaded_at": "2026-07-07T11:19:10.906032+00:00",
+    "title_variants": [
+      "Tesla: Electric Dreams",
+      "The Wild Ride of Tesla Stock",
+      "Tesla: Billionaire Space Cowboy"
+    ],
+    "hashtags": [
+      "#Tesla",
+      "#ElonMusk",
+      "#ElectricVibes",
+      "#StockMarket",
+      "#Finance",
+      "#SpaceX"
+    ],
+    "variant_index": 0,
+    "optimized": false
+  }
+]
