@@ -112,7 +112,7 @@ def _validate_script(data: dict) -> dict:
 
 
 def generate_script(company: str, video_type: str = "long") -> dict:
-    length_hint = "a full long-form video (6-10 scenes)" if video_type == "long" \
+    length_hint = "a full long-form video (12-16 scenes, each with 3-5 sentences of narration, targeting roughly 6-8 minutes of total spoken content)" if video_type == "long" \
         else "a YouTube Short (4-6 scenes, very punchy and fast)"
 
     prompt = f"Write {length_hint} about {company}. Funny finance commentary tone."

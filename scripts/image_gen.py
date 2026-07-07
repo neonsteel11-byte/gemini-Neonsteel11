@@ -15,7 +15,7 @@ from PIL import Image
 from urllib.parse import quote
 from config import GEMINI_IMAGE_MODE, GEMINI_API_KEY
 
-POLLINATIONS_URL = "https://image.pollinations.ai/prompt/{prompt}?width={w}&height={h}&nologo=true"
+POLLINATIONS_URL = "https://image.pollinations.ai/prompt/{prompt}?width={w}&height={h}&nologo=true&model=flux&enhance=true"
 
 
 def _validate_and_save(img_bytes: bytes, output_path: str, size: tuple):
