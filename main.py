@@ -62,7 +62,7 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
         image_path = os.path.join(tmp_dir, f"image_{i}.png")
 
         print(f"      scene {i+1}/{len(script['scenes'])}: generating voiceover...")
-        duration = generate_voiceover(scene["narration"], audio_path)
+        duration, words = generate_voiceover(scene["narration"], audio_path)
         print(f"      scene {i+1} audio duration: {duration:.2f}s")
 
         print(f"      scene {i+1}/{len(script['scenes'])}: generating image...")
@@ -71,7 +71,7 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
         scene_data.append({
             "image_path": image_path,
             "audio_path": audio_path,
-            "caption": scene["on_screen_text"],
+            "words": words,
             "duration": duration,
         })
 

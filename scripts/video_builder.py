@@ -10,24 +10,57 @@ def _check_ffmpeg():
     except FileNotFoundError:
         return False
 
-def build_scene_clip(image_path, audio_path, caption, duration, size, output_path, narrator_path=None):
-    """Stitches background image + optional animated narrator overlay + audio into a clip."""
+def _escape_text(text: str) -> str:
+    return text.replace("\\", "\\\\").replace("'", "").replace(":", "\\:")
+
+def _build_caption_filters(words: list, height: int) -> str:
+    """
+    Groups words into small chunks (karaoke-style, ~3 words visible at a time)
+    and returns a chained drawtext filter string, each chunk only visible
+    during its actual spoken window -- this is the "Hormozi-style" caption
+    effect used across most high-retention finance/commentary channels.
+    """
+    if not words:
+        return ""
+
+    chunk_size = 3
+    chunks = [words[i:i + chunk_size] for i in range(0, len(words), chunk_size)]
+    filters = []
+    fontsize = int(height * 0.055)
+
+    for chunk in chunks:
+        text = " ".join(w["text"] for w in chunk).upper()
+        text = _escape_text(text)
+        start = chunk[0]["start"]
+        end = chunk[-1]["end"]
+        filters.append(
+            f"drawtext=text='{text}':fontcolor=yellow:fontsize={fontsize}:"
+            f"fontfile=/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf:"
+            f"box=1:boxcolor=black@0.7:boxborderw=12:"
+            f"x=(w-text_w)/2:y=h*0.78:"
+            f"enable='between(t,{start:.2f},{end:.2f})'"
+        )
+    return "," + ",".join(filters)
+
+def build_scene_clip(image_path, audio_path, words, duration, size, output_path, narrator_path=None):
+    """Stitches background image (with Ken Burns zoom) + optional narrator + karaoke captions + audio."""
     width, height = size
 
     if os.path.exists(output_path):
         os.remove(output_path)
 
-    safe_caption = caption.replace("'", "").replace('"', "")
-    narrator_h = int(height * 0.35)  # narrator takes ~35% of frame height
+    caption_chain = _build_caption_filters(words, height)
+    zoom_frames = max(int(duration * 25), 1)
+    narrator_h = int(height * 0.35)
     margin = int(height * 0.02)
 
     if narrator_path and os.path.exists(narrator_path):
         filter_complex = (
-            f"[0:v]scale={width}:{height}[bg];"
+            f"[0:v]scale={width*2}:{height*2},"
+            f"zoompan=z='min(zoom+0.0012,1.15)':d={zoom_frames}:s={width}x{height}:fps=25[bg];"
             f"[1:v]scale=-1:{narrator_h},colorkey=0x00FF00:0.35:0.12[nar];"
             f"[bg][nar]overlay=x=W-w-{margin}:y='H-h-{margin}+10*sin(2*PI*t*1.8)'[v1];"
-            f"[v1]drawtext=text='{safe_caption}':fontcolor=white:fontsize=40:"
-            f"box=1:boxcolor=black@0.6:x=(w-text_w)/2:y=h-150[vout]"
+            f"[v1]null{caption_chain}[vout]"
         )
         cmd = [
             "ffmpeg", "-y",
@@ -43,6 +76,11 @@ def build_scene_clip(image_path, audio_path, caption, duration, size, output_pat
             "-shortest", output_path
         ]
     else:
+        vf = (
+            f"scale={width*2}:{height*2},"
+            f"zoompan=z='min(zoom+0.0012,1.15)':d={zoom_frames}:s={width}x{height}:fps=25"
+            f"{caption_chain}"
+        )
         cmd = [
             "ffmpeg", "-y",
             "-loop", "1", "-i", image_path,
@@ -50,7 +88,7 @@ def build_scene_clip(image_path, audio_path, caption, duration, size, output_pat
             "-c:v", "libx264", "-t", str(duration),
             "-preset", "slow", "-crf", "18",
             "-pix_fmt", "yuv420p",
-            "-vf", f"scale={width}:{height},drawtext=text='{safe_caption}':fontcolor=white:fontsize=40:box=1:boxcolor=black@0.6:x=(w-text_w)/2:y=h-150",
+            "-vf", vf,
             "-c:a", "aac", "-b:a", "192k",
             "-shortest", output_path
         ]
@@ -102,7 +140,7 @@ def build_video(scene_data, size, final_output_path, tmp_dir, narrator_path=None
         clip_path = os.path.join(tmp_dir, f"scene_clip_{i}.mp4")
         print(f"      Compiling scene [{i+1}/{len(scene_data)}]...")
         build_scene_clip(
-            scene["image_path"], scene["audio_path"], scene["caption"],
+            scene["image_path"], scene["audio_path"], scene["words"],
             scene["duration"], size, clip_path, narrator_path=narrator_path
         )
         clip_paths.append(clip_path)
