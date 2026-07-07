@@ -36,6 +36,7 @@ Return ONLY valid JSON, no markdown fences, no commentary, matching this exact s
 
 {
   "title_variants": ["primary catchy title under 100 chars", "alternate hook 2", "alternate hook 3"],
+  "thumbnail_text": "2-4 word ALL CAPS punchy phrase for the thumbnail, e.g. 'THEY LOST HOW MUCH?!' -- must NOT just repeat the title",
   "company": "string",
   "hashtags": ["#tag1", "#tag2", "#tag3", "#tag4", "#tag5", "#tag6"],
   "scenes": [
@@ -107,7 +108,7 @@ def _extract_json(text: str) -> dict:
 
 
 def _validate_script(data: dict) -> dict:
-    required_top = {"title_variants", "company", "hashtags", "scenes"}
+    required_top = {"title_variants", "thumbnail_text", "company", "hashtags", "scenes"}
     if not required_top.issubset(data.keys()):
         print(f"FATAL: script JSON missing required keys. Got: {list(data.keys())}",
               file=sys.stderr)

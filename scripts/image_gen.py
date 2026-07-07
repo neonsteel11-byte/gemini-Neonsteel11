@@ -118,6 +118,84 @@ def generate_narrator(output_path: str, size: tuple = (500, 800)):
     generate_image(prompt, output_path, size)
 
 
+def generate_thumbnail(company: str, hook_text: str, output_path: str, size: tuple = (1280, 720)):
+    """
+    Generates a custom YouTube thumbnail: a close-up, exaggerated-expression
+    cartoon face (shock/excitement -- proven to lift CTR 20-30%) with bold
+    high-contrast text burned on top via Pillow (more reliable than trusting
+    an AI image model to render legible text).
+    """
+    from PIL import ImageDraw, ImageFont
+
+    prompt = (
+        f"extreme close-up cartoon face reacting with shock and excitement about "
+        f"{company} stock news, wide eyes, mouth open, exaggerated expression, "
+        f"flat vector illustration, bold black outlines, bright saturated colors, "
+        f"dramatic lighting, no text, no logos"
+    )
+    generate_image(prompt, output_path, size)
+
+    img = Image.open(output_path).convert("RGB")
+    draw = ImageDraw.Draw(img)
+    width, height = img.size
+
+    font_size = int(height * 0.16)
+    try:
+        font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", font_size)
+    except Exception:
+        font = ImageFont.load_default()
+
+    text = hook_text.upper()[:24]  # keep it short -- 3-4 words performs best
+    # Position in upper-left two-thirds of frame, avoiding bottom-right
+    # duration-badge overlap
+    x, y = int(width * 0.05), int(height * 0.08)
+
+    stroke_width = max(3, font_size // 12)
+    draw.text((x, y), text, font=font, fill="white",
+               stroke_width=stroke_width, stroke_fill="black")
+
+    img.save(output_path, "JPEG", quality=95)
+
+
+def generate_thumbnail(company: str, hook_text: str, output_path: str, size: tuple = (1280, 720)):
+    """
+    Generates a custom YouTube thumbnail: a close-up, exaggerated-expression
+    cartoon face (shock/excitement -- proven to lift CTR 20-30%) with bold
+    high-contrast text burned on top via Pillow (more reliable than trusting
+    an AI image model to render legible text).
+    """
+    from PIL import ImageDraw, ImageFont
+
+    prompt = (
+        f"extreme close-up cartoon face reacting with shock and excitement about "
+        f"{company} stock news, wide eyes, mouth open, exaggerated expression, "
+        f"flat vector illustration, bold black outlines, bright saturated colors, "
+        f"dramatic lighting, no text, no logos"
+    )
+    generate_image(prompt, output_path, size)
+
+    img = Image.open(output_path).convert("RGB")
+    draw = ImageDraw.Draw(img)
+    width, height = img.size
+
+    font_size = int(height * 0.16)
+    try:
+        font = ImageFont.truetype("/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf", font_size)
+    except Exception:
+        font = ImageFont.load_default()
+
+    text = hook_text.upper()[:24]  # keep it short -- 3-4 words performs best
+    # Position in upper-left two-thirds of frame, avoiding bottom-right
+    # duration-badge overlap
+    x, y = int(width * 0.05), int(height * 0.08)
+
+    stroke_width = max(3, font_size // 12)
+    draw.text((x, y), text, font=font, fill="white",
+               stroke_width=stroke_width, stroke_fill="black")
+
+    img.save(output_path, "JPEG", quality=95)
+
+
 if __name__ == "__main__":
     generate_image(
         "a cartoon bull and bear arm wrestling on a trading floor, comic style",
