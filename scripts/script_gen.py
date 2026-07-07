@@ -14,7 +14,10 @@ from google.genai import types
 from config import GEMINI_API_KEY, require_gemini_key
 
 require_gemini_key()
-client = genai.Client(api_key=GEMINI_API_KEY)
+if os.getenv("GOOGLE_GENAI_USE_VERTEXAI", "false").lower() == "true":
+    client = genai.Client(vertexai=True, project=os.getenv("GOOGLE_CLOUD_PROJECT"), location=os.getenv("GOOGLE_CLOUD_LOCATION", "us-central1"))
+else:
+    client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 MODEL_NAME = "gemini-2.5-flash"
 

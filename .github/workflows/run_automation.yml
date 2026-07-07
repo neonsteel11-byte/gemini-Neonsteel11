@@ -40,10 +40,9 @@ jobs:
         YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
         ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
         GEMINI_IMAGE_MODE: "false"
-        # Force the SDK to use the enterprise Vertex AI backend endpoints
         GOOGLE_GENAI_USE_VERTEXAI: "true"
-        # Tell it which Google Cloud project to bill the free-tier requests to
         GOOGLE_CLOUD_PROJECT: "custom-octagon-488610-u3"
+        GOOGLE_CLOUD_LOCATION: "us-central1"
       run: |
         echo "🎬 STEP 1: Producing & Uploading YouTube Short..."
         python main.py "Tesla" --type short --upload --privacy private
