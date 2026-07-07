@@ -4,7 +4,7 @@ import subprocess
 import asyncio
 import edge_tts
 
-EDGE_VOICE = os.getenv("EDGE_VOICE", "en-US-GuyNeural")
+EDGE_VOICE = os.getenv("EDGE_VOICE", "en-US-ChristopherNeural")
 
 def _get_duration(filepath):
     try:
