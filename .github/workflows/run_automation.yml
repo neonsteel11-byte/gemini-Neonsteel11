@@ -33,6 +33,7 @@ jobs:
         ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
         GEMINI_IMAGE_MODE: "false"
       run: |
+        set -e
         echo "🎬 STEP 1: Producing & Uploading YouTube Short..."
         python main.py "Tesla" --type short --upload --privacy private
         echo "🎬 STEP 2: Producing & Uploading Long-Form Video..."
