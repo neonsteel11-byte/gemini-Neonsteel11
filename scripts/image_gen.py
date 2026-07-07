@@ -101,6 +101,23 @@ def generate_image(prompt: str, output_path: str, size: tuple = (1920, 1080)):
         _generate_pollinations(prompt, output_path, size)
 
 
+def generate_narrator(output_path: str, size: tuple = (500, 800)):
+    """
+    Generates one consistent cartoon mascot/host character on a solid green
+    background, for later chroma-keying into a corner overlay in video_builder.
+    Generated ONCE per video (not per scene) so the same character appears
+    throughout, like a recurring host.
+    """
+    prompt = (
+        "a cute friendly cartoon finance narrator mascot character, full body, "
+        "standing pose, mid-explanation hand gesture, big expressive eyes, "
+        "flat vector cartoon illustration, bold black outlines, bright colors, "
+        "SOLID PURE GREEN BACKGROUND color hex 00FF00, no shadows, no gradients, "
+        "no text, no logos, centered in frame"
+    )
+    generate_image(prompt, output_path, size)
+
+
 if __name__ == "__main__":
     generate_image(
         "a cartoon bull and bear arm wrestling on a trading floor, comic style",
