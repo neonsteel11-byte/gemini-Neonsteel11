@@ -75,14 +75,25 @@ def _generate_gemini_image(prompt: str, output_path: str, size: tuple):
     _validate_and_save(image_parts[0].inline_data.data, output_path, size)
 
 
+CARTOON_STYLE_SUFFIX = (
+    ", flat vector cartoon illustration, bold black outlines, bright saturated "
+    "colors, exaggerated expressions, simple shapes, humorous style, no text, no logos"
+)
+
 def generate_image(prompt: str, output_path: str, size: tuple = (1920, 1080)):
     """
     Generates one scene image at output_path, resized to `size`.
+    Every prompt is hard-locked to a cartoon style regardless of what the
+    script-generation model produced -- keeps visuals consistent, addictive,
+    and safely non-photorealistic (lower copyright/likeness risk).
     Exits the whole program on failure -- see module docstring for why.
     """
     if not prompt or not prompt.strip():
         print(f"FATAL: empty image prompt for {output_path}.", file=sys.stderr)
         sys.exit(1)
+
+    if "cartoon" not in prompt.lower():
+        prompt = prompt.strip() + CARTOON_STYLE_SUFFIX
 
     if GEMINI_IMAGE_MODE:
         _generate_gemini_image(prompt, output_path, size)

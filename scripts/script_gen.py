@@ -1,9 +1,7 @@
 """
 Generates a funny-finance script about a company, broken into scenes.
-Each scene = {narration, image_prompt, on_screen_text}.
-
-Default provider: Groq (genuinely free tier, no card, no billing account --
-sidesteps Google's ongoing AQ/AIza key rollout issues entirely).
+Cartoon-locked visual style, safe satire framing, and multiple title/hook
+variants for CTR testing.
 """
 import json
 import re
@@ -17,20 +15,33 @@ require_script_provider()
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 SYSTEM_PROMPT = """You write short, funny, punchy finance content about real companies
-for YouTube. Style: witty, fast-paced, like a smart friend roasting corporate drama,
-NOT financial advice. Avoid defamation -- stick to publicly known facts, earnings,
-stock moves, CEO antics, product flops/wins, and use humor/exaggeration clearly framed
-as commentary, not factual accusation.
+for a cartoon-style YouTube channel. Style: witty, fast-paced, like a smart friend
+roasting corporate drama -- NOT financial advice, NOT factual accusations.
+
+SAFETY RULES (never break these):
+- Never state anything as fact that isn't publicly known/verifiable -- frame jokes as
+  obvious exaggeration/satire, not real claims.
+- Never depict real people's faces or likenesses, real company logos, or any
+  copyrighted characters (no Disney/Pixar/anime/game characters) -- every image_prompt
+  must describe an ORIGINAL cartoon scene/metaphor instead (e.g. a cartoon bull and
+  bear arm-wrestling, a cartoon rocket made of cash taking off, a cartoon office full
+  of confused robots).
+- Every image_prompt must explicitly be styled as: "flat vector cartoon illustration,
+  bold outlines, bright saturated colors, exaggerated expressions, simple shapes,
+  humorous style" -- never photorealistic.
+- Titles must be genuinely catchy and curiosity-driven, but NOT misleading/false --
+  the video must actually deliver what the title promises.
 
 Return ONLY valid JSON, no markdown fences, no commentary, matching this exact schema:
 
 {
-  "title": "string, catchy, under 100 chars",
+  "title_variants": ["primary catchy title under 100 chars", "alternate hook 2", "alternate hook 3"],
   "company": "string",
+  "hashtags": ["#tag1", "#tag2", "#tag3", "#tag4", "#tag5", "#tag6"],
   "scenes": [
     {
-      "narration": "1-3 sentences, what the voiceover says",
-      "image_prompt": "detailed visual description for an AI image generator, no text/logos, safe-for-work, describes a scene/metaphor illustrating the narration",
+      "narration": "1-3 sentences (or 3-5 for long-form), what the voiceover says",
+      "image_prompt": "detailed ORIGINAL cartoon scene description ending in the required style tags above",
       "on_screen_text": "short punchy caption, under 8 words"
     }
   ]
@@ -38,9 +49,10 @@ Return ONLY valid JSON, no markdown fences, no commentary, matching this exact s
 
 Rules:
 - 6-10 scenes for a long-form video, 4-6 scenes for a short.
-- image_prompt must NEVER ask for real company logos, real people's faces, or copyrighted
-  characters -- describe generic/metaphorical business scenes instead.
-- narration should sound natural when read aloud by TTS.
+- narration should sound natural when read aloud by TTS, and hook the viewer in the
+  first scene specifically (open with a surprising/funny question or claim).
+- hashtags should be a realistic mix of broad (#finance #stocks) and specific
+  (#companyname) tags, no banned/spammy tags.
 """
 
 
@@ -95,10 +107,13 @@ def _extract_json(text: str) -> dict:
 
 
 def _validate_script(data: dict) -> dict:
-    required_top = {"title", "company", "scenes"}
+    required_top = {"title_variants", "company", "hashtags", "scenes"}
     if not required_top.issubset(data.keys()):
         print(f"FATAL: script JSON missing required keys. Got: {list(data.keys())}",
               file=sys.stderr)
+        sys.exit(1)
+    if not isinstance(data["title_variants"], list) or len(data["title_variants"]) < 2:
+        print("FATAL: need at least 2 title_variants for CTR testing.", file=sys.stderr)
         sys.exit(1)
     if not data["scenes"] or not isinstance(data["scenes"], list):
         print("FATAL: script JSON has no scenes.", file=sys.stderr)
@@ -112,8 +127,9 @@ def _validate_script(data: dict) -> dict:
 
 
 def generate_script(company: str, video_type: str = "long") -> dict:
-    length_hint = "a full long-form video (12-16 scenes, each with 3-5 sentences of narration, targeting roughly 6-8 minutes of total spoken content)" if video_type == "long" \
-        else "a YouTube Short (4-6 scenes, very punchy and fast)"
+    length_hint = ("a full long-form video (12-16 scenes, each with 3-5 sentences of "
+                    "narration, targeting roughly 6-8 minutes of total spoken content)") \
+        if video_type == "long" else "a YouTube Short (4-6 scenes, very punchy and fast)"
 
     prompt = f"Write {length_hint} about {company}. Funny finance commentary tone."
 

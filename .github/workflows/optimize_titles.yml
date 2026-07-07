@@ -1,0 +1,29 @@
+name: Optimize Underperforming Video Titles
+on:
+  workflow_dispatch:
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - run: python -m pip install --upgrade pip && python -m pip install -r requirements.txt
+    - name: Run optimizer
+      env:
+        YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+        YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+        YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+        MIN_VIEWS_THRESHOLD: "50"
+        OPTIMIZE_AFTER_HOURS: "24"
+      run: python scripts/optimize_titles.py
+    - name: Commit updated manifest
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add video_manifest.json
+        git diff --staged --quiet || git commit -m "Update video manifest after optimization run"
+        git push
