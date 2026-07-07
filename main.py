@@ -45,6 +45,7 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
 
         print(f"      scene {i+1}/{len(script['scenes'])}: generating voiceover...")
         duration = generate_voiceover(scene["narration"], audio_path)
+        print(f"      scene {i+1} audio duration: {duration:.2f}s, narration: '{scene['narration'][:50]}...'")
 
         print(f"      scene {i+1}/{len(script['scenes'])}: generating image...")
         generate_image(scene["image_prompt"], image_path, size)

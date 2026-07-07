@@ -22,6 +22,7 @@ def build_scene_clip(image_path, audio_path, caption, duration, size, output_pat
         "-loop", "1", "-i", image_path,
         "-i", audio_path,
         "-c:v", "libx264", "-t", str(duration),
+        "-preset", "slow", "-crf", "18",
         "-pix_fmt", "yuv420p",
         "-vf", f"scale={width}:{height},drawtext=text='{safe_caption}':fontcolor=white:fontsize=40:box=1:boxcolor=black@0.6:x=(w-text_w)/2:y=h-150",
         "-c:a", "aac", "-b:a", "192k",
@@ -53,6 +54,20 @@ def verify_not_black(video_path: str, max_black_ratio: float = 0.15):
         sys.exit(1)
     print(f"      Black-frame check passed ({ratio*100:.1f}% black, threshold {max_black_ratio*100:.0f}%).")
 
+def verify_has_audio(video_path: str):
+    """
+    Confirms the final video actually has a real, non-trivial audio stream --
+    catches the "looks fine, plays silent" failure mode that black-frame
+    detection alone can't see.
+    """
+    cmd = ["ffprobe", "-v", "error", "-select_streams", "a", "-show_entries",
+           "stream=codec_type,duration", "-of", "default=noprint_wrappers=1", video_path]
+    result = subprocess.run(cmd, capture_output=True, text=True)
+    if "codec_type=audio" not in result.stdout:
+        print(f"FATAL: {video_path} has NO audio stream at all.", file=sys.stderr)
+        sys.exit(1)
+    print(f"      Audio stream present: {result.stdout.strip()}")
+
 def build_video(scene_data, size, final_output_path, tmp_dir):
     """Combines all scene clips into a final master video."""
     print("      Verifying environment core requirements...")
@@ -81,4 +96,5 @@ def build_video(scene_data, size, final_output_path, tmp_dir):
         print(f"Error concatenating master video: {result.stderr}", file=sys.stderr)
         raise RuntimeError("FFmpeg master concatenation failure.")
     verify_not_black(final_output_path)
+    verify_has_audio(final_output_path)
     print(f"✅ Production complete and verified: {final_output_path}")
