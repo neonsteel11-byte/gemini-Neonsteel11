@@ -42,7 +42,9 @@ def main():
     changed = False
 
     for entry in manifest:
-        if entry.get("privacy") != "private" or entry.get("auto_published"):
+        # Treat missing "privacy" key as private too (covers videos uploaded
+        # before this field was added to the manifest schema)
+        if entry.get("privacy", "private") != "private" or entry.get("auto_published"):
             continue
 
         uploaded_at = datetime.fromisoformat(entry["uploaded_at"])
