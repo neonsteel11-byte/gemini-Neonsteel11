@@ -25,7 +25,7 @@ def _get_duration(filepath):
     return 5.0
 
 async def _edge_tts_save_with_timing(text: str, output_path: str, voice: str, rate: str):
-    communicate = edge_tts.Communicate(text, voice, rate=rate)
+    communicate = edge_tts.Communicate(text, voice, rate=rate, boundary="WordBoundary")
     words = []
     with open(output_path, "wb") as f:
         async for chunk in communicate.stream():
@@ -54,5 +54,8 @@ def generate_voiceover(text: str, output_path: str):
         sys.exit(1)
 
     duration = _get_duration(output_path)
+    if not words:
+        print(f"      [WARNING] 0 word timings captured -- karaoke captions will be MISSING "
+              f"for this scene. edge-tts boundary config may have regressed.", file=sys.stderr)
     print(f"      Voice: edge-tts ({EDGE_VOICE}, rate {EDGE_RATE}), {len(words)} word timings captured")
     return duration, words
