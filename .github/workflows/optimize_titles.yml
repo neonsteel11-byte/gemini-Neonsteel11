@@ -19,7 +19,7 @@ jobs:
         YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
         MIN_VIEWS_THRESHOLD: "50"
         OPTIMIZE_AFTER_HOURS: "24"
-      run: python scripts/optimize_titles.py
+      run: python -m scripts.optimize_titles
     - name: Commit updated manifest
       run: |
         git config user.name "github-actions[bot]"

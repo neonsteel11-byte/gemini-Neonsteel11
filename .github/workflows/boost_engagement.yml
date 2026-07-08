@@ -21,7 +21,7 @@ jobs:
         YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
         YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
         BOOST_AFTER_HOURS: "1"
-      run: python scripts/boost_engagement.py
+      run: python -m scripts.boost_engagement
     - name: Commit manifest and playlist state
       run: |
         git config user.name "github-actions[bot]"
