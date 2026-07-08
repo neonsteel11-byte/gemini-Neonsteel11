@@ -77,15 +77,21 @@ def _generate_gemini_image(prompt: str, output_path: str, size: tuple):
 
 CARTOON_STYLE_SUFFIX = (
     ", flat vector cartoon illustration, bold black outlines, bright saturated "
-    "colors, exaggerated expressions, simple shapes, humorous style, no text, no logos"
+    "colors, exaggerated expressions, simple shapes, humorous style"
+)
+# ALWAYS appended, no matter what the LLM already wrote -- this is a safety
+# backstop, not a style choice, so it must never be conditionally skipped.
+SAFETY_SUFFIX = (
+    ", absolutely no readable text or signage of any kind, no logos, no brand "
+    "names, generic fictional unnamed characters only, do NOT depict any real "
+    "person's face or likeness including CEOs or executives"
 )
 
 def generate_image(prompt: str, output_path: str, size: tuple = (1920, 1080)):
     """
     Generates one scene image at output_path, resized to `size`.
-    Every prompt is hard-locked to a cartoon style regardless of what the
-    script-generation model produced -- keeps visuals consistent, addictive,
-    and safely non-photorealistic (lower copyright/likeness risk).
+    Every prompt is hard-locked to a cartoon style and safety constraints
+    regardless of what the script-generation model produced.
     Exits the whole program on failure -- see module docstring for why.
     """
     if not prompt or not prompt.strip():
@@ -94,6 +100,7 @@ def generate_image(prompt: str, output_path: str, size: tuple = (1920, 1080)):
 
     if "cartoon" not in prompt.lower():
         prompt = prompt.strip() + CARTOON_STYLE_SUFFIX
+    prompt = prompt.strip() + SAFETY_SUFFIX
 
     if GEMINI_IMAGE_MODE:
         _generate_gemini_image(prompt, output_path, size)

@@ -75,6 +75,25 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
             "duration": duration,
         })
 
+    print("      Generating subscribe call-to-action scene...")
+    cta_audio_path = os.path.join(tmp_dir, "cta_audio.mp3")
+    cta_image_path = os.path.join(tmp_dir, "cta_image.png")
+    cta_duration, cta_words = generate_voiceover(
+        "If that made you laugh, hit subscribe -- new funny finance videos every day!",
+        cta_audio_path
+    )
+    generate_image(
+        "a cheerful cartoon character giving a thumbs up next to a giant bell icon, "
+        "flat vector cartoon illustration, bold outlines, bright colors",
+        cta_image_path, size
+    )
+    scene_data.append({
+        "image_path": cta_image_path,
+        "audio_path": cta_audio_path,
+        "words": cta_words,
+        "duration": cta_duration,
+    })
+
     print("[3/4] Assembling final video (this checks for black-frame/audio bugs automatically)...")
     final_path = os.path.join(OUTPUT_DIR, f"{safe_name}_{video_type}.mp4")
     build_video(scene_data, size, final_path, tmp_dir, narrator_path=narrator_path)

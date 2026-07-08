@@ -26,6 +26,10 @@ SAFETY RULES (never break these):
   must describe an ORIGINAL cartoon scene/metaphor instead (e.g. a cartoon bull and
   bear arm-wrestling, a cartoon rocket made of cash taking off, a cartoon office full
   of confused robots).
+- This applies EXPLICITLY to CEOs, founders, and executives -- never write an
+  image_prompt describing "the CEO" or any named real individual driving/standing/
+  reacting. Use generic unnamed characters instead (e.g. "a generic cartoon business
+  executive" never "Elon Musk" or "the founder").
 - Every image_prompt must explicitly be styled as: "flat vector cartoon illustration,
   bold outlines, bright saturated colors, exaggerated expressions, simple shapes,
   humorous style" -- never photorealistic.
