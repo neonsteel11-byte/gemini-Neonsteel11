@@ -47,7 +47,11 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
     size = SHORTS_SIZE if video_type == "short" else LONGFORM_SIZE
 
     print(f"[1/4] Generating script for '{company}' ({video_type})...")
-    script = generate_script(company, video_type)
+    from scripts.fetch_news import fetch_recent_headlines
+    print("      Fetching recent real news for grounding...")
+    news_headlines = fetch_recent_headlines(company)
+    print(f"      Found {len(news_headlines)} real headlines to use.")
+    script = generate_script(company, video_type, news_headlines=news_headlines)
     video_seed = random.randint(1, 999999)
     print(f"      Title: {script['title_variants'][0]}")
     print(f"      Visual seed for consistency: {video_seed}")
