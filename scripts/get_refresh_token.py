@@ -11,7 +11,7 @@ and it prints a refresh token. Save that as the YT_REFRESH_TOKEN secret.
 import sys
 from google_auth_oauthlib.flow import InstalledAppFlow
 
-SCOPES = ["https://www.googleapis.com/auth/youtube.upload"]
+SCOPES = ["https://www.googleapis.com/auth/youtube.force-ssl"]
 
 if __name__ == "__main__":
     if len(sys.argv) != 3:

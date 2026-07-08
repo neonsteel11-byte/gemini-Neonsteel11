@@ -1,0 +1,35 @@
+name: Boost Video Engagement
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 */6 * * *'
+jobs:
+  boost:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - run: python -m pip install --upgrade pip && python -m pip install -r requirements.txt
+    - name: Run engagement boost
+      env:
+        GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+        YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+        YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+        YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+        BOOST_AFTER_HOURS: "1"
+      run: python scripts/boost_engagement.py
+    - name: Commit manifest and playlist state
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add video_manifest.json playlist_state.json
+        git diff --staged --quiet || git commit -m "Update engagement boost state"
+        for i in 1 2 3 4 5; do
+          git pull --rebase origin main && git push && break
+          echo "Push rejected, retrying ($i/5)..."
+          sleep 5
+        done
