@@ -18,7 +18,9 @@
       "#EVlife"
     ],
     "variant_index": 0,
-    "optimized": false
+    "optimized": false,
+    "auto_published": true,
+    "privacy": "public"
   },
   {
     "video_id": "TSVf2SM1lh0",
@@ -39,7 +41,9 @@
       "#SpaceX"
     ],
     "variant_index": 0,
-    "optimized": false
+    "optimized": false,
+    "auto_published": true,
+    "privacy": "public"
   },
   {
     "video_id": "IXMbOfVO2rY",
@@ -61,8 +65,8 @@
     ],
     "variant_index": 0,
     "optimized": false,
-    "privacy": "private",
-    "auto_published": false
+    "privacy": "public",
+    "auto_published": true
   },
   {
     "video_id": "ci-5qklrm4k",
@@ -84,7 +88,7 @@
     ],
     "variant_index": 0,
     "optimized": false,
-    "privacy": "private",
-    "auto_published": false
+    "privacy": "public",
+    "auto_published": true
   }
 ]
