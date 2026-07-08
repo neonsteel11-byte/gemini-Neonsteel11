@@ -15,7 +15,7 @@ from PIL import Image
 from urllib.parse import quote
 from config import GEMINI_IMAGE_MODE, GEMINI_API_KEY
 
-POLLINATIONS_URL = "https://image.pollinations.ai/prompt/{prompt}?width={w}&height={h}&nologo=true&model=flux&enhance=true"
+POLLINATIONS_URL = "https://image.pollinations.ai/prompt/{prompt}?width={w}&height={h}&nologo=true&model=flux&enhance=true&seed={seed}"
 
 
 def _validate_and_save(img_bytes: bytes, output_path: str, size: tuple):
@@ -37,9 +37,9 @@ def _validate_and_save(img_bytes: bytes, output_path: str, size: tuple):
     img.save(output_path, "PNG")
 
 
-def _generate_pollinations(prompt: str, output_path: str, size: tuple, retries: int = 3):
+def _generate_pollinations(prompt: str, output_path: str, size: tuple, retries: int = 3, seed: int = 42):
     w, h = size
-    url = POLLINATIONS_URL.format(prompt=quote(prompt), w=w, h=h)
+    url = POLLINATIONS_URL.format(prompt=quote(prompt), w=w, h=h, seed=seed)
 
     last_error = None
     for attempt in range(1, retries + 1):
@@ -87,7 +87,7 @@ SAFETY_SUFFIX = (
     "person's face or likeness including CEOs or executives"
 )
 
-def generate_image(prompt: str, output_path: str, size: tuple = (1920, 1080)):
+def generate_image(prompt: str, output_path: str, size: tuple = (1920, 1080), seed: int = 42):
     """
     Generates one scene image at output_path, resized to `size`.
     Every prompt is hard-locked to a cartoon style and safety constraints
@@ -105,7 +105,7 @@ def generate_image(prompt: str, output_path: str, size: tuple = (1920, 1080)):
     if GEMINI_IMAGE_MODE:
         _generate_gemini_image(prompt, output_path, size)
     else:
-        _generate_pollinations(prompt, output_path, size)
+        _generate_pollinations(prompt, output_path, size, seed=seed)
 
 
 def generate_narrator(output_path: str, size: tuple = (500, 800)):

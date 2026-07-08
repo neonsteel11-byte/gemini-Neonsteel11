@@ -6,6 +6,7 @@ performance-based title/description optimization.
 import argparse
 import json
 import os
+import random
 import shutil
 import sys
 from datetime import datetime, timezone
@@ -47,7 +48,9 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
 
     print(f"[1/4] Generating script for '{company}' ({video_type})...")
     script = generate_script(company, video_type)
+    video_seed = random.randint(1, 999999)
     print(f"      Title: {script['title_variants'][0]}")
+    print(f"      Visual seed for consistency: {video_seed}")
     print(f"      Scenes: {len(script['scenes'])}")
 
     print("[2/4] Generating voiceover + images per scene...")
@@ -66,7 +69,7 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
         print(f"      scene {i+1} audio duration: {duration:.2f}s")
 
         print(f"      scene {i+1}/{len(script['scenes'])}: generating image...")
-        generate_image(scene["image_prompt"], image_path, size)
+        generate_image(scene["image_prompt"], image_path, size, seed=video_seed)
 
         scene_data.append({
             "image_path": image_path,

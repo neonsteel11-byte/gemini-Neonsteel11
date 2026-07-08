@@ -36,9 +36,16 @@ SAFETY RULES (never break these):
 - Titles must be genuinely catchy and curiosity-driven, but NOT misleading/false --
   the video must actually deliver what the title promises.
 
+First, invent ONE recurring cartoon protagonist character with a specific, detailed
+visual description (hair, clothing, colors, build) -- this EXACT description string
+must be repeated verbatim inside every single scene's image_prompt, so the same
+character appears consistently throughout the whole video instead of a different
+random-looking character every scene. This consistency is critical.
+
 Return ONLY valid JSON, no markdown fences, no commentary, matching this exact schema:
 
 {
+  "character_sheet": "detailed fixed description of the one recurring protagonist, e.g. 'a young cartoon trader with messy brown hair, round glasses, yellow hoodie, blue jeans'",
   "title_variants": ["primary catchy title under 100 chars", "alternate hook 2", "alternate hook 3"],
   "thumbnail_text": "2-4 word ALL CAPS punchy phrase for the thumbnail, e.g. 'THEY LOST HOW MUCH?!' -- must NOT just repeat the title",
   "company": "string",
@@ -46,7 +53,7 @@ Return ONLY valid JSON, no markdown fences, no commentary, matching this exact s
   "scenes": [
     {
       "narration": "1-3 sentences (or 3-5 for long-form), what the voiceover says",
-      "image_prompt": "detailed ORIGINAL cartoon scene description ending in the required style tags above",
+      "image_prompt": "MUST start by including the exact character_sheet description verbatim, then describe what that same character is doing in this scene",
       "on_screen_text": "short punchy caption, under 8 words"
     }
   ]
@@ -112,7 +119,7 @@ def _extract_json(text: str) -> dict:
 
 
 def _validate_script(data: dict) -> dict:
-    required_top = {"title_variants", "thumbnail_text", "company", "hashtags", "scenes"}
+    required_top = {"character_sheet", "title_variants", "thumbnail_text", "company", "hashtags", "scenes"}
     if not required_top.issubset(data.keys()):
         print(f"FATAL: script JSON missing required keys. Got: {list(data.keys())}",
               file=sys.stderr)
