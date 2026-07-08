@@ -106,6 +106,8 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
             "hashtags": script.get("hashtags", []),
             "variant_index": 0,
             "optimized": False,
+            "privacy": privacy,
+            "auto_published": False,
         })
         _save_manifest(manifest)
         print(f"      Logged to {MANIFEST_PATH} for performance tracking.")
