@@ -40,5 +40,51 @@
     ],
     "variant_index": 0,
     "optimized": false
+  },
+  {
+    "video_id": "IXMbOfVO2rY",
+    "company": "Tesla",
+    "video_type": "short",
+    "uploaded_at": "2026-07-08T05:52:27.984325+00:00",
+    "title_variants": [
+      "Tesla's Wild Ride",
+      "Electric Dreams and Nightmares",
+      "Tesla: Genius or Madness?"
+    ],
+    "hashtags": [
+      "#Tesla",
+      "#ElectricVibes",
+      "#StocksToWatch",
+      "#ElonMusk",
+      "#FinanceFrenzy",
+      "#AutoIndustry"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false
+  },
+  {
+    "video_id": "ci-5qklrm4k",
+    "company": "Tesla",
+    "video_type": "long",
+    "uploaded_at": "2026-07-08T06:07:18.771278+00:00",
+    "title_variants": [
+      "Tesla: Electric Dreams",
+      "The Elon Musk Show",
+      "Tesla: Burning Cash?"
+    ],
+    "hashtags": [
+      "#Tesla",
+      "#ElonMusk",
+      "#ElectricVibes",
+      "#FinanceFrenzy",
+      "#StocksToWatch",
+      "#SustainableEnergy"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false
   }
 ]
