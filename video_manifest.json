@@ -115,8 +115,8 @@
     ],
     "variant_index": 0,
     "optimized": false,
-    "privacy": "private",
-    "auto_published": false,
+    "privacy": "public",
+    "auto_published": true,
     "engagement_boosted": true
   },
   {
@@ -139,8 +139,8 @@
     ],
     "variant_index": 0,
     "optimized": false,
-    "privacy": "private",
-    "auto_published": false,
+    "privacy": "public",
+    "auto_published": true,
     "engagement_boosted": true
   }
 ]
