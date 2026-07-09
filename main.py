@@ -58,11 +58,6 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
     print(f"      Scenes: {len(script['scenes'])}")
 
     print("[2/4] Generating voiceover + images per scene...")
-    narrator_path = os.path.join(tmp_dir, "narrator.png")
-    from scripts.image_gen import generate_narrator
-    print("      Generating recurring narrator character...")
-    generate_narrator(narrator_path)
-
     scene_data = []
     for i, scene in enumerate(script["scenes"]):
         audio_path = os.path.join(tmp_dir, f"audio_{i}.mp3")
@@ -103,7 +98,7 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
 
     print("[3/4] Assembling final video (this checks for black-frame/audio bugs automatically)...")
     final_path = os.path.join(OUTPUT_DIR, f"{safe_name}_{video_type}.mp4")
-    build_video(scene_data, size, final_path, tmp_dir, narrator_path=narrator_path)
+    build_video(scene_data, size, final_path, tmp_dir)
 
     print(f"[4/4] Done. Final video: {final_path}")
 
