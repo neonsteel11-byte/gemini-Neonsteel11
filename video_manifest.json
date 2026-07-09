@@ -94,5 +94,51 @@
     "privacy": "public",
     "auto_published": true,
     "engagement_boosted": true
+  },
+  {
+    "video_id": "BYLXp6rDnMg",
+    "company": "Tesla",
+    "video_type": "short",
+    "uploaded_at": "2026-07-09T00:19:25.467012+00:00",
+    "title_variants": [
+      "Tesla's Cybercab Hits Austin",
+      "Robot Taxis Take Over",
+      "Tesla's Driverless Dreams"
+    ],
+    "hashtags": [
+      "#Tesla",
+      "#Cybercab",
+      "#Robotaxis",
+      "#AutonomousVehicles",
+      "#ElectricCars",
+      "#Innovation"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false
+  },
+  {
+    "video_id": "yXYgTEwL8s4",
+    "company": "Tesla",
+    "video_type": "long",
+    "uploaded_at": "2026-07-09T00:35:14.240905+00:00",
+    "title_variants": [
+      "Tesla's Wild Ride",
+      "Cybercab On The Loose",
+      "Robotaxi Revolution"
+    ],
+    "hashtags": [
+      "#TeslaNation",
+      "#ElectricVibes",
+      "#RobotaxiRevolution",
+      "#Cybercab",
+      "#SustainableFuture",
+      "#AutonomousVehicles"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false
   }
 ]
