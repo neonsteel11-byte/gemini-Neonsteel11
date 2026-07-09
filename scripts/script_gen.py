@@ -1,7 +1,8 @@
 """
-Generates a funny-finance script about a company, broken into scenes.
-Cartoon-locked visual style, real-news-grounded content, actual joke
-structure (not vague filler), and multiple title/hook variants for CTR.
+Generates a second-person POV, introspective financial-psychology narrative
+script, matching the high-retention "animated documentary" style used by
+successful faceless finance channels (moody, specific, emotionally grounded --
+not comedic roast content).
 """
 import json
 import re
@@ -14,62 +15,57 @@ require_script_provider()
 
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 
-SYSTEM_PROMPT = """You write funny, SPECIFIC finance commentary about real companies
-for a cartoon YouTube channel. This is NOT financial advice, and jokes must be framed
-as obvious satire/exaggeration, not factual claims.
+SYSTEM_PROMPT = """You are a master YouTube scriptwriter specializing in high-retention
+financial psychology and faceless narrative essays -- introspective, second-person
+"POV" storytelling about money, identity, and lifestyle change. NOT financial advice.
 
-CRITICAL QUALITY RULES -- generic, vague content is a FAILURE:
-- Every scene must reference a SPECIFIC real fact, number, event, or recent headline
-  provided to you -- never write vague filler like "wild ride" or "big changes" with
-  no substance. If no real news is provided, invent ONE specific plausible-sounding
-  concrete detail (a number, a quote-style line, a specific event) rather than staying
-  vague -- specificity is what makes it funny AND informative.
-- Every joke needs an actual SETUP and PUNCHLINE structure -- state a fact, then twist
-  it with an unexpected comparison, exaggeration, or reaction. Never just narrate facts
-  flatly with no comedic turn.
-- Open scene 1 with a genuinely surprising hook -- a real number, a shocking comparison,
-  or a direct question that creates curiosity. Never open generically.
-- The viewer should walk away knowing at least one real, specific thing about the
-  company that they didn't know before, PLUS having laughed at least twice.
+NARRATIVE & STYLE RULES:
+- Write exclusively in second-person ("You") / POV perspective. The viewer must feel
+  like they are actively living the story.
+- Tone: introspective, calm, moody, deeply psychological -- like an honest inner
+  monologue or journal entry. NEVER hyped, corporate, or preachy.
+- Hyper-specific realism: avoid vague phrases. Use exact, un-rounded numbers
+  ("$2,143,000" not "two million dollars"), specific mundane details ("waking up at
+  6:12 a.m. on a Tuesday", "a coffee stain on your shirt", "a spreadsheet named
+  freedom_number_v14.xlsx"). Specificity is what makes it feel real and grip attention.
+- Emotional core: go past the surface of money -- focus on identity loss, changing
+  relationships with friends/family, scarcity anxiety, quiet moments of reflection.
+- If real news/facts about the company are provided, weave in real specific figures
+  from them (numbers, dates, events) to ground the story in reality.
 
-SAFETY RULES (never break these):
-- Never state anything as fact that isn't grounded in the provided real news OR clearly
-  framed as satire/exaggeration.
-- Never depict real people's faces or likenesses, real company logos, or any
-  copyrighted characters. This applies EXPLICITLY to CEOs/founders/executives -- use
-  a generic unnamed cartoon character instead, never a named real individual.
-- Every image_prompt must be styled as flat vector cartoon illustration, bold outlines,
-  bright colors, no text/logos.
-- NEVER describe a sign, banner, billboard, screen, phone display, newspaper, or any
-  object that would contain readable text -- image models render these as garbled
-  gibberish. Describe actions, expressions, and objects WITHOUT text instead (e.g.
-  "a character staring at a glowing phone" NOT "a phone showing a stock chart with
-  numbers"; "a worried character near a factory" NOT "a factory with a banner sign").
+VISUAL RULES (image prompts):
+- Clean, moody, cartoon/vector-style illustrations with lighting that mirrors the
+  scene's emotional weight (e.g. "a man alone in a dark office, face lit only by a
+  laptop screen showing a downward chart").
+- NEVER describe real copyrighted logos, real people's faces/likenesses (including
+  named CEOs/executives -- use a generic unnamed character), or any sign/banner/
+  screen/newspaper with readable text -- image models render text as garbled
+  gibberish, so describe the emotional/visual content WITHOUT text-bearing objects.
 
-First, invent ONE recurring cartoon protagonist with a specific, detailed visual
-description -- this EXACT description must be repeated verbatim inside every scene's
-image_prompt, so the same character appears consistently throughout the video.
+Invent ONE recurring visual protagonist (the "you" of the story) with a fixed detailed
+description -- repeat it verbatim in every scene's image_prompt for visual consistency.
 
 Return ONLY valid JSON, no markdown fences, no commentary, matching this exact schema:
 
 {
-  "character_sheet": "detailed fixed description of the one recurring protagonist",
-  "title_variants": ["primary catchy SPECIFIC title under 100 chars referencing a real detail", "alternate hook 2", "alternate hook 3"],
-  "thumbnail_text": "2-4 word ALL CAPS punchy phrase, specific not generic",
+  "character_sheet": "detailed fixed description of the recurring protagonist character",
+  "title_variants": ["primary POV-style title under 100 chars, e.g. 'POV: You Just Quit With $2M Saved'", "alternate hook 2", "alternate hook 3"],
+  "thumbnail_text": "2-4 word ALL CAPS punchy phrase",
   "company": "string",
   "hashtags": ["#tag1", "#tag2", "#tag3", "#tag4", "#tag5", "#tag6"],
   "scenes": [
     {
-      "narration": "1-3 sentences (3-5 for long-form) with a real specific detail + a setup/punchline joke",
-      "image_prompt": "starts with the exact character_sheet description, then what that character is doing in this specific scene",
+      "narration": "1-3 sentences (3-5 for long-form), natural spoken-delivery, short sentences, conversational rhythm, second-person POV, hyper-specific details",
+      "image_prompt": "starts with the exact character_sheet description, then a moody visual metaphor for this scene's emotional beat, no text-bearing objects",
       "on_screen_text": "short punchy caption, under 8 words"
     }
   ]
 }
 
 Rules:
-- 6-10 scenes for a long-form video, 4-6 scenes for a short.
-- narration should sound natural read aloud, fast-paced, punchy sentences.
+- 6-10 scenes for long-form, 4-6 for a Short.
+- Open scene 1 with a strong "POV:" or "You just..." hook that creates immediate
+  curiosity about a specific financial/life situation involving the company.
 """
 
 
@@ -144,24 +140,30 @@ def _validate_script(data: dict) -> dict:
 
 
 def generate_script(company: str, video_type: str = "long", news_headlines: list = None) -> dict:
-    length_hint = ("a full long-form video (12-16 scenes, each with 3-5 sentences of "
-                    "narration, targeting roughly 6-8 minutes of total spoken content)") \
-        if video_type == "long" else "a YouTube Short (4-6 scenes, very punchy and fast)"
+    length_hint = ("a full long-form video (10-14 scenes, each with 3-5 sentences of "
+                    "narration, targeting roughly 10-14 minutes of total spoken content, "
+                    "documentary-style pacing)") \
+        if video_type == "long" else "a YouTube Short (4-6 scenes, punchy, fast POV hook)"
 
     news_block = ""
     if news_headlines:
         joined = "\n".join(f"- {h}" for h in news_headlines)
         news_block = (
-            f"\n\nHere are REAL recent headlines about {company} -- base your specific "
-            f"facts and jokes on these:\n{joined}\n"
+            f"\n\nHere are REAL recent headlines about {company} -- weave specific real "
+            f"facts/numbers from these into the story:\n{joined}\n"
         )
     else:
         news_block = (
             f"\n\nNo real news was available -- invent ONE specific plausible-sounding "
-            f"concrete detail about {company} rather than staying vague.\n"
+            f"concrete financial detail about {company} rather than staying vague.\n"
         )
 
-    prompt = f"Write {length_hint} about {company}. Funny finance commentary tone.{news_block}"
+    prompt = (
+        f"Write {length_hint}. Topic: a second-person POV story about someone whose "
+        f"financial life intersects with {company} -- e.g. an employee, an investor, "
+        f"someone affected by the company's news. Introspective, psychological, "
+        f"hyper-specific tone.{news_block}"
+    )
 
     raw_text = _call_with_retry(prompt)
 

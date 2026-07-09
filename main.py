@@ -112,8 +112,8 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
         hashtags = " ".join(script.get("hashtags", []))
         description = (
             f"{script['title_variants'][0]}\n\n"
-            f"Funny finance commentary on {company}. Satire, not financial advice.\n\n"
-            f"{hashtags}"
+            f"A personal finance story about {company}. For entertainment/reflection, "
+            f"not financial advice.\n\n{hashtags}"
         )
         video_id = upload_video(
             final_path, script["title_variants"][0], description,
