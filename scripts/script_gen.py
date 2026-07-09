@@ -40,6 +40,11 @@ SAFETY RULES (never break these):
   a generic unnamed cartoon character instead, never a named real individual.
 - Every image_prompt must be styled as flat vector cartoon illustration, bold outlines,
   bright colors, no text/logos.
+- NEVER describe a sign, banner, billboard, screen, phone display, newspaper, or any
+  object that would contain readable text -- image models render these as garbled
+  gibberish. Describe actions, expressions, and objects WITHOUT text instead (e.g.
+  "a character staring at a glowing phone" NOT "a phone showing a stock chart with
+  numbers"; "a worried character near a factory" NOT "a factory with a banner sign").
 
 First, invent ONE recurring cartoon protagonist with a specific, detailed visual
 description -- this EXACT description must be repeated verbatim inside every scene's
