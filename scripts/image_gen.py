@@ -37,22 +37,24 @@ def _validate_and_save(img_bytes: bytes, output_path: str, size: tuple):
     img.save(output_path, "PNG")
 
 
-def _generate_pollinations(prompt: str, output_path: str, size: tuple, retries: int = 3, seed: int = 42):
+def _generate_pollinations(prompt: str, output_path: str, size: tuple, retries: int = 5, seed: int = 42):
     w, h = size
     url = POLLINATIONS_URL.format(prompt=quote(prompt), w=w, h=h, seed=seed)
 
     last_error = None
+    delay = 3
     for attempt in range(1, retries + 1):
         try:
-            resp = requests.get(url, timeout=60)
+            resp = requests.get(url, timeout=90)
             if resp.status_code == 200 and resp.content:
                 _validate_and_save(resp.content, output_path, size)
                 return
             last_error = f"HTTP {resp.status_code}"
         except Exception as e:
             last_error = str(e)
-        print(f"  retry {attempt}/{retries} for image ({last_error})...", file=sys.stderr)
-        time.sleep(2)
+        print(f"  retry {attempt}/{retries} for image ({last_error}), waiting {delay}s...", file=sys.stderr)
+        time.sleep(delay)
+        delay = min(delay * 2, 30)
 
     print(f"FATAL: image generation failed after {retries} retries for "
           f"'{prompt[:60]}...': {last_error}", file=sys.stderr)

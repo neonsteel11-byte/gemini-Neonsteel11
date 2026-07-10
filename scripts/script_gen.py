@@ -27,6 +27,14 @@ NARRATIVE & STYLE RULES:
   smart friend narrating your own financial disaster back to you. Every scene needs an
   actual joke: a setup, then an unexpected twist/comparison/exaggeration as the
   punchline. Never flat narration with no comedic turn.
+
+EXAMPLE JOKES (match this exact energy and structure, do not copy content):
+- "You check your portfolio at 2am. Not because you need to. Because pain is a personality trait now."
+- "Your friend says 'diamond hands.' Your hands are shaking so hard they're basically maracas."
+- "The stock is down 12%. Your therapist is up 12%. Coincidence? Absolutely not."
+- "You bought the dip. Then it dipped again. You have discovered a new geological formation: the trench."
+Study the rhythm above -- specific, self-deprecating, an unexpected comparison as the
+punchline. Every joke in the script must hit at this level or better.
 - Hyper-specific realism: avoid vague phrases. Use exact, un-rounded numbers
   ("$2,143,000" not "two million dollars"), specific mundane details ("waking up at
   6:12 a.m. on a Tuesday", "a coffee stain on your shirt", "a spreadsheet named
