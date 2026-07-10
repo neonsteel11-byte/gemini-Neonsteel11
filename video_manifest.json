@@ -142,5 +142,50 @@
     "privacy": "public",
     "auto_published": true,
     "engagement_boosted": true
+  },
+  {
+    "video_id": "g8ZAu3XJAoA",
+    "company": "Apple",
+    "video_type": "short",
+    "uploaded_at": "2026-07-10T08:18:04.535401+00:00",
+    "title_variants": [
+      "POV: You Invested in AI",
+      "You Just Got GLM 5.2 Running",
+      "Apple's AI Boom"
+    ],
+    "hashtags": [
+      "#AIInvesting",
+      "#AppleNews",
+      "#GenerativeAI",
+      "#ComputerVision",
+      "#TechStocks"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false
+  },
+  {
+    "video_id": "nUQcvYjirO8",
+    "company": "Apple",
+    "video_type": "long",
+    "uploaded_at": "2026-07-10T08:31:51.117606+00:00",
+    "title_variants": [
+      "POV: You Invested in Apple",
+      "The Dark Side of Apple Stocks",
+      "Your Apple Addiction"
+    ],
+    "hashtags": [
+      "#AppleStock",
+      "#GenerativeAI",
+      "#FinancialAnxiety",
+      "#TechInvesting",
+      "#ComputerVision",
+      "#AIAdoption"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false
   }
 ]
