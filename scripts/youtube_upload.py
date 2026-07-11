@@ -45,7 +45,11 @@ def upload_video(video_path: str, title: str, description: str, tags: list, is_s
             "tags": tags,
             "categoryId": "25",
         },
-        "status": {"privacyStatus": privacy_status}
+        "status": {
+            "privacyStatus": privacy_status,
+            "selfDeclaredMadeForKids": False,
+            "containsSyntheticMedia": True,
+        }
     }
     media = MediaFileUpload(video_path, chunksize=-1, resumable=True, mimetype="video/mp4")
     request = youtube.videos().insert(part="snippet,status", body=body, media_body=media)
