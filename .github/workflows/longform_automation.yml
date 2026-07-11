@@ -1,8 +1,9 @@
-name: Shorts Automation
+name: Long-Form Automation
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 16 * * *'
+    - cron: '0 18 * * 1-6'
+    - cron: '0 13 * * 0'
 jobs:
   build-and-run:
     runs-on: ubuntu-latest
@@ -21,7 +22,7 @@ jobs:
         COMPANY=$(python scripts/pick_company.py)
         echo "company=$COMPANY" >> "$GITHUB_OUTPUT"
         echo "Selected: $COMPANY"
-    - name: Produce and upload Short
+    - name: Produce and upload Long-form
       env:
         GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
@@ -33,14 +34,14 @@ jobs:
         COMPANY: ${{ steps.pick_company.outputs.company }}
       run: |
         set -e
-        echo "Producing Short: $COMPANY"
-        python main.py "$COMPANY" --type short --upload --privacy private
+        echo "Producing Long-form: $COMPANY"
+        python main.py "$COMPANY" --type long --upload --privacy private
     - name: Commit rotation state
       run: |
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
         git add video_manifest.json company_state.json angle_state.json 2>/dev/null || git add video_manifest.json
-        git diff --staged --quiet || git commit -m "Log Short upload"
+        git diff --staged --quiet || git commit -m "Log Long-form upload"
         for i in 1 2 3 4 5; do
           git pull --rebase origin main && git push && break
           sleep 5
