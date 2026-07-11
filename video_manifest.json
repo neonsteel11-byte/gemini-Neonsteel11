@@ -211,7 +211,8 @@
     "variant_index": 0,
     "optimized": false,
     "privacy": "private",
-    "auto_published": false
+    "auto_published": false,
+    "engagement_boosted": true
   },
   {
     "video_id": "IHmSRnxmiJs",
@@ -234,6 +235,7 @@
     "variant_index": 0,
     "optimized": false,
     "privacy": "private",
-    "auto_published": false
+    "auto_published": false,
+    "engagement_boosted": true
   }
 ]
