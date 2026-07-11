@@ -1,7 +1,8 @@
 """
-Picks the next company for today's videos, rotating through companies.json
-so coverage spans big-cap to small-cap without repeats until the full list
-has cycled through.
+Picks today's company (or company pair for comparison format), rotating
+through companies.json. Alternates: even runs = single company (POV format),
+odd runs = two companies (guess-the-difference comparison format) --
+this is the actual A/B test between formats.
 """
 import json
 import os
@@ -30,13 +31,19 @@ def main():
             last_index = state.get("last_index", -1)
 
     next_index = (last_index + 1) % len(companies)
-    company = companies[next_index]
+
+    if next_index % 2 == 1:
+        # Odd run -> comparison format: pair this company with the next one
+        pair_index = (next_index + 1) % len(companies)
+        output = f"{companies[next_index]}|{companies[pair_index]}"
+    else:
+        # Even run -> single company POV format
+        output = companies[next_index]
 
     with open(STATE_PATH, "w", encoding="utf-8") as f:
         json.dump({"last_index": next_index}, f)
 
-    # Print ONLY the company name -- this is captured by the workflow
-    print(company)
+    print(output)
 
 
 if __name__ == "__main__":
