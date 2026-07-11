@@ -2,7 +2,7 @@ name: Daily Finance Video Automation
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 23 * * *'
+    - cron: '0 18 * * *'
 jobs:
   build-and-run:
     runs-on: ubuntu-latest
