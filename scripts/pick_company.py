@@ -1,24 +1,23 @@
 """
-Picks today's company (or company pair for comparison format), rotating
-through companies.json. Alternates: even runs = single company (POV format),
-odd runs = two companies (guess-the-difference comparison format) --
-this is the actual A/B test between formats.
+Picks today's content: rotates through THREE formats to A/B test which
+performs best -- single-company POV, vs-comparison, and invention-history.
 """
 import json
 import os
 import sys
 
 COMPANIES_PATH = "companies.json"
+INVENTIONS_PATH = "inventions.json"
 STATE_PATH = "company_state.json"
 
 
 def main():
-    if not os.path.exists(COMPANIES_PATH):
-        print("FATAL: companies.json not found.", file=sys.stderr)
-        sys.exit(1)
-
     with open(COMPANIES_PATH, "r", encoding="utf-8") as f:
         companies = json.load(f)
+    inventions = []
+    if os.path.exists(INVENTIONS_PATH):
+        with open(INVENTIONS_PATH, "r", encoding="utf-8") as f:
+            inventions = json.load(f)
 
     if not companies:
         print("FATAL: companies.json is empty.", file=sys.stderr)
@@ -30,15 +29,27 @@ def main():
             state = json.load(f)
             last_index = state.get("last_index", -1)
 
-    next_index = (last_index + 1) % len(companies)
+    next_index = last_index + 1
+    mod3 = next_index % 3
 
-    if next_index % 2 == 1:
-        # Odd run -> comparison format: pair this company with the next one
-        pair_index = (next_index + 1) % len(companies)
-        output = f"{companies[next_index]}|{companies[pair_index]}"
+    if mod3 == 0:
+        # Single-company POV format
+        c_idx = (next_index // 3) % len(companies)
+        output = companies[c_idx]
+    elif mod3 == 1:
+        # Vs-comparison format
+        c_idx = (next_index // 3) % len(companies)
+        pair_idx = (c_idx + 1) % len(companies)
+        output = f"{companies[c_idx]}|{companies[pair_idx]}"
     else:
-        # Even run -> single company POV format
-        output = companies[next_index]
+        # Invention-history format
+        if inventions:
+            i_idx = (next_index // 3) % len(inventions)
+            item = inventions[i_idx]
+            output = f"INVENTION:{item['invention']}:{item['inventor']}"
+        else:
+            c_idx = (next_index // 3) % len(companies)
+            output = companies[c_idx]
 
     with open(STATE_PATH, "w", encoding="utf-8") as f:
         json.dump({"last_index": next_index}, f)

@@ -48,7 +48,9 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
 
     print(f"[1/4] Generating script for '{company}' ({video_type})...")
     from scripts.fetch_news import fetch_recent_headlines
+    content_format = "single_company"
     if company.startswith("INVENTION:"):
+        content_format = "invention_history"
         _, invention, inventor = company.split(":", 2)
         print(f"      Invention mode: {invention} by {inventor}")
         from scripts.script_gen import generate_invention_script
@@ -61,6 +63,7 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
         script["_inventor_image_url"] = inventor_info["image_url"]
         company = invention
     elif "|" in company:
+        content_format = "comparison"
         company_a, company_b = [c.strip() for c in company.split("|", 1)]
         print(f"      Comparison mode: {company_a} vs {company_b}")
         from scripts.script_gen import generate_comparison_script
@@ -161,6 +164,7 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
             "optimized": False,
             "privacy": privacy,
             "auto_published": False,
+            "content_format": content_format,
         })
         _save_manifest(manifest)
         print(f"      Logged to {MANIFEST_PATH} for performance tracking.")
