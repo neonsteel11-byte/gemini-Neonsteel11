@@ -48,10 +48,19 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
 
     print(f"[1/4] Generating script for '{company}' ({video_type})...")
     from scripts.fetch_news import fetch_recent_headlines
-    print("      Fetching recent real news for grounding...")
-    news_headlines = fetch_recent_headlines(company)
-    print(f"      Found {len(news_headlines)} real headlines to use.")
-    script = generate_script(company, video_type, news_headlines=news_headlines)
+    if "|" in company:
+        company_a, company_b = [c.strip() for c in company.split("|", 1)]
+        print(f"      Comparison mode: {company_a} vs {company_b}")
+        from scripts.script_gen import generate_comparison_script
+        news_a = fetch_recent_headlines(company_a)
+        news_b = fetch_recent_headlines(company_b)
+        script = generate_comparison_script(company_a, company_b, video_type, news_a, news_b)
+        company = f"{company_a} vs {company_b}"
+    else:
+        print("      Fetching recent real news for grounding...")
+        news_headlines = fetch_recent_headlines(company)
+        print(f"      Found {len(news_headlines)} real headlines to use.")
+        script = generate_script(company, video_type, news_headlines=news_headlines)
     video_seed = random.randint(1, 999999)
     print(f"      Title: {script['title_variants'][0]}")
     print(f"      Visual seed for consistency: {video_seed}")

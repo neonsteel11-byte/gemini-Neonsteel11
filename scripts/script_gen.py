@@ -190,6 +190,74 @@ def generate_script(company: str, video_type: str = "long", news_headlines: list
     return _validate_script(data)
 
 
+COMPARISON_SYSTEM_PROMPT = """You write "GUESS WHICH ONE" comparison finance content --
+a proven high-engagement format built around curiosity and audience guessing.
+
+FORMAT RULES:
+- Present two companies side by side without revealing the answer immediately.
+- Scene 1-2: set up a specific, concrete comparison (e.g. "$1,000 invested in each of
+  these two companies in 2020 -- one of them is worth way more today. Which one?").
+  Use REAL numbers if news/facts are provided.
+- Middle scenes: give 2-3 real, specific, teasing clues about each company (facts,
+  recent news, without naming which is which yet) to keep viewers guessing.
+- Final scene: dramatic reveal with the real answer and real numbers, plus a punchy
+  reaction/joke.
+- Explicitly prompt viewers to comment their guess before the reveal (e.g. "Comment
+  which one you think it is before scene 4").
+- Tone: FUNNY, second-person energy, genuine curiosity-driving suspense.
+
+VISUAL RULES: same as standard -- clean flat vector cartoon, bold outlines, bright
+colors, no text-bearing objects (no signs/screens/banners), no real people's faces,
+no real logos. Invent one consistent visual style, reused character descriptions
+across scenes.
+
+Return ONLY valid JSON, same schema as before:
+{
+  "character_sheet": "...",
+  "title_variants": ["GUESS WHICH ONE style title", "alt 2", "alt 3"],
+  "thumbnail_text": "2-4 words, e.g. 'GUESS WHICH ONE'",
+  "company": "CompanyA vs CompanyB",
+  "hashtags": [...],
+  "scenes": [{"narration": "...", "image_prompt": "...", "on_screen_text": "..."}]
+}
+"""
+
+
+def generate_comparison_script(company_a: str, company_b: str, video_type: str = "short",
+                                 news_a: list = None, news_b: list = None) -> dict:
+    length_hint = "4-6 scenes, punchy" if video_type == "short" else "8-12 scenes"
+    news_block = ""
+    if news_a:
+        news_block += f"\n\nReal recent news about {company_a}:\n" + "\n".join(f"- {h}" for h in news_a)
+    if news_b:
+        news_block += f"\n\nReal recent news about {company_b}:\n" + "\n".join(f"- {h}" for h in news_b)
+
+    prompt = (
+        f"Write a {length_hint} 'guess which one' comparison video between "
+        f"{company_a} and {company_b}.{news_block}"
+    )
+
+    headers = {"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"}
+    payload = {
+        "model": GROQ_MODEL,
+        "messages": [
+            {"role": "system", "content": COMPARISON_SYSTEM_PROMPT},
+            {"role": "user", "content": prompt},
+        ],
+        "temperature": 0.9,
+        "response_format": {"type": "json_object"},
+    }
+    resp = requests.post(GROQ_URL, headers=headers, json=payload, timeout=60)
+    if resp.status_code != 200:
+        print(f"FATAL: Groq error generating comparison script: {resp.status_code} {resp.text[:300]}",
+              file=sys.stderr)
+        sys.exit(1)
+
+    raw_text = resp.json()["choices"][0]["message"]["content"]
+    data = _extract_json(raw_text)
+    return _validate_script(data)
+
+
 if __name__ == "__main__":
     company_arg = sys.argv[1] if len(sys.argv) > 1 else "Tesla"
     result = generate_script(company_arg, "short")
