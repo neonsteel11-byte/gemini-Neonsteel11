@@ -189,5 +189,51 @@
     "privacy": "public",
     "auto_published": true,
     "engagement_boosted": true
+  },
+  {
+    "video_id": "ptgcUbg--PA",
+    "company": "Amazon",
+    "video_type": "short",
+    "uploaded_at": "2026-07-11T00:05:32.848752+00:00",
+    "title_variants": [
+      "POV: You Bet on Amazon's AI",
+      "Amazon's AI Ambitions",
+      "Your Financial Future"
+    ],
+    "hashtags": [
+      "#AmazonAI",
+      "#AIFuture",
+      "#InvestingInTech",
+      "#FinancialAnxiety",
+      "#StockMarket",
+      "#ArtificialIntelligence"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false
+  },
+  {
+    "video_id": "IHmSRnxmiJs",
+    "company": "Amazon",
+    "video_type": "long",
+    "uploaded_at": "2026-07-11T00:20:49.989860+00:00",
+    "title_variants": [
+      "POV: You Bet on Amazon's AI Future",
+      "Your Amazon Investments: A Wild Ride",
+      "The AI Era: Your Financial Rollercoaster"
+    ],
+    "hashtags": [
+      "#AIInvesting",
+      "#AmazonStock",
+      "#FinancialAnxiety",
+      "#ArtificialIntelligence",
+      "#ECFes2026",
+      "#OdysseyAI"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false
   }
 ]
