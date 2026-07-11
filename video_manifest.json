@@ -259,6 +259,7 @@
     "optimized": false,
     "privacy": "public",
     "auto_published": true,
-    "content_format": "single_company"
+    "content_format": "single_company",
+    "engagement_boosted": true
   }
 ]
