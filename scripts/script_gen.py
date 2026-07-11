@@ -153,7 +153,7 @@ def _validate_script(data: dict) -> dict:
     return data
 
 
-def generate_script(company: str, video_type: str = "long", news_headlines: list = None) -> dict:
+def generate_script(company: str, video_type: str = "long", news_headlines: list = None, angle: str = None) -> dict:
     length_hint = ("a full long-form video (10-14 scenes, each with 3-5 sentences of "
                     "narration, targeting roughly 10-14 minutes of total spoken content, "
                     "documentary-style pacing)") \
@@ -172,11 +172,11 @@ def generate_script(company: str, video_type: str = "long", news_headlines: list
             f"concrete financial detail about {company} rather than staying vague.\n"
         )
 
+    angle_line = f"Specific angle to use: {angle}" if angle else \
+        "Pick any second-person POV angle involving an employee, investor, or customer."
     prompt = (
-        f"Write {length_hint}. Topic: a second-person POV story about someone whose "
-        f"financial life intersects with {company} -- e.g. an employee, an investor, "
-        f"someone affected by the company's news. Introspective, psychological, "
-        f"hyper-specific tone.{news_block}"
+        f"Write {length_hint}. {angle_line} The story involves {company}. "
+        f"Introspective, psychological, hyper-specific tone.{news_block}"
     )
 
     raw_text = _call_with_retry(prompt)

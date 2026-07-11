@@ -60,7 +60,10 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
         print("      Fetching recent real news for grounding...")
         news_headlines = fetch_recent_headlines(company)
         print(f"      Found {len(news_headlines)} real headlines to use.")
-        script = generate_script(company, video_type, news_headlines=news_headlines)
+        import subprocess
+        angle = subprocess.run(["python", "scripts/pick_angle.py"], capture_output=True, text=True).stdout.strip()
+        print(f"      Story angle: {angle}")
+        script = generate_script(company, video_type, news_headlines=news_headlines, angle=angle)
     video_seed = random.randint(1, 999999)
     print(f"      Title: {script['title_variants'][0]}")
     print(f"      Visual seed for consistency: {video_seed}")
