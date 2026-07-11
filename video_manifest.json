@@ -237,5 +237,28 @@
     "privacy": "public",
     "auto_published": true,
     "engagement_boosted": true
+  },
+  {
+    "video_id": "qMlJw6G43Bc",
+    "company": "Apple",
+    "video_type": "short",
+    "uploaded_at": "2026-07-11T16:46:21.340036+00:00",
+    "title_variants": [
+      "POV: You Got Laid Off by Apple",
+      "You Just Lost Your Apple Job",
+      "Laid Off at Apple: Your Story"
+    ],
+    "hashtags": [
+      "#AppleLayoffs",
+      "#TechJobs",
+      "#FinancialAnxiety",
+      "#JobLoss",
+      "#CareerCrisis"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false,
+    "content_format": "single_company"
   }
 ]
