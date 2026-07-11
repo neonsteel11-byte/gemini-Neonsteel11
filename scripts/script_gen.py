@@ -45,9 +45,12 @@ punchline. Every joke in the script must hit at this level or better.
   from them (numbers, dates, events) to ground the story in reality.
 
 VISUAL RULES (image prompts):
-- Clean, moody, cartoon/vector-style illustrations with lighting that mirrors the
-  scene's emotional weight (e.g. "a man alone in a dark office, face lit only by a
-  laptop screen showing a downward chart").
+- CLEAN, BRIGHT, FLAT vector cartoon illustrations ONLY -- bold black outlines, simple
+  shapes, saturated colors. NEVER painterly, photorealistic, gritty, heavily-shaded, or
+  dark/noir-lit -- those render poorly and look messy at small sizes. Convey emotional
+  weight through the character's POSE and EXPRESSION, not through dark lighting or
+  detailed shading (e.g. "a simply-drawn cartoon character slumped at a bright desk,
+  exaggerated worried expression" NOT "a man in shadow, moody cinematic lighting").
 - NEVER describe real copyrighted logos, real people's faces/likenesses (including
   named CEOs/executives -- use a generic unnamed character), or any sign/banner/
   screen/newspaper with readable text -- image models render text as garbled

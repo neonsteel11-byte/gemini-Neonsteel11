@@ -13,20 +13,26 @@ def _check_ffmpeg():
 def _escape_text(text: str) -> str:
     return text.replace("\\", "\\\\").replace("'", "").replace(":", "\\:")
 
-def _build_caption_filters(words: list, height: int) -> str:
+def _build_caption_filters(words: list, width: int, height: int) -> str:
     """
-    Groups words into small chunks (karaoke-style, ~3 words visible at a time)
-    and returns a chained drawtext filter string, each chunk only visible
-    during its actual spoken window -- this is the "Hormozi-style" caption
-    effect used across most high-retention finance/commentary channels.
+    Groups words into small chunks (karaoke-style) and returns a chained
+    drawtext filter string, sized and chunked to actually fit within the
+    frame width -- font size is based on WIDTH (the overflow constraint),
+    and chunk size shrinks for narrow portrait video (Shorts).
     """
     if not words:
         return ""
 
-    chunk_size = 3
+    is_portrait = height > width
+    chunk_size = 2 if is_portrait else 3
+    # Rough estimate: average character width ~0.55x fontsize for bold sans.
+    # Pick fontsize so the widest realistic chunk (chunk_size words, ~7 chars
+    # each + space) comfortably fits within 90% of frame width.
+    max_chars = chunk_size * 8
+    fontsize = int(min(width * 0.9 / (max_chars * 0.55), height * 0.045))
+
     chunks = [words[i:i + chunk_size] for i in range(0, len(words), chunk_size)]
     filters = []
-    fontsize = int(height * 0.055)
 
     for chunk in chunks:
         text = " ".join(w["text"] for w in chunk).upper()
@@ -43,13 +49,12 @@ def _build_caption_filters(words: list, height: int) -> str:
     return "," + ",".join(filters)
 
 def build_scene_clip(image_path, audio_path, words, duration, size, output_path, narrator_path=None):
-    """Stitches background image (with Ken Burns zoom) + optional narrator + karaoke captions + audio."""
     width, height = size
 
     if os.path.exists(output_path):
         os.remove(output_path)
 
-    caption_chain = _build_caption_filters(words, height)
+    caption_chain = _build_caption_filters(words, width, height)
     zoom_frames = max(int(duration * 25), 1)
     narrator_h = int(height * 0.35)
     margin = int(height * 0.02)
