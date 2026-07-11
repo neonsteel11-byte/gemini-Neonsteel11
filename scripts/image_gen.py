@@ -205,6 +205,25 @@ def generate_thumbnail(company: str, hook_text: str, output_path: str, size: tup
     img.save(output_path, "JPEG", quality=95)
 
 
+def download_real_image(image_url: str, output_path: str, size: tuple) -> bool:
+    """
+    Downloads and validates a REAL image (e.g. from Wikipedia) instead of
+    generating one. Returns True on success, False on failure (caller should
+    fall back to AI generation in that case -- non-fatal here).
+    """
+    if not image_url:
+        return False
+    try:
+        resp = requests.get(image_url, timeout=30, headers={"User-Agent": "FinanceInventionBot/1.0"})
+        if resp.status_code != 200 or not resp.content:
+            return False
+        _validate_and_save(resp.content, output_path, size)
+        return True
+    except Exception as e:
+        print(f"      [WARNING] Real image download failed ({e}), will use AI fallback.", file=sys.stderr)
+        return False
+
+
 if __name__ == "__main__":
     generate_image(
         "a cartoon bull and bear arm wrestling on a trading floor, comic style",

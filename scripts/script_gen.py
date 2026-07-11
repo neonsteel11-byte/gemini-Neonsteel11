@@ -258,6 +258,65 @@ def generate_comparison_script(company_a: str, company_b: str, video_type: str =
     return _validate_script(data)
 
 
+INVENTION_SYSTEM_PROMPT = """You write short, fascinating "who actually invented this"
+documentary-style scripts about everyday objects and their real inventors. Tone: genuinely
+surprising, engaging, fact-driven -- like a great trivia friend, not dry or academic.
+
+RULES:
+- Use ONLY the real facts provided about the inventor and invention -- never invent facts.
+- Open with a surprising hook (e.g. "The raincoat wasn't invented by a fashion designer --
+  it was a chemist who accidentally ruined his coat.")
+- Include real specific details: years, names, surprising twists in the story.
+- 2-3 scenes should describe the REAL inventor (their portrait will be used as the image --
+  so image_prompt for those scenes should just say "USE_REAL_IMAGE: inventor portrait").
+- 1-2 scenes should describe the invention/object itself in use -- these can be clean flat
+  cartoon illustrations (no text-bearing objects, no logos).
+- End with a punchy surprising fact or ironic twist about the invention's legacy.
+
+Return ONLY valid JSON matching this schema:
+{
+  "character_sheet": "not used for this format, put 'n/a'",
+  "title_variants": ["surprising fact-style title", "alt 2", "alt 3"],
+  "thumbnail_text": "2-4 words",
+  "company": "the invention name",
+  "hashtags": [...],
+  "scenes": [
+    {"narration": "...", "image_prompt": "USE_REAL_IMAGE: inventor portrait  OR  a clean cartoon description", "on_screen_text": "..."}
+  ]
+}
+"""
+
+
+def generate_invention_script(invention: str, inventor: str, inventor_facts: str,
+                               invention_facts: str, video_type: str = "short") -> dict:
+    length_hint = "4-6 scenes, punchy" if video_type == "short" else "8-10 scenes"
+    prompt = (
+        f"Write a {length_hint} script about the real invention of the {invention}, "
+        f"credited to {inventor}.\n\nReal facts about {inventor}:\n{inventor_facts}\n\n"
+        f"Real facts about the {invention}:\n{invention_facts}"
+    )
+
+    headers = {"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"}
+    payload = {
+        "model": GROQ_MODEL,
+        "messages": [
+            {"role": "system", "content": INVENTION_SYSTEM_PROMPT},
+            {"role": "user", "content": prompt},
+        ],
+        "temperature": 0.8,
+        "response_format": {"type": "json_object"},
+    }
+    resp = requests.post(GROQ_URL, headers=headers, json=payload, timeout=60)
+    if resp.status_code != 200:
+        print(f"FATAL: Groq error generating invention script: {resp.status_code} {resp.text[:300]}",
+              file=sys.stderr)
+        sys.exit(1)
+
+    raw_text = resp.json()["choices"][0]["message"]["content"]
+    data = _extract_json(raw_text)
+    return _validate_script(data)
+
+
 if __name__ == "__main__":
     company_arg = sys.argv[1] if len(sys.argv) > 1 else "Tesla"
     result = generate_script(company_arg, "short")

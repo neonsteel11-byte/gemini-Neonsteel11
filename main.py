@@ -48,7 +48,19 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
 
     print(f"[1/4] Generating script for '{company}' ({video_type})...")
     from scripts.fetch_news import fetch_recent_headlines
-    if "|" in company:
+    if company.startswith("INVENTION:"):
+        _, invention, inventor = company.split(":", 2)
+        print(f"      Invention mode: {invention} by {inventor}")
+        from scripts.script_gen import generate_invention_script
+        from scripts.fetch_wikipedia import fetch_wiki_info
+        inventor_info = fetch_wiki_info(inventor)
+        invention_info = fetch_wiki_info(invention)
+        script = generate_invention_script(
+            invention, inventor, inventor_info["summary"], invention_info["summary"], video_type
+        )
+        script["_inventor_image_url"] = inventor_info["image_url"]
+        company = invention
+    elif "|" in company:
         company_a, company_b = [c.strip() for c in company.split("|", 1)]
         print(f"      Comparison mode: {company_a} vs {company_b}")
         from scripts.script_gen import generate_comparison_script
@@ -80,7 +92,15 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
         print(f"      scene {i+1} audio duration: {duration:.2f}s")
 
         print(f"      scene {i+1}/{len(script['scenes'])}: generating image...")
-        generate_image(scene["image_prompt"], image_path, size, seed=video_seed)
+        if "USE_REAL_IMAGE" in scene["image_prompt"] and script.get("_inventor_image_url"):
+            from scripts.image_gen import download_real_image
+            success = download_real_image(script["_inventor_image_url"], image_path, size)
+            if not success:
+                print("      Real image unavailable, falling back to AI illustration.")
+                generate_image(f"a respectful clean cartoon portrait of a historical inventor",
+                                image_path, size, seed=video_seed)
+        else:
+            generate_image(scene["image_prompt"], image_path, size, seed=video_seed)
 
         scene_data.append({
             "image_path": image_path,
