@@ -305,5 +305,29 @@
     "privacy": "private",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "WjKJcXx4alo",
+    "company": "Amazon",
+    "video_type": "short",
+    "uploaded_at": "2026-07-12T16:47:56.186706+00:00",
+    "title_variants": [
+      "POV: You Held Amazon Through the Crash",
+      "Believing in Bezos' Dream",
+      "Stockholm Syndrome with a Prime Membership"
+    ],
+    "hashtags": [
+      "#AmazonStock",
+      "#InvestingInFaith",
+      "#PrimePains",
+      "#StockMarketStruggles",
+      "#BelieveInTheMission",
+      "#DogTagsForDays"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false,
+    "content_format": "single_company"
   }
 ]
