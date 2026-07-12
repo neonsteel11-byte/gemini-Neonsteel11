@@ -283,5 +283,27 @@
     "auto_published": true,
     "content_format": "comparison",
     "engagement_boosted": true
+  },
+  {
+    "video_id": "yns2wq_sLnw",
+    "company": "Ballpoint pen",
+    "video_type": "long",
+    "uploaded_at": "2026-07-12T14:31:03.033457+00:00",
+    "title_variants": [
+      "The Accidental Pen",
+      "Biro's Brilliant Mistake",
+      "The Ballpoint Revolution"
+    ],
+    "hashtags": [
+      "#BallpointPen",
+      "#LaszloBiro",
+      "#Invention",
+      "#WritingInstrument"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
