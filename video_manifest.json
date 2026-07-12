@@ -304,7 +304,8 @@
     "optimized": false,
     "privacy": "public",
     "auto_published": true,
-    "content_format": "invention_history"
+    "content_format": "invention_history",
+    "engagement_boosted": true
   },
   {
     "video_id": "WjKJcXx4alo",
@@ -328,6 +329,7 @@
     "optimized": false,
     "privacy": "public",
     "auto_published": true,
-    "content_format": "single_company"
+    "content_format": "single_company",
+    "engagement_boosted": true
   }
 ]
