@@ -281,6 +281,7 @@
     "optimized": false,
     "privacy": "public",
     "auto_published": true,
-    "content_format": "comparison"
+    "content_format": "comparison",
+    "engagement_boosted": true
   }
 ]
