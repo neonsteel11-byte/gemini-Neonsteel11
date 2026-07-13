@@ -75,6 +75,11 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
         print("      Fetching recent real news for grounding...")
         news_headlines = fetch_recent_headlines(company)
         print(f"      Found {len(news_headlines)} real headlines to use.")
+        from scripts.fetch_trending import fetch_top_titles
+        trending_titles = fetch_top_titles(f"{company} stock")
+        if trending_titles:
+            print(f"      Trending titles found: {trending_titles[:2]}")
+            news_headlines = news_headlines + [f"Popular video title for inspiration (do not copy): {t}" for t in trending_titles[:2]]
         import subprocess
         angle = subprocess.run(["python", "scripts/pick_angle.py"], capture_output=True, text=True).stdout.strip()
         print(f"      Story angle: {angle}")
