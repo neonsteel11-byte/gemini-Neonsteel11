@@ -354,5 +354,27 @@
     "privacy": "private",
     "auto_published": false,
     "content_format": "comparison"
+  },
+  {
+    "video_id": "YDXfmo3Yals",
+    "company": "Safety pin",
+    "video_type": "long",
+    "uploaded_at": "2026-07-13T19:34:26.502105+00:00",
+    "title_variants": [
+      "The Accidental Pin",
+      "Safety Pin Surprise",
+      "Pinning it on Hunt"
+    ],
+    "hashtags": [
+      "safetypin",
+      "walterhunt",
+      "invention",
+      "history"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
