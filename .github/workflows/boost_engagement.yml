@@ -1,8 +1,6 @@
 name: Boost Video Engagement
 on:
   workflow_dispatch:
-  schedule:
-    - cron: '0 */6 * * *'
 jobs:
   boost:
     runs-on: ubuntu-latest
@@ -20,7 +18,7 @@ jobs:
         YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
         YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
         YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
-        BOOST_AFTER_HOURS: "1"
+        BOOST_AFTER_HOURS: "24"
       run: python -m scripts.boost_engagement
     - name: Commit manifest and playlist state
       run: |
@@ -30,6 +28,5 @@ jobs:
         git diff --staged --quiet || git commit -m "Update engagement boost state"
         for i in 1 2 3 4 5; do
           git pull --rebase origin main && git push && break
-          echo "Push rejected, retrying ($i/5)..."
           sleep 5
         done
