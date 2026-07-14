@@ -400,5 +400,27 @@
     "privacy": "private",
     "auto_published": false,
     "content_format": "single_company"
+  },
+  {
+    "video_id": "2PdM46RHVsA",
+    "company": "Microsoft vs Google",
+    "video_type": "long",
+    "uploaded_at": "2026-07-14T19:35:47.662238+00:00",
+    "title_variants": [
+      "Tech Titans Showdown",
+      "Guess Which One: Microsoft vs Google",
+      "The Ultimate Tech Face-Off"
+    ],
+    "hashtags": [
+      "#Microsoft",
+      "#Google",
+      "#TechComparison",
+      "#GuessWhichOne"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false,
+    "content_format": "comparison"
   }
 ]
