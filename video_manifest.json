@@ -376,5 +376,29 @@
     "privacy": "public",
     "auto_published": true,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "vTDyw2waD4E",
+    "company": "Microsoft",
+    "video_type": "short",
+    "uploaded_at": "2026-07-14T17:05:22.171923+00:00",
+    "title_variants": [
+      "POV: You Passed on MSFT",
+      "You Missed the MSFT Train",
+      "Regretting Not Buying MSFT"
+    ],
+    "hashtags": [
+      "#Microsoft",
+      "#StockMarket",
+      "#Investing",
+      "#Regret",
+      "#WhatIf",
+      "#MSFT"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false,
+    "content_format": "single_company"
   }
 ]
