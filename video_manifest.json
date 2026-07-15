@@ -443,5 +443,29 @@
     "privacy": "private",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "Ak42U9N7h-A",
+    "company": "Google",
+    "video_type": "long",
+    "uploaded_at": "2026-07-15T19:32:08.754788+00:00",
+    "title_variants": [
+      "POV: You Invested in Google",
+      "Your Daily Google Habit",
+      "Google: Your Stock, Your Stress"
+    ],
+    "hashtags": [
+      "#GoogleStock",
+      "#InvestingInTech",
+      "#AIforAll",
+      "#SanFranciscoLiving",
+      "#ArgentinaExpats",
+      "#ProductivityHacks"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false,
+    "content_format": "single_company"
   }
 ]
