@@ -467,5 +467,26 @@
     "privacy": "public",
     "auto_published": true,
     "content_format": "single_company"
+  },
+  {
+    "video_id": "JzxP5z_h1F0",
+    "company": "Google vs Meta",
+    "video_type": "short",
+    "uploaded_at": "2026-07-16T17:06:34.449829+00:00",
+    "title_variants": [
+      "GUESS WHICH TECH GIANT",
+      "Which Company Is Winning?",
+      "The Billion-Dollar Guess"
+    ],
+    "hashtags": [
+      "#GoogleVsMeta",
+      "#TechGiant",
+      "#GuessWhichOne"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false,
+    "content_format": "comparison"
   }
 ]
