@@ -488,5 +488,24 @@
     "privacy": "private",
     "auto_published": false,
     "content_format": "comparison"
+  },
+  {
+    "video_id": "gF7GkDB41y4",
+    "company": "Sandwich",
+    "video_type": "long",
+    "uploaded_at": "2026-07-16T19:27:09.318102+00:00",
+    "title_variants": [
+      "The Accidental Sandwich",
+      "Inventing Lunch",
+      "A Noble Creation"
+    ],
+    "hashtags": [
+      "#Sandwich #FoodHistory #JohnMontagu"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
