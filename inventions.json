@@ -13,5 +13,15 @@
   {"invention": "Airplane", "inventor": "Wright brothers"},
   {"invention": "Refrigerator", "inventor": "Carl von Linde"},
   {"invention": "Sewing machine", "inventor": "Elias Howe"},
-  {"invention": "Bicycle", "inventor": "Karl Drais"}
+  {"invention": "Bicycle", "inventor": "Karl Drais"},
+  {"invention": "Umbrella", "inventor": "Samuel Fox"},
+  {"invention": "Toothbrush", "inventor": "William Addis"},
+  {"invention": "Matches", "inventor": "John Walker"},
+  {"invention": "Chewing gum", "inventor": "Thomas Adams"},
+  {"invention": "Vacuum cleaner", "inventor": "Hubert Cecil Booth"},
+  {"invention": "Escalator", "inventor": "Jesse Reno"},
+  {"invention": "Traffic light", "inventor": "Garrett Morgan"},
+  {"invention": "Credit card", "inventor": "Ralph Schneider"},
+  {"invention": "Microwave oven", "inventor": "Percy Spencer"},
+  {"invention": "Post-it note", "inventor": "Spencer Silver"}
 ]
