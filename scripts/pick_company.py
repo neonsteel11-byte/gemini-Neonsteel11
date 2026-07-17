@@ -1,6 +1,7 @@
 """
-Picks today's content: rotates through THREE formats to A/B test which
-performs best -- single-company POV, vs-comparison, and invention-history.
+Picks today's content. Weighted based on REAL performance data: invention-
+history format got 220 views vs 0-5 for other formats, so it now gets 2/3
+of rotation slots instead of an even 1/3 split.
 """
 import json
 import os
@@ -32,24 +33,18 @@ def main():
     next_index = last_index + 1
     mod3 = next_index % 3
 
-    if mod3 == 0:
-        # Single-company POV format
+    if mod3 == 0 and inventions:
+        # 1/3: single-company POV (kept for variety/comparison baseline)
         c_idx = (next_index // 3) % len(companies)
         output = companies[c_idx]
-    elif mod3 == 1:
-        # Vs-comparison format
-        c_idx = (next_index // 3) % len(companies)
-        pair_idx = (c_idx + 1) % len(companies)
-        output = f"{companies[c_idx]}|{companies[pair_idx]}"
+    elif inventions:
+        # 2/3: invention-history -- proven winner (220 views vs 0-5 elsewhere)
+        i_idx = (next_index // 3 * 2 + (mod3 - 1)) % len(inventions)
+        item = inventions[i_idx]
+        output = f"INVENTION:{item['invention']}:{item['inventor']}"
     else:
-        # Invention-history format
-        if inventions:
-            i_idx = (next_index // 3) % len(inventions)
-            item = inventions[i_idx]
-            output = f"INVENTION:{item['invention']}:{item['inventor']}"
-        else:
-            c_idx = (next_index // 3) % len(companies)
-            output = companies[c_idx]
+        c_idx = (next_index // 3) % len(companies)
+        output = companies[c_idx]
 
     with open(STATE_PATH, "w", encoding="utf-8") as f:
         json.dump({"last_index": next_index}, f)
