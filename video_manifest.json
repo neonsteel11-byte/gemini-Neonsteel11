@@ -531,5 +531,26 @@
     "privacy": "public",
     "auto_published": true,
     "content_format": "single_company"
+  },
+  {
+    "video_id": "wcQat_NDuFk",
+    "company": "Automobile",
+    "video_type": "short",
+    "uploaded_at": "2026-07-18T16:51:06.333008+00:00",
+    "title_variants": [
+      "The Accidental Car Inventor",
+      "Karl Benz: The Real Car Dad",
+      "The First Modern Automobile"
+    ],
+    "hashtags": [
+      "AutomotiveHistory",
+      "Innovation",
+      "KarlBenz"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
