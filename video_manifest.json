@@ -552,5 +552,26 @@
     "privacy": "public",
     "auto_published": true,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "hF6v2e-wdvE",
+    "company": "Airplane",
+    "video_type": "long",
+    "uploaded_at": "2026-07-18T19:21:04.510517+00:00",
+    "title_variants": [
+      "Flying into History",
+      "The Real Wright Story",
+      "Inventing the Impossible"
+    ],
+    "hashtags": [
+      "WrightBrothers",
+      "AviationPioneers",
+      "FlightHistory"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
