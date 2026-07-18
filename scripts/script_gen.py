@@ -63,7 +63,8 @@ Return ONLY valid JSON, no markdown fences, no commentary, matching this exact s
 
 {
   "character_sheet": "detailed fixed description of the recurring protagonist character",
-  "title_variants": ["primary FUNNY POV-style title under 100 chars, e.g. 'POV: You Held Tesla Through THAT'", "alternate hook 2", "alternate hook 3"],
+  "title_variants": ["PROFESSIONAL two-part title in format '[Punchy Hook]: [Specific Descriptive Stakes Clause]' -- e.g. 'The $2 Billion Mistake: How One Ballpoint Pen Company Almost Went Bankrupt' or 'POV: You Owned Tesla During The Great Recall Event' -- NEVER a short generic 2-3 word title", "alternate professional title 2", "alternate professional title 3"],
+  "description": "2-3 sentence polished, professional video description summarizing the real content -- written like a documentary channel description, not clickbait filler",
   "thumbnail_text": "2-4 word ALL CAPS punchy phrase",
   "company": "string",
   "hashtags": ["#tag1", "#tag2", "#tag3", "#tag4", "#tag5", "#tag6"],
@@ -153,7 +154,7 @@ def _validate_script(data: dict) -> dict:
     return data
 
 
-def generate_script(company: str, video_type: str = "long", news_headlines: list = None, angle: str = None) -> dict:
+def generate_script(company: str, video_type: str = "long", news_headlines: list = None, angle: str = None, avoid_titles: list = None) -> dict:
     length_hint = ("a full long-form video (10-14 scenes, each with 3-5 sentences of "
                     "narration, targeting roughly 10-14 minutes of total spoken content, "
                     "documentary-style pacing)") \
@@ -174,9 +175,14 @@ def generate_script(company: str, video_type: str = "long", news_headlines: list
 
     angle_line = f"Specific angle to use: {angle}" if angle else \
         "Pick any second-person POV angle involving an employee, investor, or customer."
+    avoid_block = ""
+    if avoid_titles:
+        joined = "\n".join(f"- {t}" for t in avoid_titles[-15:])
+        avoid_block = f"\n\nNEVER reuse or closely resemble any of these already-used titles:\n{joined}\n"
+
     prompt = (
         f"Write {length_hint}. {angle_line} The story involves {company}. "
-        f"Introspective, psychological, hyper-specific tone.{news_block}"
+        f"Introspective, psychological, hyper-specific tone.{news_block}{avoid_block}"
     )
 
     raw_text = _call_with_retry(prompt)

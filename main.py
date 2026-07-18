@@ -83,7 +83,8 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
         import subprocess
         angle = subprocess.run(["python", "scripts/pick_angle.py"], capture_output=True, text=True).stdout.strip()
         print(f"      Story angle: {angle}")
-        script = generate_script(company, video_type, news_headlines=news_headlines, angle=angle)
+        past_titles = [entry["title_variants"][0] for entry in _load_manifest() if "title_variants" in entry]
+        script = generate_script(company, video_type, news_headlines=news_headlines, angle=angle, avoid_titles=past_titles)
     video_seed = random.randint(1, 999999)
     print(f"      Title: {script['title_variants'][0]}")
     print(f"      Visual seed for consistency: {video_seed}")
@@ -99,19 +100,23 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
         duration, words = generate_voiceover(scene["narration"], audio_path)
         print(f"      scene {i+1} audio duration: {duration:.2f}s")
 
-        print(f"      scene {i+1}/{len(script['scenes'])}: generating image...")
+        print(f"      scene {i+1}/{len(script['scenes'])}: generating images (2 for motion cut)...")
+        image_path_2 = os.path.join(tmp_dir, f"image_{i}_b.png")
         if "USE_REAL_IMAGE" in scene["image_prompt"] and script.get("_inventor_image_url"):
             from scripts.image_gen import download_real_image
             success = download_real_image(script["_inventor_image_url"], image_path, size)
             if not success:
                 print("      Real image unavailable, falling back to AI illustration.")
-                generate_image(f"a respectful clean cartoon portrait of a historical inventor",
+                generate_image("a respectful clean cartoon portrait of a historical inventor",
                                 image_path, size, seed=video_seed)
+            image_path_2 = image_path  # single real photo, no second cut needed
         else:
             generate_image(scene["image_prompt"], image_path, size, seed=video_seed)
+            generate_image(scene["image_prompt"], image_path_2, size, seed=video_seed + 1000 + i)
 
         scene_data.append({
             "image_path": image_path,
+            "image_path_2": image_path_2,
             "audio_path": audio_path,
             "words": words,
             "duration": duration,

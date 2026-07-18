@@ -48,55 +48,73 @@ def _build_caption_filters(words: list, width: int, height: int) -> str:
         )
     return "," + ",".join(filters)
 
-def build_scene_clip(image_path, audio_path, words, duration, size, output_path, narrator_path=None):
+def build_scene_clip(image_path, audio_path, words, duration, size, output_path,
+                      image_path_2=None, narrator_path=None):
+    """
+    Builds a scene clip. If image_path_2 is provided and different from
+    image_path, cuts from image 1 to image 2 at the midpoint with a punch-zoom
+    -- creates a documentary-style "motion picture" edit rhythm from still
+    images, since real AI video generation isn't free/reliable for daily use.
+    """
     width, height = size
 
     if os.path.exists(output_path):
         os.remove(output_path)
 
     caption_chain = _build_caption_filters(words, width, height)
-    zoom_frames = max(int(duration * 25), 1)
+    half = duration / 2
+    zoom_frames_half = max(int(half * 25), 1)
+
+    use_two_images = image_path_2 and os.path.exists(image_path_2) and image_path_2 != image_path
+
+    if use_two_images:
+        filter_complex = (
+            f"[0:v]scale={width*2}:{height*2},"
+            f"zoompan=z='min(zoom+0.0025,1.18)':d={zoom_frames_half}:s={width}x{height}:fps=25,"
+            f"trim=duration={half:.3f}[part1];"
+            f"[1:v]scale={width*2}:{height*2},"
+            f"zoompan=z='min(zoom+0.0025,1.18)':d={zoom_frames_half}:s={width}x{height}:fps=25,"
+            f"trim=duration={duration - half:.3f}[part2];"
+            f"[part1][part2]concat=n=2:v=1:a=0[v0]"
+        )
+        vf_inputs = ["-loop", "1", "-i", image_path, "-loop", "1", "-i", image_path_2, "-i", audio_path]
+        video_map_source = "[v0]"
+        audio_input_index = 2
+    else:
+        zoom_frames = max(int(duration * 25), 1)
+        filter_complex = (
+            f"[0:v]scale={width*2}:{height*2},"
+            f"zoompan=z='min(zoom+0.0012,1.15)':d={zoom_frames}:s={width}x{height}:fps=25[v0]"
+        )
+        vf_inputs = ["-loop", "1", "-i", image_path, "-i", audio_path]
+        video_map_source = "[v0]"
+        audio_input_index = 1
+
     narrator_h = int(height * 0.35)
     margin = int(height * 0.02)
 
     if narrator_path and os.path.exists(narrator_path):
-        filter_complex = (
-            f"[0:v]scale={width*2}:{height*2},"
-            f"zoompan=z='min(zoom+0.0012,1.15)':d={zoom_frames}:s={width}x{height}:fps=25[bg];"
-            f"[1:v]scale=-1:{narrator_h},colorkey=0x00FF00:0.35:0.12[nar];"
-            f"[bg][nar]overlay=x=W-w-{margin}:y='H-h-{margin}+10*sin(2*PI*t*1.8)'[v1];"
+        nar_input_index = len(vf_inputs) // 2  # position right before audio
+        vf_inputs = vf_inputs[:-2] + ["-loop", "1", "-i", narrator_path] + vf_inputs[-2:]
+        audio_input_index += 1
+        filter_complex += (
+            f";[{nar_input_index}:v]scale=-1:{narrator_h},colorkey=0x00FF00:0.35:0.12[nar];"
+            f"{video_map_source}[nar]overlay=x=W-w-{margin}:y='H-h-{margin}+10*sin(2*PI*t*1.8)'[v1];"
             f"[v1]null{caption_chain}[vout]"
         )
-        cmd = [
-            "ffmpeg", "-y",
-            "-loop", "1", "-i", image_path,
-            "-loop", "1", "-i", narrator_path,
-            "-i", audio_path,
-            "-filter_complex", filter_complex,
-            "-map", "[vout]", "-map", "2:a",
-            "-c:v", "libx264", "-t", str(duration),
-            "-preset", "slow", "-crf", "18",
-            "-pix_fmt", "yuv420p",
-            "-c:a", "aac", "-b:a", "192k",
-            "-shortest", output_path
-        ]
     else:
-        vf = (
-            f"scale={width*2}:{height*2},"
-            f"zoompan=z='min(zoom+0.0012,1.15)':d={zoom_frames}:s={width}x{height}:fps=25"
-            f"{caption_chain}"
-        )
-        cmd = [
-            "ffmpeg", "-y",
-            "-loop", "1", "-i", image_path,
-            "-i", audio_path,
-            "-c:v", "libx264", "-t", str(duration),
-            "-preset", "slow", "-crf", "18",
-            "-pix_fmt", "yuv420p",
-            "-vf", vf,
-            "-c:a", "aac", "-b:a", "192k",
-            "-shortest", output_path
-        ]
+        filter_complex += f";{video_map_source}null{caption_chain}[vout]"
+
+    cmd = [
+        "ffmpeg", "-y", *vf_inputs,
+        "-filter_complex", filter_complex,
+        "-map", "[vout]", "-map", f"{audio_input_index}:a",
+        "-c:v", "libx264", "-t", str(duration),
+        "-preset", "slow", "-crf", "18",
+        "-pix_fmt", "yuv420p",
+        "-c:a", "aac", "-b:a", "192k",
+        "-shortest", output_path
+    ]
 
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
@@ -146,7 +164,8 @@ def build_video(scene_data, size, final_output_path, tmp_dir, narrator_path=None
         print(f"      Compiling scene [{i+1}/{len(scene_data)}]...")
         build_scene_clip(
             scene["image_path"], scene["audio_path"], scene["words"],
-            scene["duration"], size, clip_path, narrator_path=narrator_path
+            scene["duration"], size, clip_path,
+            image_path_2=scene.get("image_path_2"), narrator_path=narrator_path
         )
         clip_paths.append(clip_path)
 
