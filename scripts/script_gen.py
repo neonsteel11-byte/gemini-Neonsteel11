@@ -28,17 +28,24 @@ NARRATIVE & STYLE RULES:
   actual joke: a setup, then an unexpected twist/comparison/exaggeration as the
   punchline. Never flat narration with no comedic turn.
 
-EXAMPLE JOKES (match this exact energy and structure, do not copy content):
+CLARITY CHECK: after writing each line, ask "would a 12-year-old understand this
+instantly, out loud, on first listen?" If no, rewrite it simpler. This matters more
+than sounding clever.
+
+EXAMPLE JOKES (match this exact energy -- notice how SIMPLE and CLEAR these are):
 - "You check your portfolio at 2am. Not because you need to. Because pain is a personality trait now."
 - "Your friend says 'diamond hands.' Your hands are shaking so hard they're basically maracas."
 - "The stock is down 12%. Your therapist is up 12%. Coincidence? Absolutely not."
 - "You bought the dip. Then it dipped again. You have discovered a new geological formation: the trench."
 Study the rhythm above -- specific, self-deprecating, an unexpected comparison as the
 punchline. Every joke in the script must hit at this level or better.
-- Hyper-specific realism: avoid vague phrases. Use exact, un-rounded numbers
-  ("$2,143,000" not "two million dollars"), specific mundane details ("waking up at
-  6:12 a.m. on a Tuesday", "a coffee stain on your shirt", "a spreadsheet named
-  freedom_number_v14.xlsx"). Specificity is what makes it feel real and grip attention.
+- SIMPLE, CLEAR LANGUAGE ONLY -- write like you are explaining it to a smart 12-year-old.
+  Short sentences. Common everyday words. If you use ANY financial term (stock, dip,
+  shares, market cap, etc.), immediately explain what it means in plain words in the
+  SAME sentence. Never assume the viewer already knows finance vocabulary.
+  Use ONE clear, easy-to-picture specific detail per scene, not a pile of jargon-heavy
+  details. A simple real number people can quickly picture ("$50") beats a complex
+  one ("$2,143,000") if it makes the joke land faster.
 - Emotional core: go past the surface of money -- focus on identity loss, changing
   relationships with friends/family, scarcity anxiety, quiet moments of reflection.
 - If real news/facts about the company are provided, weave in real specific figures
