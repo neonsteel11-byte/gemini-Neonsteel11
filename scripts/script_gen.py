@@ -333,6 +333,37 @@ def generate_invention_script(invention: str, inventor: str, inventor_facts: str
     return _validate_script(data)
 
 
+def generate_money_story_script(topic: str, topic_facts: str, video_type: str = "short") -> dict:
+    length_hint = "4-6 scenes, punchy" if video_type == "short" else "8-10 scenes"
+    prompt = (
+        f"Write a {length_hint} funny, surprising documentary-style story about "
+        f"the real financial/money history event: {topic}.\n\n"
+        f"Real facts:\n{topic_facts}"
+    )
+
+    headers = {"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"}
+    payload = {
+        "model": GROQ_MODEL,
+        "messages": [
+            {"role": "system", "content": INVENTION_SYSTEM_PROMPT.replace(
+                "who actually invented this", "the funny, wild true story behind this money event"
+            )},
+            {"role": "user", "content": prompt},
+        ],
+        "temperature": 0.8,
+        "response_format": {"type": "json_object"},
+    }
+    resp = requests.post(GROQ_URL, headers=headers, json=payload, timeout=60)
+    if resp.status_code != 200:
+        print(f"FATAL: Groq error generating money story script: {resp.status_code} {resp.text[:300]}",
+              file=sys.stderr)
+        sys.exit(1)
+
+    raw_text = resp.json()["choices"][0]["message"]["content"]
+    data = _extract_json(raw_text)
+    return _validate_script(data)
+
+
 if __name__ == "__main__":
     company_arg = sys.argv[1] if len(sys.argv) > 1 else "Tesla"
     result = generate_script(company_arg, "short")
