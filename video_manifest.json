@@ -573,5 +573,26 @@
     "privacy": "public",
     "auto_published": true,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "8wMe93LkT1c",
+    "company": "Telephone",
+    "video_type": "long",
+    "uploaded_at": "2026-07-19T14:31:50.675313+00:00",
+    "title_variants": [
+      "The Accidental Call",
+      "Inventing the Telephone",
+      "Bell's Big Break"
+    ],
+    "hashtags": [
+      "#TelephoneInvention",
+      "#AlexanderGrahamBell",
+      "#ATandT"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
