@@ -91,6 +91,14 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
     print(f"      Scenes: {len(script['scenes'])}")
 
     print("[2/4] Generating voiceover + images per scene...")
+    company_real_image_url = None
+    if not company.startswith("INVENTION:") and "|" not in company:
+        from scripts.fetch_wikipedia import fetch_wiki_info
+        wiki_info = fetch_wiki_info(company)
+        company_real_image_url = wiki_info.get("image_url")
+        if company_real_image_url:
+            print(f"      Found real photo for {company}, will use for scene 1.")
+
     scene_data = []
     for i, scene in enumerate(script["scenes"]):
         audio_path = os.path.join(tmp_dir, f"audio_{i}.mp3")
@@ -102,7 +110,13 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
 
         print(f"      scene {i+1}/{len(script['scenes'])}: generating images (2 for motion cut)...")
         image_path_2 = os.path.join(tmp_dir, f"image_{i}_b.png")
-        if "USE_REAL_IMAGE" in scene["image_prompt"] and script.get("_inventor_image_url"):
+        if i == 0 and company_real_image_url:
+            from scripts.image_gen import download_real_image
+            success = download_real_image(company_real_image_url, image_path, size)
+            if not success:
+                generate_image(scene["image_prompt"], image_path, size, seed=video_seed)
+            image_path_2 = image_path
+        elif "USE_REAL_IMAGE" in scene["image_prompt"] and script.get("_inventor_image_url"):
             from scripts.image_gen import download_real_image
             success = download_real_image(script["_inventor_image_url"], image_path, size)
             if not success:
