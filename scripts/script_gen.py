@@ -68,6 +68,7 @@ Return ONLY valid JSON, no markdown fences, no commentary, matching this exact s
   "thumbnail_text": "2-4 word ALL CAPS punchy phrase",
   "company": "string",
   "hashtags": ["#tag1", "#tag2", "#tag3", "#tag4", "#tag5", "#tag6"],
+  "seo_tags": ["10-15 specific real search-relevant keyword phrases, e.g. company name, topic, related terms people actually search"],
   "scenes": [
     {
       "narration": "1-3 sentences (3-5 for long-form), natural spoken-delivery, short sentences, conversational rhythm, second-person POV, hyper-specific details",
@@ -224,6 +225,7 @@ Return ONLY valid JSON, same schema as before:
   "thumbnail_text": "2-4 words, e.g. 'GUESS WHICH ONE'",
   "company": "CompanyA vs CompanyB",
   "hashtags": [...],
+  "seo_tags": ["10-15 specific real search-relevant keyword phrases, e.g. company name, topic, related terms people actually search"],
   "scenes": [{"narration": "...", "image_prompt": "...", "on_screen_text": "..."}]
 }
 """
@@ -286,6 +288,7 @@ Return ONLY valid JSON matching this schema:
   "thumbnail_text": "2-4 words",
   "company": "the invention name",
   "hashtags": [...],
+  "seo_tags": ["10-15 specific real search-relevant keyword phrases, e.g. company name, topic, related terms people actually search"],
   "scenes": [
     {"narration": "...", "image_prompt": "USE_REAL_IMAGE: inventor portrait  OR  a clean cartoon description", "on_screen_text": "..."}
   ]

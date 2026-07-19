@@ -157,7 +157,7 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
         )
         video_id = upload_video(
             final_path, script["title_variants"][0], description,
-            tags=[company, "finance", "funny finance", "stocks", "cartoon"],
+            tags=script.get("seo_tags", []) + [company, "finance", "cartoon"],
             is_short=(video_type == "short"),
             privacy_status=privacy,
         )
