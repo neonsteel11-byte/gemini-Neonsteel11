@@ -65,8 +65,8 @@
       "#FinanceFrenzy",
       "#AutoIndustry"
     ],
-    "variant_index": 0,
-    "optimized": false,
+    "variant_index": 1,
+    "optimized": true,
     "privacy": "public",
     "auto_published": true,
     "engagement_boosted": true
@@ -113,8 +113,8 @@
       "#ElectricCars",
       "#Innovation"
     ],
-    "variant_index": 0,
-    "optimized": false,
+    "variant_index": 1,
+    "optimized": true,
     "privacy": "public",
     "auto_published": true,
     "engagement_boosted": true
@@ -137,8 +137,8 @@
       "#SustainableFuture",
       "#AutonomousVehicles"
     ],
-    "variant_index": 0,
-    "optimized": false,
+    "variant_index": 1,
+    "optimized": true,
     "privacy": "public",
     "auto_published": true,
     "engagement_boosted": true
@@ -160,8 +160,8 @@
       "#ComputerVision",
       "#TechStocks"
     ],
-    "variant_index": 0,
-    "optimized": false,
+    "variant_index": 1,
+    "optimized": true,
     "privacy": "public",
     "auto_published": true,
     "engagement_boosted": true
@@ -184,8 +184,8 @@
       "#ComputerVision",
       "#AIAdoption"
     ],
-    "variant_index": 0,
-    "optimized": false,
+    "variant_index": 1,
+    "optimized": true,
     "privacy": "public",
     "auto_published": true,
     "engagement_boosted": true
@@ -208,8 +208,8 @@
       "#StockMarket",
       "#ArtificialIntelligence"
     ],
-    "variant_index": 0,
-    "optimized": false,
+    "variant_index": 1,
+    "optimized": true,
     "privacy": "public",
     "auto_published": true,
     "engagement_boosted": true
@@ -232,8 +232,8 @@
       "#ECFes2026",
       "#OdysseyAI"
     ],
-    "variant_index": 0,
-    "optimized": false,
+    "variant_index": 1,
+    "optimized": true,
     "privacy": "public",
     "auto_published": true,
     "engagement_boosted": true
@@ -255,8 +255,8 @@
       "#JobLoss",
       "#CareerCrisis"
     ],
-    "variant_index": 0,
-    "optimized": false,
+    "variant_index": 1,
+    "optimized": true,
     "privacy": "public",
     "auto_published": true,
     "content_format": "single_company",
@@ -277,8 +277,8 @@
       "#TechGiants",
       "#InvestmentComparison"
     ],
-    "variant_index": 0,
-    "optimized": false,
+    "variant_index": 1,
+    "optimized": true,
     "privacy": "public",
     "auto_published": true,
     "content_format": "comparison",
@@ -300,8 +300,8 @@
       "#Invention",
       "#WritingInstrument"
     ],
-    "variant_index": 0,
-    "optimized": false,
+    "variant_index": 1,
+    "optimized": true,
     "privacy": "public",
     "auto_published": true,
     "content_format": "invention_history",
@@ -371,8 +371,8 @@
       "invention",
       "history"
     ],
-    "variant_index": 0,
-    "optimized": false,
+    "variant_index": 1,
+    "optimized": true,
     "privacy": "public",
     "auto_published": true,
     "content_format": "invention_history"
@@ -395,8 +395,8 @@
       "#WhatIf",
       "#MSFT"
     ],
-    "variant_index": 0,
-    "optimized": false,
+    "variant_index": 1,
+    "optimized": true,
     "privacy": "public",
     "auto_published": true,
     "content_format": "single_company"
@@ -417,8 +417,8 @@
       "#TechComparison",
       "#GuessWhichOne"
     ],
-    "variant_index": 0,
-    "optimized": false,
+    "variant_index": 1,
+    "optimized": true,
     "privacy": "public",
     "auto_published": true,
     "content_format": "comparison"
@@ -439,7 +439,7 @@
       "Innovation"
     ],
     "variant_index": 0,
-    "optimized": false,
+    "optimized": true,
     "privacy": "public",
     "auto_published": true,
     "content_format": "invention_history"
@@ -462,8 +462,8 @@
       "#ArgentinaExpats",
       "#ProductivityHacks"
     ],
-    "variant_index": 0,
-    "optimized": false,
+    "variant_index": 1,
+    "optimized": true,
     "privacy": "public",
     "auto_published": true,
     "content_format": "single_company"
@@ -483,8 +483,8 @@
       "#TechGiant",
       "#GuessWhichOne"
     ],
-    "variant_index": 0,
-    "optimized": false,
+    "variant_index": 1,
+    "optimized": true,
     "privacy": "public",
     "auto_published": true,
     "content_format": "comparison"
@@ -502,8 +502,8 @@
     "hashtags": [
       "#Sandwich #FoodHistory #JohnMontagu"
     ],
-    "variant_index": 0,
-    "optimized": false,
+    "variant_index": 1,
+    "optimized": true,
     "privacy": "public",
     "auto_published": true,
     "content_format": "invention_history"
@@ -526,8 +526,8 @@
       "#EarningsCall",
       "#Investing"
     ],
-    "variant_index": 0,
-    "optimized": false,
+    "variant_index": 1,
+    "optimized": true,
     "privacy": "public",
     "auto_published": true,
     "content_format": "single_company"
