@@ -613,5 +613,26 @@
     "privacy": "public",
     "auto_published": true,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "QXowZWx-B04",
+    "company": "The Great Depression bank runs",
+    "video_type": "short",
+    "uploaded_at": "2026-07-20T17:27:55.267296+00:00",
+    "title_variants": [
+      "Banking on Chaos",
+      "The Great Depression: A Run on Banks",
+      "When Banks Failed"
+    ],
+    "hashtags": [
+      "#TheGreatDepression",
+      "#BankRuns",
+      "#FinancialHistory"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false,
+    "content_format": "money_story"
   }
 ]
