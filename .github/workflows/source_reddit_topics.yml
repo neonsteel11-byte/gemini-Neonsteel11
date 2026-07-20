@@ -1,0 +1,27 @@
+name: Source Reddit TIL Topics
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 8 * * 1'
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+    - uses: actions/checkout@v4
+    - uses: actions/setup-python@v5
+      with:
+        python-version: '3.11'
+    - run: python -m pip install --upgrade pip && python -m pip install requests
+    - run: python -m scripts.fetch_reddit_til
+    - name: Commit updated queue
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+        git add manual_topics.json til_used_ids.json
+        git diff --staged --quiet || git commit -m "Add fresh r/todayilearned topics to queue"
+        for i in 1 2 3 4 5; do
+          git pull --rebase origin main && git push && break
+          sleep 5
+        done
