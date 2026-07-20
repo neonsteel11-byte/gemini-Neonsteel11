@@ -78,8 +78,13 @@ def _generate_gemini_image(prompt: str, output_path: str, size: tuple):
 
 
 CARTOON_STYLE_SUFFIX = (
-    ", flat vector cartoon illustration, bold black outlines, bright saturated "
-    "colors, exaggerated expressions, simple shapes, humorous style"
+    ", flat vector cartoon illustration, bold black outlines, exaggerated "
+    "expressions, simple clean shapes, humorous style -- 'Luminous Blueprint' "
+    "brand palette: deep navy blue backgrounds and tones, glowing warm amber/gold "
+    "accent highlights (lightbulb glow, spark effects, warm rim lighting), subtle "
+    "thin circuit-line decorative accents in the background. Colors must stay "
+    "CLEAN and FLAT -- crisp solid fills, no grain, no gritty texture, no "
+    "photorealistic shading, no painterly brush strokes."
 )
 # ALWAYS appended, no matter what the LLM already wrote -- this is a safety
 # backstop, not a style choice, so it must never be conditionally skipped.
@@ -137,10 +142,11 @@ def generate_thumbnail(company: str, hook_text: str, output_path: str, size: tup
     from PIL import ImageDraw, ImageFont
 
     prompt = (
-        f"extreme close-up cartoon face reacting with shock and excitement about "
-        f"{company} stock news, wide eyes, mouth open, exaggerated expression, "
-        f"flat vector illustration, bold black outlines, bright saturated colors, "
-        f"dramatic lighting, no text, no logos"
+        f"extreme close-up cartoon face reacting with shock and excitement, "
+        f"wide eyes, mouth open, exaggerated expression, flat vector illustration, "
+        f"bold black outlines, deep navy blue background with glowing warm amber "
+        f"rim lighting on the face, clean flat colors, no grain, no photorealistic "
+        f"shading, no text, no logos"
     )
     generate_image(prompt, output_path, size)
 
@@ -176,10 +182,11 @@ def generate_thumbnail(company: str, hook_text: str, output_path: str, size: tup
     from PIL import ImageDraw, ImageFont
 
     prompt = (
-        f"extreme close-up cartoon face reacting with shock and excitement about "
-        f"{company} stock news, wide eyes, mouth open, exaggerated expression, "
-        f"flat vector illustration, bold black outlines, bright saturated colors, "
-        f"dramatic lighting, no text, no logos"
+        f"extreme close-up cartoon face reacting with shock and excitement, "
+        f"wide eyes, mouth open, exaggerated expression, flat vector illustration, "
+        f"bold black outlines, deep navy blue background with glowing warm amber "
+        f"rim lighting on the face, clean flat colors, no grain, no photorealistic "
+        f"shading, no text, no logos"
     )
     generate_image(prompt, output_path, size)
 
