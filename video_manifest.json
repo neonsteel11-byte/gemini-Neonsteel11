@@ -634,5 +634,26 @@
     "privacy": "private",
     "auto_published": false,
     "content_format": "money_story"
+  },
+  {
+    "video_id": "q2aEUTTc4HY",
+    "company": "The invention of paper money",
+    "video_type": "long",
+    "uploaded_at": "2026-07-20T20:03:39.391247+00:00",
+    "title_variants": [
+      "The Wild Birth of Paper Money",
+      "Paper Money's Shocking Origin",
+      "The Funny Story Behind Cash"
+    ],
+    "hashtags": [
+      "#PaperMoney",
+      "#FinancialHistory",
+      "#MoneyOrigin"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false,
+    "content_format": "money_story"
   }
 ]
