@@ -594,5 +594,24 @@
     "privacy": "public",
     "auto_published": true,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "xHGfxGIRV5g",
+    "company": "Light bulb",
+    "video_type": "short",
+    "uploaded_at": "2026-07-20T10:18:27.627236+00:00",
+    "title_variants": [
+      "Edison's Bright Idea",
+      "The Real Light Bulb Story",
+      "Shocking Truth About the Light Bulb"
+    ],
+    "hashtags": [
+      "#LightBulb #ThomasEdison #Invention #History"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
