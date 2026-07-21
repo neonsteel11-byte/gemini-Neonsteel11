@@ -679,5 +679,27 @@
     "privacy": "private",
     "auto_published": false,
     "content_format": "single_company"
+  },
+  {
+    "video_id": "VW8ISQw41DI",
+    "company": "Microsoft vs Google",
+    "video_type": "long",
+    "uploaded_at": "2026-07-21T19:56:58.387006+00:00",
+    "title_variants": [
+      "GUESS WHICH TECH GIANT",
+      "Microsoft vs Google: Which One?",
+      "The Ultimate Showdown"
+    ],
+    "hashtags": [
+      "#Microsoft",
+      "#Google",
+      "#TechGiants",
+      "#GUESSWHICHONE"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false,
+    "content_format": "comparison"
   }
 ]
