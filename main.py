@@ -170,6 +170,12 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
 
     print(f"[4/4] Done. Final video: {final_path}")
 
+    caption_path = os.path.join(OUTPUT_DIR, f"{safe_name}_{video_type}_caption.txt")
+    hashtags_str = " ".join(script.get("hashtags", []))
+    with open(caption_path, "w", encoding="utf-8") as f:
+        f.write(f"{script['title_variants'][0]}\n\n{hashtags_str} #accidentalgenius #fyp\n")
+    print(f"      Ready-to-paste caption saved: {caption_path}")
+
     if upload:
         from scripts.youtube_upload import upload_video
         hashtags = " ".join(script.get("hashtags", []))
