@@ -655,5 +655,29 @@
     "privacy": "public",
     "auto_published": true,
     "content_format": "money_story"
+  },
+  {
+    "video_id": "3ZOPKQfBams",
+    "company": "Microsoft",
+    "video_type": "short",
+    "uploaded_at": "2026-07-21T17:12:16.945649+00:00",
+    "title_variants": [
+      "Dad's Microsoft Money Memory: A $4 Trillion Family Heirloom",
+      "The Microsoft Stock Story Your Dad Won't Stop Telling",
+      "POV: Your Dad's Decades-Old Microsoft Investment Is Still Haunting You"
+    ],
+    "hashtags": [
+      "#Microsoft",
+      "#StockMarket",
+      "#DadJokes",
+      "#FamilyStories",
+      "#InvestmentAdvice",
+      "#Relatable"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false,
+    "content_format": "single_company"
   }
 ]
