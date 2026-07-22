@@ -701,5 +701,24 @@
     "privacy": "public",
     "auto_published": true,
     "content_format": "comparison"
+  },
+  {
+    "video_id": "MAZ9nFhn_84",
+    "company": "Telephone",
+    "video_type": "short",
+    "uploaded_at": "2026-07-22T17:13:03.025237+00:00",
+    "title_variants": [
+      "Bell's Revolutionary Ring",
+      "The Birth of the Telephone",
+      "When Voices Went Wireless"
+    ],
+    "hashtags": [
+      "#Telephone #AlexanderGrahamBell #Innovation"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
