@@ -49,7 +49,16 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
     print(f"[1/4] Generating script for '{company}' ({video_type})...")
     from scripts.fetch_news import fetch_recent_headlines
     content_format = "single_company"
-    if company.startswith("MONEY:"):
+    if company.startswith("WIDE:"):
+        content_format = "wide_topic"
+        topic = company.split(":", 1)[1]
+        print(f"      Wide-topic mode: {topic}")
+        from scripts.script_gen import generate_money_story_script
+        from scripts.fetch_wikipedia import fetch_wiki_info
+        topic_info = fetch_wiki_info(topic)
+        script = generate_money_story_script(topic, topic_info["summary"], video_type)
+        company = topic
+    elif company.startswith("MONEY:"):
         content_format = "money_story"
         topic = company.split(":", 1)[1]
         print(f"      Money story mode: {topic}")

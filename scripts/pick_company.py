@@ -1,6 +1,6 @@
 """
-Picks today's content. 6-slot cycle: 2x invention-history (proven winner),
-2x money-stories (new test format), 1x single-company POV, 1x comparison.
+8-slot rotation: 2x invention, 2x money-story, 2x wide-topic (general trivia,
+NOT company-related), 1x single-company POV, 1x comparison.
 """
 import json
 import os
@@ -9,15 +9,19 @@ import sys
 COMPANIES_PATH = "companies.json"
 INVENTIONS_PATH = "inventions.json"
 MONEY_PATH = "money_stories.json"
+WIDE_PATH = "wide_topics.json"
 MANUAL_QUEUE_PATH = "manual_topics.json"
 STATE_PATH = "company_state.json"
+
+
+def _load(path):
+    return json.load(open(path, encoding="utf-8")) if os.path.exists(path) else []
 
 
 def _try_manual_queue():
     if not os.path.exists(MANUAL_QUEUE_PATH):
         return None
-    with open(MANUAL_QUEUE_PATH, "r", encoding="utf-8") as f:
-        queue = json.load(f)
+    queue = _load(MANUAL_QUEUE_PATH)
     if not queue:
         return None
     topic = queue.pop(0)
@@ -32,19 +36,18 @@ def main():
         print(manual_topic)
         return
 
-    with open(COMPANIES_PATH, "r", encoding="utf-8") as f:
-        companies = json.load(f)
-    inventions = json.load(open(INVENTIONS_PATH, encoding="utf-8")) if os.path.exists(INVENTIONS_PATH) else []
-    money_stories = json.load(open(MONEY_PATH, encoding="utf-8")) if os.path.exists(MONEY_PATH) else []
+    companies = _load(COMPANIES_PATH)
+    inventions = _load(INVENTIONS_PATH)
+    money_stories = _load(MONEY_PATH)
+    wide_topics = _load(WIDE_PATH)
 
     last_index = -1
     if os.path.exists(STATE_PATH):
-        with open(STATE_PATH, "r", encoding="utf-8") as f:
-            last_index = json.load(f).get("last_index", -1)
+        last_index = json.load(open(STATE_PATH, encoding="utf-8")).get("last_index", -1)
 
     next_index = last_index + 1
-    slot = next_index % 6
-    cycle_pos = next_index // 6
+    slot = next_index % 8
+    cycle_pos = next_index // 8
 
     if slot in (0, 1) and inventions:
         i_idx = (cycle_pos * 2 + slot) % len(inventions)
@@ -53,7 +56,10 @@ def main():
     elif slot in (2, 3) and money_stories:
         m_idx = (cycle_pos * 2 + (slot - 2)) % len(money_stories)
         output = f"MONEY:{money_stories[m_idx]}"
-    elif slot == 4:
+    elif slot in (4, 5) and wide_topics:
+        w_idx = (cycle_pos * 2 + (slot - 4)) % len(wide_topics)
+        output = f"WIDE:{wide_topics[w_idx]}"
+    elif slot == 6:
         c_idx = cycle_pos % len(companies)
         output = companies[c_idx]
     else:

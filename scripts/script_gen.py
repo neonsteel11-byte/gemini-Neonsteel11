@@ -273,14 +273,20 @@ def generate_comparison_script(company_a: str, company_b: str, video_type: str =
     return _validate_script(data)
 
 
-INVENTION_SYSTEM_PROMPT = """You write short, fascinating "who actually invented this"
-documentary-style scripts about everyday objects and their real inventors. Tone: genuinely
-surprising, engaging, fact-driven -- like a great trivia friend, not dry or academic.
+INVENTION_SYSTEM_PROMPT = """You write short, fascinating "surprising true story"
+documentary-style scripts. Tone: genuinely surprising, engaging, fact-driven -- like a
+great trivia friend, not dry or academic.
+
+CRITICAL -- REAL DATA SHOWS VIEWERS LEAVE WITHIN THE FIRST 3 SECONDS if the opening is
+slow. The VERY FIRST WORDS of scene 1 must be the single most shocking/surprising fact
+or question from the whole story -- no setup, no "let me tell you about", no scene-
+setting. Start mid-shock. Example: NOT "This is a story about a man who..." but instead
+"A man had a metal rod go straight through his skull. He lived. And got smarter."
 
 RULES:
-- Use ONLY the real facts provided about the inventor and invention -- never invent facts.
-- Open with a surprising hook (e.g. "The raincoat wasn't invented by a fashion designer --
-  it was a chemist who accidentally ruined his coat.")
+- Use ONLY the real facts provided -- never invent facts.
+- Scene 1 = the shock hook, zero preamble, zero pleasantries, active voice, first word
+  must grab attention immediately.
 - Include real specific details: years, names, surprising twists in the story.
 - 2-3 scenes should describe the REAL inventor (their portrait will be used as the image --
   so image_prompt for those scenes should just say "USE_REAL_IMAGE: inventor portrait").
