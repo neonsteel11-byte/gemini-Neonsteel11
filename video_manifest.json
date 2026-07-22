@@ -720,5 +720,24 @@
     "privacy": "private",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "-OszYbKJWhI",
+    "company": "Light bulb",
+    "video_type": "long",
+    "uploaded_at": "2026-07-22T19:39:41.589534+00:00",
+    "title_variants": [
+      "Edison's Electric Miracle",
+      "The Shocking Truth About Light Bulbs",
+      "Bright Idea"
+    ],
+    "hashtags": [
+      "#LightBulb #ThomasEdison #Innovation #Electricity"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
