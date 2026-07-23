@@ -75,8 +75,11 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
         from scripts.fetch_wikipedia import fetch_wiki_info
         inventor_info = fetch_wiki_info(inventor)
         invention_info = fetch_wiki_info(invention)
+        from scripts.fetch_reddit_facts import fetch_reddit_context
+        reddit_snippets = fetch_reddit_context(invention)
+        combined_facts = invention_info["summary"] + "\n\nAdditional angles people find interesting: " + "; ".join(reddit_snippets)
         script = generate_invention_script(
-            invention, inventor, inventor_info["summary"], invention_info["summary"], video_type
+            invention, inventor, inventor_info["summary"], combined_facts, video_type
         )
         script["_inventor_image_url"] = inventor_info["image_url"]
         company = invention
