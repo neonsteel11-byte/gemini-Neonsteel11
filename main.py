@@ -160,10 +160,10 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
     print("      Generating subscribe call-to-action scene...")
     cta_audio_path = os.path.join(tmp_dir, "cta_audio.mp3")
     cta_image_path = os.path.join(tmp_dir, "cta_image.png")
-    cta_duration, cta_words = generate_voiceover(
-        "If that made you laugh, hit subscribe -- new funny finance videos every day!",
-        cta_audio_path
-    )
+    cta_text = "If that made you laugh, hit subscribe for more funny stories!" \
+        if content_format in ("single_company", "comparison") else \
+        "If that surprised you, hit subscribe -- there's a new one of these every day!"
+    cta_duration, cta_words = generate_voiceover(cta_text, cta_audio_path)
     generate_image(
         "a cheerful cartoon character giving a thumbs up next to a giant bell icon, "
         "flat vector cartoon illustration, bold outlines, bright colors",

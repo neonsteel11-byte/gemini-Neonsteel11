@@ -4,8 +4,9 @@ import subprocess
 import asyncio
 import edge_tts
 
-EDGE_VOICE = os.getenv("EDGE_VOICE", "en-US-AndrewMultilingualNeural")
-EDGE_RATE = os.getenv("EDGE_RATE", "+6%")
+EDGE_VOICE = os.getenv("EDGE_VOICE", "en-US-AvaMultilingualNeural")
+EDGE_RATE = os.getenv("EDGE_RATE", "+4%")
+EDGE_PITCH = os.getenv("EDGE_PITCH", "+2Hz")
 
 def _get_duration(filepath):
     try:
