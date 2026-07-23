@@ -739,5 +739,26 @@
     "privacy": "public",
     "auto_published": true,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "YlkCN2duPRo",
+    "company": "The Great Depression bank runs",
+    "video_type": "short",
+    "uploaded_at": "2026-07-23T17:19:40.940717+00:00",
+    "title_variants": [
+      "Banks Gone Bust",
+      "The Great Depression",
+      "Bank Runs of 1929"
+    ],
+    "hashtags": [
+      "TheGreatDepression",
+      "BankRuns",
+      "FinancialHistory"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false,
+    "content_format": "money_story"
   }
 ]
