@@ -191,11 +191,15 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
     if upload:
         from scripts.youtube_upload import upload_video
         hashtags = " ".join(script.get("hashtags", []))
-        description = (
-            f"{script['title_variants'][0]}\n\n"
-            f"A personal finance story about {company}. For entertainment/reflection, "
-            f"not financial advice.\n\n{hashtags}"
-        )
+        if content_format in ("single_company", "comparison"):
+            body = f"A personal finance story about {company}. For entertainment/reflection, not financial advice."
+        elif content_format == "invention_history":
+            body = f"The real, true story behind {company} -- surprising history you probably didn't know."
+        elif content_format == "money_story":
+            body = f"A true story from financial history: {company}."
+        else:
+            body = f"A surprising true story: {company}."
+        description = f"{script['title_variants'][0]}\n\n{body}\n\n{hashtags}"
         video_id = upload_video(
             final_path, script["title_variants"][0], description,
             tags=script.get("seo_tags", []) + [company, "finance", "cartoon"],
