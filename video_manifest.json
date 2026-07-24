@@ -781,5 +781,26 @@
     "privacy": "public",
     "auto_published": true,
     "content_format": "money_story"
+  },
+  {
+    "video_id": "3Rx6JOhrI2A",
+    "company": "Why the sky is blue",
+    "video_type": "short",
+    "uploaded_at": "2026-07-24T17:30:16.505914+00:00",
+    "title_variants": [
+      "The Sky's Hidden Cash",
+      "Blue Sky Bonanza",
+      "Diffused Dollars"
+    ],
+    "hashtags": [
+      "#SkyWealth",
+      "#AtmosphericFinance",
+      "#DiffusedDollars"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false,
+    "content_format": "wide_topic"
   }
 ]
