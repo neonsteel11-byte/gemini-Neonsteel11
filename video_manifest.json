@@ -823,5 +823,29 @@
     "privacy": "private",
     "auto_published": false,
     "content_format": "wide_topic"
+  },
+  {
+    "video_id": "gGp1g08pJnE",
+    "company": "Microsoft",
+    "video_type": "long",
+    "uploaded_at": "2026-07-25T19:32:41.522527+00:00",
+    "title_variants": [
+      "The Microsoft Miss: How You Almost Invested $10,000",
+      "POV: You Didn't Buy Microsoft Stock, Here's What Happened",
+      "The $400 Billion Blunder: Your Microsoft Non-Investment"
+    ],
+    "hashtags": [
+      "#Microsoft",
+      "#Investing",
+      "#Finance",
+      "#StockMarket",
+      "#WhatIf",
+      "#Technology"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false,
+    "content_format": "single_company"
   }
 ]
