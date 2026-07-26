@@ -185,9 +185,9 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
     hashtags_list = script.get("hashtags", [])
     title = script['title_variants'][0]
 
-    tiktok_caption = f"{title}\n\n" + " ".join(hashtags_list[:5]) + " #fyp #foryou #accidentalgenius"
-    instagram_caption = f"{title}\n.\n.\n.\n" + " ".join(hashtags_list[:3]) + " #reels #accidentalgenius"
-    facebook_caption = f"{title}"
+    tiktok_caption = f"{title} | Accidental Genius\n\n" + " ".join(hashtags_list[:5]) + " #fyp #foryou #AccidentalGenius"
+    instagram_caption = f"{title} | Accidental Genius\n.\n.\n.\n" + " ".join(hashtags_list[:3]) + " #reels #AccidentalGenius"
+    facebook_caption = f"{title} | Accidental Genius"
 
     caption_path = os.path.join(OUTPUT_DIR, f"{safe_name}_{video_type}_captions.txt")
     with open(caption_path, "w", encoding="utf-8") as f:
@@ -207,7 +207,8 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
             body = f"A true story from financial history: {company}."
         else:
             body = f"A surprising true story: {company}."
-        description = f"{script['title_variants'][0]}\n\n{body}\n\n{hashtags}"
+        brand_line = "Accidental Genius -- the wild stories behind history's most brilliant mistakes."
+        description = f"{script['title_variants'][0]}\n\n{body}\n\n{brand_line}\n\n{hashtags} #AccidentalGenius"
         video_id = upload_video(
             final_path, script["title_variants"][0], description,
             tags=script.get("seo_tags", []) + [company, "finance", "cartoon"],

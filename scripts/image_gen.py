@@ -91,7 +91,10 @@ CARTOON_STYLE_SUFFIX = (
 SAFETY_SUFFIX = (
     ", absolutely no readable text or signage of any kind, no logos, no brand "
     "names, generic fictional unnamed characters only, do NOT depict any real "
-    "person's face or likeness including CEOs or executives"
+    "person's face or likeness including CEOs or executives. Faces must be simple, "
+    "symmetrical, clean cartoon style with normal proportions -- both eyes the same "
+    "size and shape, no distorted or asymmetric features, no extra or malformed "
+    "facial details, no uncanny or unsettling expressions."
 )
 
 def generate_image(prompt: str, output_path: str, size: tuple = (1920, 1080), seed: int = 42):
