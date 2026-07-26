@@ -847,5 +847,27 @@
     "privacy": "public",
     "auto_published": true,
     "content_format": "single_company"
+  },
+  {
+    "video_id": "QGIjgXbWbNg",
+    "company": "Microsoft vs Google",
+    "video_type": "long",
+    "uploaded_at": "2026-07-26T14:40:55.741416+00:00",
+    "title_variants": [
+      "GUESS WHICH ONE: Tech Giants",
+      "The Ultimate Showdown: Microsoft vs Google",
+      "Which Company Will Reign Supreme?"
+    ],
+    "hashtags": [
+      "#Microsoft",
+      "#Google",
+      "#TechGiants",
+      "#GuessWhichOne"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false,
+    "content_format": "comparison"
   }
 ]
