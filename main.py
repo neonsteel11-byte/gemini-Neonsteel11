@@ -182,11 +182,19 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
 
     print(f"[4/4] Done. Final video: {final_path}")
 
-    caption_path = os.path.join(OUTPUT_DIR, f"{safe_name}_{video_type}_caption.txt")
-    hashtags_str = " ".join(script.get("hashtags", []))
+    hashtags_list = script.get("hashtags", [])
+    title = script['title_variants'][0]
+
+    tiktok_caption = f"{title}\n\n" + " ".join(hashtags_list[:5]) + " #fyp #foryou #accidentalgenius"
+    instagram_caption = f"{title}\n.\n.\n.\n" + " ".join(hashtags_list[:3]) + " #reels #accidentalgenius"
+    facebook_caption = f"{title}"
+
+    caption_path = os.path.join(OUTPUT_DIR, f"{safe_name}_{video_type}_captions.txt")
     with open(caption_path, "w", encoding="utf-8") as f:
-        f.write(f"{script['title_variants'][0]}\n\n{hashtags_str} #accidentalgenius #fyp\n")
-    print(f"      Ready-to-paste caption saved: {caption_path}")
+        f.write("=== TIKTOK ===\n" + tiktok_caption + "\n\n")
+        f.write("=== INSTAGRAM ===\n" + instagram_caption + "\n\n")
+        f.write("=== FACEBOOK ===\n" + facebook_caption + "\n")
+    print(f"      Platform-specific captions saved: {caption_path}")
 
     if upload:
         from scripts.youtube_upload import upload_video
