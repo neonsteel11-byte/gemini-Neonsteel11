@@ -869,5 +869,26 @@
     "privacy": "private",
     "auto_published": false,
     "content_format": "comparison"
+  },
+  {
+    "video_id": "-TLhyfw62oI",
+    "company": "Television",
+    "video_type": "short",
+    "uploaded_at": "2026-07-26T16:52:27.636027+00:00",
+    "title_variants": [
+      "The Teen Who Invented TV",
+      "Philo Farnsworth's Shocking Invention",
+      "The Accidental TV Genius"
+    ],
+    "hashtags": [
+      "TelevisionHistory",
+      "PhiloFarnsworth",
+      "InventionStories"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
