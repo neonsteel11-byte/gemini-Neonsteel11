@@ -864,8 +864,8 @@
       "#TechGiants",
       "#GuessWhichOne"
     ],
-    "variant_index": 0,
-    "optimized": false,
+    "variant_index": 1,
+    "optimized": true,
     "privacy": "public",
     "auto_published": true,
     "content_format": "comparison"
@@ -886,7 +886,7 @@
       "InventionStories"
     ],
     "variant_index": 0,
-    "optimized": false,
+    "optimized": true,
     "privacy": "public",
     "auto_published": true,
     "content_format": "invention_history"
