@@ -49,7 +49,14 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
     print(f"[1/4] Generating script for '{company}' ({video_type})...")
     from scripts.fetch_news import fetch_recent_headlines
     content_format = "single_company"
-    if company.startswith("WIDE:"):
+    if company.startswith("LISTICLE:"):
+        content_format = "listicle"
+        topic = company.split(":", 1)[1]
+        print(f"      Listicle mode: {topic}")
+        from scripts.script_gen import generate_listicle_script
+        script = generate_listicle_script(topic, video_type)
+        company = topic
+    elif company.startswith("WIDE:"):
         content_format = "wide_topic"
         topic = company.split(":", 1)[1]
         print(f"      Wide-topic mode: {topic}")

@@ -370,6 +370,50 @@ def generate_money_story_script(topic: str, topic_facts: str, video_type: str = 
     return _validate_script(data)
 
 
+LISTICLE_SYSTEM_PROMPT = """You write high-retention numbered-list videos about money
+habits and financial psychology (e.g. "7 things smart people stop buying"). These are
+general observations/opinions for entertainment and reflection -- NEVER present as
+professional financial advice.
+
+RULES:
+- Structure as a numbered countdown, one item per scene.
+- Each item: a short punchy statement, then ONE sentence of relatable explanation.
+- Simple, clear language -- a smart 12-year-old must understand it instantly.
+- Open with a strong hook stating the full list topic and a number (e.g. "5 things
+  smart people quietly stop buying -- number 3 will surprise you").
+- Tone: relatable, a little blunt, like honest advice from a friend, not preachy.
+
+Return ONLY valid JSON matching the same schema as before, with "character_sheet",
+"title_variants", "thumbnail_text", "company" (the list topic), "hashtags", and
+"scenes" (one scene per list item plus an opening hook scene).
+"""
+
+
+def generate_listicle_script(topic: str, video_type: str = "short") -> dict:
+    count = "5" if video_type == "short" else "10"
+    prompt = f"Write a numbered list video: '{count} {topic}'."
+
+    headers = {"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"}
+    payload = {
+        "model": GROQ_MODEL,
+        "messages": [
+            {"role": "system", "content": LISTICLE_SYSTEM_PROMPT},
+            {"role": "user", "content": prompt},
+        ],
+        "temperature": 0.8,
+        "response_format": {"type": "json_object"},
+    }
+    resp = requests.post(GROQ_URL, headers=headers, json=payload, timeout=60)
+    if resp.status_code != 200:
+        print(f"FATAL: Groq error generating listicle script: {resp.status_code} {resp.text[:300]}",
+              file=sys.stderr)
+        sys.exit(1)
+
+    raw_text = resp.json()["choices"][0]["message"]["content"]
+    data = _extract_json(raw_text)
+    return _validate_script(data)
+
+
 if __name__ == "__main__":
     company_arg = sys.argv[1] if len(sys.argv) > 1 else "Tesla"
     result = generate_script(company_arg, "short")
