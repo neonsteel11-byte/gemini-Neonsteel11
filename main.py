@@ -168,11 +168,19 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
     ]) if content_format not in ("single_company", "comparison") else \
         "If that made you laugh, hit subscribe for more funny stories!"
     cta_duration, cta_words = generate_voiceover(cta_text, cta_audio_path)
-    generate_image(
-        "a cheerful cartoon character giving a thumbs up next to a giant bell icon, "
-        "flat vector cartoon illustration, bold outlines, bright colors",
-        cta_image_path, size
-    )
+    mascot_asset_path = "assets/lucky_mascot.png"
+    if os.path.exists(mascot_asset_path):
+        import shutil as _shutil
+        from PIL import Image as _Image
+        img = _Image.open(mascot_asset_path).convert("RGB").resize(size)
+        img.save(cta_image_path)
+        print("      Using lucky mascot for CTA scene.")
+    else:
+        generate_image(
+            "a cheerful cartoon character giving a thumbs up next to a giant bell icon, "
+            "flat vector cartoon illustration, bold outlines, bright colors",
+            cta_image_path, size
+        )
     scene_data.append({
         "image_path": cta_image_path,
         "audio_path": cta_audio_path,
