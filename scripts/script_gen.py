@@ -274,8 +274,20 @@ def generate_comparison_script(company_a: str, company_b: str, video_type: str =
 
 
 INVENTION_SYSTEM_PROMPT = """You write short, fascinating "surprising true story"
-documentary-style scripts. Tone: genuinely surprising, engaging, fact-driven -- like a
-great trivia friend, not dry or academic.
+scripts that are BOTH genuinely funny AND educational -- entertainment first, facts
+woven in naturally, never a dry documentary lecture. Tone: like your funniest friend
+telling you a wild true story, not a museum narrator.
+
+EVERY SCENE NEEDS AN ACTUAL JOKE, not just an interesting fact. Structure: state the
+real fact, then add a punchline -- an unexpected comparison, a modern reference, or
+a blunt honest reaction. Examples of the right energy (write NEW jokes in this style,
+never copy these):
+- "He didn't wash his lab dishes for two weeks. Two weeks. And that's how we got
+   penicillin. Never underestimate a man who just doesn't feel like doing chores."
+- "The recipe got the temperature wrong by accident. Nobody fixed it. It's now a
+   billion-dollar snack. Sometimes failure just tastes better."
+Study the rhythm: real fact, then a sharp, funny turn. Every single scene must hit
+this bar, not just the opening.
 
 CRITICAL -- REAL DATA SHOWS VIEWERS LEAVE WITHIN THE FIRST 3 SECONDS if the opening is
 slow. The VERY FIRST WORDS of scene 1 must be the single most shocking/surprising fact
@@ -287,6 +299,9 @@ RULES:
 - Use ONLY the real facts provided -- never invent facts.
 - Scene 1 = the shock hook, zero preamble, zero pleasantries, active voice, first word
   must grab attention immediately.
+- image_prompt for each scene should show ACTION or a big REACTION (surprised face,
+  dramatic gesture, something happening) -- avoid static posed portraits, they read
+  as boring/textbook. Entertainment first.
 - Include real specific details: years, names, surprising twists in the story.
 - 2-3 scenes should describe the REAL inventor (their portrait will be used as the image --
   so image_prompt for those scenes should just say "USE_REAL_IMAGE: inventor portrait").
@@ -389,9 +404,18 @@ Return ONLY valid JSON matching the same schema as before, with "character_sheet
 """
 
 
+WHITEBOARD_STYLE = (
+    ", whiteboard animation style, hand-drawn marker illustration on a cream white "
+    "background, simple bold black outline sketches, minimal color accents in "
+    "amber/gold and navy blue marker colors, clean simple doodle-style icons, "
+    "looks hand-drawn but neat and legible, no photorealism, no gritty texture"
+)
+
+
 def generate_listicle_script(topic: str, video_type: str = "short") -> dict:
     count = "5" if video_type == "short" else "10"
-    prompt = f"Write a numbered list video: '{count} {topic}'."
+    prompt = f"Write a numbered list video: '{count} {topic}'. Every image_prompt " \
+             f"must end with this exact style tag: {WHITEBOARD_STYLE}"
 
     headers = {"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"}
     payload = {
@@ -433,9 +457,18 @@ Return ONLY valid JSON matching the same schema as before, with "character_sheet
 """
 
 
+WHITEBOARD_STYLE = (
+    ", whiteboard animation style, hand-drawn marker illustration on a cream white "
+    "background, simple bold black outline sketches, minimal color accents in "
+    "amber/gold and navy blue marker colors, clean simple doodle-style icons, "
+    "looks hand-drawn but neat and legible, no photorealism, no gritty texture"
+)
+
+
 def generate_listicle_script(topic: str, video_type: str = "short") -> dict:
     count = "5" if video_type == "short" else "10"
-    prompt = f"Write a numbered list video: '{count} {topic}'."
+    prompt = f"Write a numbered list video: '{count} {topic}'. Every image_prompt " \
+             f"must end with this exact style tag: {WHITEBOARD_STYLE}"
 
     headers = {"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"}
     payload = {
