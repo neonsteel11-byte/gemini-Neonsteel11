@@ -935,5 +935,29 @@
     "privacy": "public",
     "auto_published": true,
     "content_format": "single_company"
+  },
+  {
+    "video_id": "QnRFYC8kN54",
+    "company": "Microsoft vs Google",
+    "video_type": "short",
+    "uploaded_at": "2026-07-29T17:13:36.005605+00:00",
+    "title_variants": [
+      "Microsoft vs Google: Which Tech Giant Wins?",
+      "Guess Which One: MSFT or GOOGL?",
+      "The Ultimate Showdown: Microsoft or Google?"
+    ],
+    "hashtags": [
+      "#Microsoft",
+      "#Google",
+      "#TechGiants",
+      "#Gaming",
+      "#AI",
+      "#Innovation"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false,
+    "content_format": "comparison"
   }
 ]
