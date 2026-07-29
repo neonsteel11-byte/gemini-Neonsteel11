@@ -162,6 +162,7 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
             "audio_path": audio_path,
             "words": words,
             "duration": duration,
+            "has_punchline": scene.get("has_punchline", False),
         })
 
     print("      Generating subscribe call-to-action scene...")

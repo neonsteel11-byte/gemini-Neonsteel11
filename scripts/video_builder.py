@@ -48,8 +48,10 @@ def _build_caption_filters(words: list, width: int, height: int) -> str:
         )
     return "," + ",".join(filters)
 
+LAUGH_SFX_PATH = "assets/laugh.mp3"
+
 def build_scene_clip(image_path, audio_path, words, duration, size, output_path,
-                      image_path_2=None, narrator_path=None):
+                      image_path_2=None, narrator_path=None, has_punchline=False):
     """
     Builds a scene clip. If image_path_2 is provided and different from
     image_path, cuts from image 1 to image 2 at the midpoint with a punch-zoom
@@ -121,6 +123,21 @@ def build_scene_clip(image_path, audio_path, words, duration, size, output_path,
         print(f"Error compiling scene clip: {result.stderr}", file=sys.stderr)
         raise RuntimeError("FFmpeg stitching failure.")
 
+    if has_punchline and os.path.exists(LAUGH_SFX_PATH):
+        mixed_path = output_path + ".laugh.mp4"
+        mix_cmd = [
+            "ffmpeg", "-y", "-i", output_path, "-i", LAUGH_SFX_PATH,
+            "-filter_complex",
+            f"[1:a]adelay={int((duration-1)*1000)}|{int((duration-1)*1000)},volume=0.5[laugh];"
+            f"[0:a][laugh]amix=inputs=2:duration=first[aout]",
+            "-map", "0:v", "-map", "[aout]", "-c:v", "copy", mixed_path
+        ]
+        result2 = subprocess.run(mix_cmd, capture_output=True, text=True)
+        if result2.returncode == 0:
+            os.replace(mixed_path, output_path)
+        else:
+            print(f"      [WARNING] Laugh overlay failed, continuing without it.", file=sys.stderr)
+
 def verify_not_black(video_path: str, max_black_ratio: float = 0.15):
     cmd = ["ffmpeg", "-i", video_path, "-vf", "blackdetect=d=0.5:pic_th=0.98", "-an", "-f", "null", "-"]
     result = subprocess.run(cmd, capture_output=True, text=True)
@@ -165,7 +182,8 @@ def build_video(scene_data, size, final_output_path, tmp_dir, narrator_path=None
         build_scene_clip(
             scene["image_path"], scene["audio_path"], scene["words"],
             scene["duration"], size, clip_path,
-            image_path_2=scene.get("image_path_2"), narrator_path=narrator_path
+            image_path_2=scene.get("image_path_2"), narrator_path=narrator_path,
+            has_punchline=scene.get("has_punchline", False)
         )
         clip_paths.append(clip_path)
 
