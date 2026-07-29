@@ -78,13 +78,14 @@ def _generate_gemini_image(prompt: str, output_path: str, size: tuple):
 
 
 CARTOON_STYLE_SUFFIX = (
-    ", clean flat vector illustration in the style of Kurzgesagt -- simple bold "
-    "shapes, minimal clean geometry, bold thin outlines, NOT overly detailed or "
-    "textured. 'Luminous Blueprint' brand palette: deep navy blue backgrounds, "
-    "glowing warm amber/gold accent highlights (lightbulb glow, spark effects), "
-    "subtle thin circuit-line decorative accents. Bright, vibrant, clean colors -- "
-    "no grain, no gritty texture, no dark muddy tones, no photorealistic human "
-    "faces (stylized simple character faces only)."
+    ", professional polished flat vector illustration, high production quality, "
+    "clean crisp linework, well-proportioned characters with correct anatomy, "
+    "smooth clean shading, premium modern character design similar to top finance "
+    "YouTube channels. 'Luminous Blueprint' brand palette: deep navy blue "
+    "backgrounds, glowing warm amber/gold accent highlights, subtle circuit-line "
+    "accents. Bright, vibrant, clean colors -- no grain, no gritty texture, no "
+    "muddy tones, no photorealistic human faces, no distorted proportions, no "
+    "amateur or sloppy rendering."
 )
 # ALWAYS appended, no matter what the LLM already wrote -- this is a safety
 # backstop, not a style choice, so it must never be conditionally skipped.

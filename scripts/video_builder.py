@@ -112,7 +112,6 @@ def build_scene_clip(image_path, audio_path, words, duration, size, output_path,
         "-c:v", "libx264", "-t", str(duration),
         "-preset", "slow", "-crf", "18",
         "-pix_fmt", "yuv420p",
-        "-af", "silenceremove=start_periods=1:start_threshold=-40dB:start_silence=0.1:stop_periods=1:stop_threshold=-40dB:stop_silence=0.1",
         "-c:a", "aac", "-b:a", "192k",
         "-shortest", output_path
     ]
