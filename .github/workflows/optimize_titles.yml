@@ -19,7 +19,7 @@ jobs:
         YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
         YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
         YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
-        MIN_VIEWS_THRESHOLD: "10"
+        MIN_VIEWS_THRESHOLD: "1000"
         OPTIMIZE_AFTER_HOURS: "24"
       run: python -m scripts.optimize_titles
     - name: Commit updated manifest
