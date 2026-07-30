@@ -71,7 +71,7 @@ Return ONLY valid JSON, no markdown fences, no commentary, matching this exact s
 {
   "character_sheet": "detailed fixed description of the recurring protagonist character",
   "title_variants": ["PROFESSIONAL two-part title in format '[Punchy Hook]: [Specific Descriptive Stakes Clause]' -- e.g. 'The $2 Billion Mistake: How One Ballpoint Pen Company Almost Went Bankrupt' or 'POV: You Owned Tesla During The Great Recall Event' -- NEVER a short generic 2-3 word title", "alternate professional title 2", "alternate professional title 3"],
-  "description": "2-3 sentence polished, professional video description summarizing the real content -- written like a documentary channel description, not clickbait filler",
+  "description": "4-6 sentence genuinely well-written, specific, SEO-rich description covering what actually happens in the video, using natural keyword phrases people would search (not generic filler), written like a real professional creator wrote it personally -- specific, not templated",
   "thumbnail_text": "2-4 word ALL CAPS punchy phrase",
   "company": "string",
   "hashtags": ["#tag1", "#tag2", "#tag3", "#tag4", "#tag5", "#tag6"],
