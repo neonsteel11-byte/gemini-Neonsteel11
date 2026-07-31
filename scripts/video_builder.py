@@ -51,7 +51,7 @@ def _build_caption_filters(words: list, width: int, height: int) -> str:
 LAUGH_SFX_PATH = "assets/laugh.mp3"
 
 def build_scene_clip(image_path, audio_path, words, duration, size, output_path,
-                      image_path_2=None, narrator_path=None, has_punchline=False):
+                      image_path_2=None, narrator_path=None, has_punchline=False, scene_index=0):
     """
     Builds a scene clip. If image_path_2 is provided and different from
     image_path, cuts from image 1 to image 2 at the midpoint with a punch-zoom
@@ -69,13 +69,18 @@ def build_scene_clip(image_path, audio_path, words, duration, size, output_path,
 
     use_two_images = image_path_2 and os.path.exists(image_path_2) and image_path_2 != image_path
 
+    zoom_in = scene_index % 2 == 0
+    z1 = "min(zoom+0.0025,1.18)" if zoom_in else "max(1.18-0.0025*on,1.0)"
+    z2 = "max(1.18-0.0025*on,1.0)" if zoom_in else "min(zoom+0.0025,1.18)"
+    pan_x1 = "iw/2-(iw/zoom/2)+2*sin(on/10)" if zoom_in else "iw/2-(iw/zoom/2)-2*sin(on/10)"
+
     if use_two_images:
         filter_complex = (
             f"[0:v]scale={width*2}:{height*2},"
-            f"zoompan=z='min(zoom+0.0025,1.18)':d={zoom_frames_half}:s={width}x{height}:fps=25,"
+            f"zoompan=z='{z1}':x='{pan_x1}':d={zoom_frames_half}:s={width}x{height}:fps=25,"
             f"trim=duration={half:.3f}[part1];"
             f"[1:v]scale={width*2}:{height*2},"
-            f"zoompan=z='min(zoom+0.0025,1.18)':d={zoom_frames_half}:s={width}x{height}:fps=25,"
+            f"zoompan=z='{z2}':d={zoom_frames_half}:s={width}x{height}:fps=25,"
             f"trim=duration={duration - half:.3f}[part2];"
             f"[part1][part2]concat=n=2:v=1:a=0[v0]"
         )
@@ -183,7 +188,7 @@ def build_video(scene_data, size, final_output_path, tmp_dir, narrator_path=None
             scene["image_path"], scene["audio_path"], scene["words"],
             scene["duration"], size, clip_path,
             image_path_2=scene.get("image_path_2"), narrator_path=narrator_path,
-            has_punchline=scene.get("has_punchline", False)
+            has_punchline=scene.get("has_punchline", False), scene_index=i
         )
         clip_paths.append(clip_path)
 
