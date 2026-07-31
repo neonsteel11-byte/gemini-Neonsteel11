@@ -46,10 +46,11 @@ def main():
         last_index = json.load(open(STATE_PATH, encoding="utf-8")).get("last_index", -1)
 
     listicles = _load("listicle_topics.json")
+    how_it_works = _load("how_it_works_topics.json")
 
     next_index = last_index + 1
-    slot = next_index % 9
-    cycle_pos = next_index // 9
+    slot = next_index % 10
+    cycle_pos = next_index // 10
 
     if slot in (0, 1) and inventions:
         i_idx = (cycle_pos * 2 + slot) % len(inventions)
@@ -64,13 +65,19 @@ def main():
     elif slot == 6 and listicles:
         l_idx = cycle_pos % len(listicles)
         output = f"LISTICLE:{listicles[l_idx]}"
-    elif slot == 7:
+    elif slot == 7 and how_it_works:
+        h_idx = cycle_pos % len(how_it_works)
+        output = f"HOWITWORKS:{how_it_works[h_idx]}"
+    elif slot == 8:
         c_idx = cycle_pos % len(companies)
         output = companies[c_idx]
-    else:
+    elif slot == 9:
         c_idx = cycle_pos % len(companies)
         pair_idx = (c_idx + 1) % len(companies)
         output = f"{companies[c_idx]}|{companies[pair_idx]}"
+    else:
+        c_idx = cycle_pos % len(companies)
+        output = companies[c_idx]
 
     with open(STATE_PATH, "w", encoding="utf-8") as f:
         json.dump({"last_index": next_index}, f)
