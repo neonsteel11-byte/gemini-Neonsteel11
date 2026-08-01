@@ -179,11 +179,10 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
     cta_image_path = os.path.join(tmp_dir, "cta_image.png")
     import random as _r
     cta_text = _r.choice([
+        "Subscribe to see the accidental side of history you were never taught in school.",
         "If that surprised you, tag a friend who needs to see this.",
-        "If that surprised you, hit subscribe -- there's a new one every day.",
         "Send this to someone who won't believe it either."
-    ]) if content_format not in ("single_company", "comparison") else \
-        "If that made you laugh, hit subscribe for more funny stories!"
+    ])
     cta_duration, cta_words = generate_voiceover(cta_text, cta_audio_path)
     mascot_asset_path = "assets/lucky_mascot.png"
     if os.path.exists(mascot_asset_path):
