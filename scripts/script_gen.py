@@ -3,17 +3,20 @@ Generates a second-person POV, introspective financial-psychology narrative
 script, matching the high-retention "animated documentary" style used by
 successful faceless finance channels (moody, specific, emotionally grounded --
 not comedic roast content).
+
+DUAL API SUPPORT: Groq (primary, fast) → Gemini (backup, higher quality)
 """
 import json
 import re
 import sys
 import time
 import requests
-from config import GROQ_API_KEY, GROQ_MODEL, require_script_provider
+from config import GROQ_API_KEY, GROQ_MODEL, GEMINI_API_KEY, require_script_provider
 
 require_script_provider()
 
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
+GEMINI_URL = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"
 
 SYSTEM_PROMPT = """You are a master YouTube scriptwriter specializing in high-retention,
 FUNNY, second-person "POV" finance storytelling about big well-known companies. NOT
@@ -92,7 +95,11 @@ Rules:
 """
 
 
-def _call_with_retry(prompt: str, max_retries: int = 5):
+def _call_groq(prompt: str, max_retries: int = 3):
+    """Call Groq API with retry logic."""
+    if not GROQ_API_KEY:
+        return None
+    
     headers = {
         "Authorization": f"Bearer {GROQ_API_KEY}",
         "Content-Type": "application/json",
@@ -107,7 +114,7 @@ def _call_with_retry(prompt: str, max_retries: int = 5):
         "response_format": {"type": "json_object"},
     }
 
-    delay = 5
+    delay = 3
     last_error = None
     for attempt in range(1, max_retries + 1):
         try:
@@ -117,18 +124,73 @@ def _call_with_retry(prompt: str, max_retries: int = 5):
             transient = resp.status_code in (429, 500, 502, 503)
             last_error = f"HTTP {resp.status_code}: {resp.text[:300]}"
             if not transient:
-                print(f"FATAL: non-transient Groq error: {last_error}", file=sys.stderr)
-                sys.exit(1)
+                print(f"  Groq non-transient error: {last_error}", file=sys.stderr)
+                return None
         except Exception as e:
             last_error = str(e)
 
-        print(f"  Groq overloaded/rate-limited (attempt {attempt}/{max_retries}), "
-              f"retrying in {delay}s...", file=sys.stderr)
+        print(f"  Groq rate-limited (attempt {attempt}/{max_retries}), retrying in {delay}s...", file=sys.stderr)
         time.sleep(delay)
-        delay = min(delay * 2, 60)
+        delay = min(delay * 2, 30)
 
-    print(f"FATAL: Groq still unavailable after {max_retries} retries: {last_error}",
-          file=sys.stderr)
+    print(f"  Groq unavailable after {max_retries} retries: {last_error}", file=sys.stderr)
+    return None
+
+
+def _call_gemini(prompt: str):
+    """Call Gemini API as backup."""
+    if not GEMINI_API_KEY:
+        return None
+    
+    headers = {
+        "Content-Type": "application/json",
+    }
+    
+    # Gemini uses a different format
+    payload = {
+        "contents": [{
+            "parts": [{
+                "text": f"{SYSTEM_PROMPT}\n\nUser request: {prompt}"
+            }]
+        }],
+        "generationConfig": {
+            "temperature": 0.9,
+            "responseMimeType": "application/json",
+        }
+    }
+    
+    url = f"{GEMINI_URL}?key={GEMINI_API_KEY}"
+    
+    try:
+        resp = requests.post(url, headers=headers, json=payload, timeout=90)
+        if resp.status_code == 200:
+            data = resp.json()
+            if "candidates" in data and len(data["candidates"]) > 0:
+                return data["candidates"][0]["content"]["parts"][0]["text"]
+        print(f"  Gemini error: HTTP {resp.status_code}: {resp.text[:300]}", file=sys.stderr)
+        return None
+    except Exception as e:
+        print(f"  Gemini exception: {e}", file=sys.stderr)
+        return None
+
+
+def _call_with_retry(prompt: str):
+    """Try Groq first, then fall back to Gemini."""
+    print("  Attempting script generation via Groq (primary)...")
+    result = _call_groq(prompt)
+    
+    if result:
+        print("  ✓ Groq script generation successful")
+        return result
+    
+    print("   Groq failed, falling back to Gemini (backup)...")
+    result = _call_gemini(prompt)
+    
+    if result:
+        print("  ✓ Gemini script generation successful")
+        return result
+    
+    print("FATAL: Both Groq and Gemini failed for script generation.", file=sys.stderr)
     sys.exit(1)
 
 
@@ -145,8 +207,7 @@ def _extract_json(text: str) -> dict:
 def _validate_script(data: dict) -> dict:
     required_top = {"character_sheet", "title_variants", "thumbnail_text", "company", "hashtags", "scenes"}
     if not required_top.issubset(data.keys()):
-        print(f"FATAL: script JSON missing required keys. Got: {list(data.keys())}",
-              file=sys.stderr)
+        print(f"FATAL: script JSON missing required keys. Got: {list(data.keys())}", file=sys.stderr)
         sys.exit(1)
     if not isinstance(data["title_variants"], list) or len(data["title_variants"]) < 2:
         print("FATAL: need at least 2 title_variants for CTR testing.", file=sys.stderr)
@@ -252,23 +313,17 @@ def generate_comparison_script(company_a: str, company_b: str, video_type: str =
         f"{company_a} and {company_b}.{news_block}"
     )
 
-    headers = {"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"}
-    payload = {
-        "model": GROQ_MODEL,
-        "messages": [
-            {"role": "system", "content": COMPARISON_SYSTEM_PROMPT},
-            {"role": "user", "content": prompt},
-        ],
-        "temperature": 0.9,
-        "response_format": {"type": "json_object"},
-    }
-    resp = requests.post(GROQ_URL, headers=headers, json=payload, timeout=60)
-    if resp.status_code != 200:
-        print(f"FATAL: Groq error generating comparison script: {resp.status_code} {resp.text[:300]}",
-              file=sys.stderr)
+    # Try Groq first
+    raw_text = _call_groq(prompt)
+    
+    # Fall back to Gemini
+    if not raw_text:
+        raw_text = _call_gemini(prompt)
+    
+    if not raw_text:
+        print(f"FATAL: Both APIs failed generating comparison script", file=sys.stderr)
         sys.exit(1)
 
-    raw_text = resp.json()["choices"][0]["message"]["content"]
     data = _extract_json(raw_text)
     return _validate_script(data)
 
@@ -333,23 +388,7 @@ def generate_invention_script(invention: str, inventor: str, inventor_facts: str
         f"Real facts about the {invention}:\n{invention_facts}"
     )
 
-    headers = {"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"}
-    payload = {
-        "model": GROQ_MODEL,
-        "messages": [
-            {"role": "system", "content": INVENTION_SYSTEM_PROMPT},
-            {"role": "user", "content": prompt},
-        ],
-        "temperature": 0.8,
-        "response_format": {"type": "json_object"},
-    }
-    resp = requests.post(GROQ_URL, headers=headers, json=payload, timeout=60)
-    if resp.status_code != 200:
-        print(f"FATAL: Groq error generating invention script: {resp.status_code} {resp.text[:300]}",
-              file=sys.stderr)
-        sys.exit(1)
-
-    raw_text = resp.json()["choices"][0]["message"]["content"]
+    raw_text = _call_with_retry(prompt)
     data = _extract_json(raw_text)
     return _validate_script(data)
 
@@ -362,25 +401,7 @@ def generate_money_story_script(topic: str, topic_facts: str, video_type: str = 
         f"Real facts:\n{topic_facts}"
     )
 
-    headers = {"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"}
-    payload = {
-        "model": GROQ_MODEL,
-        "messages": [
-            {"role": "system", "content": INVENTION_SYSTEM_PROMPT.replace(
-                "who actually invented this", "the funny, wild true story behind this money event"
-            )},
-            {"role": "user", "content": prompt},
-        ],
-        "temperature": 0.8,
-        "response_format": {"type": "json_object"},
-    }
-    resp = requests.post(GROQ_URL, headers=headers, json=payload, timeout=60)
-    if resp.status_code != 200:
-        print(f"FATAL: Groq error generating money story script: {resp.status_code} {resp.text[:300]}",
-              file=sys.stderr)
-        sys.exit(1)
-
-    raw_text = resp.json()["choices"][0]["message"]["content"]
+    raw_text = _call_with_retry(prompt)
     data = _extract_json(raw_text)
     return _validate_script(data)
 
@@ -417,76 +438,7 @@ def generate_listicle_script(topic: str, video_type: str = "short") -> dict:
     prompt = f"Write a numbered list video: '{count} {topic}'. Every image_prompt " \
              f"must end with this exact style tag: {WHITEBOARD_STYLE}"
 
-    headers = {"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"}
-    payload = {
-        "model": GROQ_MODEL,
-        "messages": [
-            {"role": "system", "content": LISTICLE_SYSTEM_PROMPT},
-            {"role": "user", "content": prompt},
-        ],
-        "temperature": 0.8,
-        "response_format": {"type": "json_object"},
-    }
-    resp = requests.post(GROQ_URL, headers=headers, json=payload, timeout=60)
-    if resp.status_code != 200:
-        print(f"FATAL: Groq error generating listicle script: {resp.status_code} {resp.text[:300]}",
-              file=sys.stderr)
-        sys.exit(1)
-
-    raw_text = resp.json()["choices"][0]["message"]["content"]
-    data = _extract_json(raw_text)
-    return _validate_script(data)
-
-
-LISTICLE_SYSTEM_PROMPT = """You write high-retention numbered-list videos about money
-habits and financial psychology (e.g. "7 things smart people stop buying"). These are
-general observations/opinions for entertainment and reflection -- NEVER present as
-professional financial advice.
-
-RULES:
-- Structure as a numbered countdown, one item per scene.
-- Each item: a short punchy statement, then ONE sentence of relatable explanation.
-- Simple, clear language -- a smart 12-year-old must understand it instantly.
-- Open with a strong hook stating the full list topic and a number (e.g. "5 things
-  smart people quietly stop buying -- number 3 will surprise you").
-- Tone: relatable, a little blunt, like honest advice from a friend, not preachy.
-
-Return ONLY valid JSON matching the same schema as before, with "character_sheet",
-"title_variants", "thumbnail_text", "company" (the list topic), "hashtags", and
-"scenes" (one scene per list item plus an opening hook scene).
-"""
-
-
-WHITEBOARD_STYLE = (
-    ", whiteboard animation style, hand-drawn marker illustration on a cream white "
-    "background, simple bold black outline sketches, minimal color accents in "
-    "amber/gold and navy blue marker colors, clean simple doodle-style icons, "
-    "looks hand-drawn but neat and legible, no photorealism, no gritty texture"
-)
-
-
-def generate_listicle_script(topic: str, video_type: str = "short") -> dict:
-    count = "5" if video_type == "short" else "10"
-    prompt = f"Write a numbered list video: '{count} {topic}'. Every image_prompt " \
-             f"must end with this exact style tag: {WHITEBOARD_STYLE}"
-
-    headers = {"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"}
-    payload = {
-        "model": GROQ_MODEL,
-        "messages": [
-            {"role": "system", "content": LISTICLE_SYSTEM_PROMPT},
-            {"role": "user", "content": prompt},
-        ],
-        "temperature": 0.8,
-        "response_format": {"type": "json_object"},
-    }
-    resp = requests.post(GROQ_URL, headers=headers, json=payload, timeout=60)
-    if resp.status_code != 200:
-        print(f"FATAL: Groq error generating listicle script: {resp.status_code} {resp.text[:300]}",
-              file=sys.stderr)
-        sys.exit(1)
-
-    raw_text = resp.json()["choices"][0]["message"]["content"]
+    raw_text = _call_with_retry(prompt)
     data = _extract_json(raw_text)
     return _validate_script(data)
 
