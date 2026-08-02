@@ -2,11 +2,11 @@ name: Shorts Automation
 on:
   workflow_dispatch:
   schedule:
-    # USA Peak Time: 2 PM EST = 7 PM UTC (weekdays)
+    # USA Peak: 2 PM EST (7 PM UTC) weekdays
     - cron: '0 19 * * 1-5'
-    # Weekend: 12 PM EST = 5 PM UTC
+    # Weekend: 12 PM EST (5 PM UTC)
     - cron: '0 17 * * 0,6'
-    # Secondary: Europe Peak 6 PM CET = 5 PM UTC
+    # Europe Peak: 6 PM CET (5 PM UTC)
     - cron: '0 17 * * *'
 
 jobs:
@@ -35,18 +35,34 @@ jobs:
       
       - name: Produce and upload Short
         env:
+          # Script Generation (Dual API)
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          
+          # News Sources (Dual API)
+          NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
+          MARKETAUX_API_KEY: ${{ secrets.MARKETAUX_API_KEY }}
+          
+          # Voice Generation (Premium + Fallback)
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          
+          # Image Generation (Multi-tier)
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          REPLICATE_API_TOKEN: ${{ secrets.REPLICATE_API_TOKEN }}
+          GEMINI_IMAGE_MODE: "false"
+          
+          # Google Services
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          VERTEX_SERVICE_ACCOUNT_JSON: ${{ secrets.VERTEX_SERVICE_ACCOUNT_JSON }}
+          
+          # YouTube Upload (OAuth)
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
-          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
-          NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
-          GEMINI_IMAGE_MODE: "false"
-          # NEW: Pexels + Replicate integration
-          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
-          REPLICATE_API_TOKEN: ${{ secrets.REPLICATE_API_TOKEN }}
-          USE_PEXELS: "true"
-          USE_REPLICATE: "true"
+          
+          # YouTube Upload (Backup Token)
+          YOUTUBE_TOKEN_BASE64: ${{ secrets.YOUTUBE_TOKEN_BASE64 }}
+          
           COMPANY: ${{ steps.pick_company.outputs.company }}
         run: |
           set -e
