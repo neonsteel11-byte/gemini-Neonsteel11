@@ -1,54 +1,35 @@
 """
-Builds the final video with SLIDING TRANSITIONS between images.
-Uses MoviePy for professional video assembly with smooth effects.
+Builds the final video with smooth Ken Burns (zoom/pan) transitions and crossfades.
+Industry standard for high-retention faceless YouTube channels.
 """
 import os
 import sys
-from moviepy.editor import (
-    ImageClip, AudioFileClip, CompositeVideoClip, concatenate_videoclips,
-    ColorClip, fadein, fadeout
-)
-from PIL import Image
+from moviepy.editor import ImageClip, AudioFileClip, concatenate_videoclips, CompositeVideoClip
+from moviepy.video.fx.all import crop, resize
 
-def create_sliding_transition(clip1, clip2, duration=0.5):
-    """
-    Create a smooth sliding transition between two clips.
-    Clip2 slides in from the right, replacing clip1.
-    """
-    from moviepy.editor import CompositeVideoClip
+def create_ken_burns_clip(image_path, duration, size):
+    """Creates a slow zoom-in effect (Ken Burns) for a static image."""
+    clip = ImageClip(image_path).set_duration(duration)
     
-    # Create transition clip
-    def make_frame(t):
-        if t < duration:
-            # During transition: clip2 slides in from right
-            progress = t / duration
-            offset = int(clip2.w * (1 - progress))
-            
-            # Composite: clip1 on left, clip2 sliding in from right
-            composite = CompositeVideoClip([
-                clip1.set_position((0, 0)),
-                clip2.set_position((offset, 0))
-            ])
-            return composite.get_frame(t)
-        else:
-            # After transition: just clip2
-            return clip2.get_frame(t - duration)
+    # Start at 100% size, slowly zoom to 110%
+    def zoom_effect(get_frame, t):
+        zoom_factor = 1.0 + (0.1 * (t / duration))
+        img = get_frame(t)
+        # Simple resize for zoom effect (moviepy handles this efficiently)
+        return resize(clip, zoom_factor).get_frame(t)
+        
+    # Apply the effect and center crop to target size
+    zoomed_clip = clip.fx(resize, lambda t: 1.0 + 0.1 * (t / duration))
+    final_clip = crop(zoomed_clip, width=size[0], height=size[1], x_center=size[0]//2, y_center=size[1]//2)
     
-    from moviepy.editor import VideoClip
-    transition_clip = VideoClip(make_frame, duration=duration + clip2.duration)
-    return transition_clip
+    return final_clip.set_duration(duration)
 
 def build_video(scene_data: list, size: tuple, output_path: str, tmp_dir: str):
-    """
-    Builds final video with:
-    - Sliding transitions between scenes
-    - Smooth fade in/out for audio
-    - Professional assembly
-    """
+    """Assembles video with smooth crossfade transitions between scenes."""
     clips = []
     audio_clips = []
     
-    print(f"      Building video with {len(scene_data)} scenes...")
+    print(f"      Building video with {len(scene_data)} scenes (with smooth transitions)...")
     
     for i, scene in enumerate(scene_data):
         image_path = scene["image_path"]
@@ -59,48 +40,52 @@ def build_video(scene_data: list, size: tuple, output_path: str, tmp_dir: str):
         if not os.path.exists(image_path):
             print(f"      [ERROR] Image not found: {image_path}", file=sys.stderr)
             continue
-        
-        # Create image clip
-        img_clip = ImageClip(image_path, duration=duration).resize(size)
-        
-        # Add second image for motion cut (if available)
-        if image_path_2 and os.path.exists(image_path_2) and image_path_2 != image_path:
-            img_clip_2 = ImageClip(image_path_2, duration=duration/2).resize(size)
             
-            # Create sliding transition between the two images
-            transition = create_sliding_transition(img_clip, img_clip_2, duration=0.3)
-            img_clip = transition.set_duration(duration)
+        # Create base clip with Ken Burns zoom effect
+        base_clip = create_ken_burns_clip(image_path, duration, size)
         
-        # Add fade in/out for smoothness
-        img_clip = img_clip.fadein(0.2).fadeout(0.2)
-        clips.append(img_clip)
+        # If we have a second image, create a smooth crossfade transition in the middle
+        if image_path_2 and os.path.exists(image_path_2) and image_path_2 != image_path:
+            clip1 = create_ken_burns_clip(image_path, duration / 2, size)
+            clip2 = create_ken_burns_clip(image_path_2, duration / 2, size)
+            
+            # Crossfade between the two images
+            final_scene_clip = concatenate_videoclips([
+                clip1.fadeout(0.5),
+                clip2.fadein(0.5).set_start((duration / 2) - 0.5)
+            ], method="compose").set_duration(duration)
+        else:
+            final_scene_clip = base_clip
+            
+        # Add subtle fade in/out for the whole scene to prevent harsh cuts
+        final_scene_clip = final_scene_clip.fadein(0.2).fadeout(0.2)
+        clips.append(final_scene_clip)
         
         # Add audio
         if os.path.exists(audio_path):
             audio_clip = AudioFileClip(audio_path)
-            audio_clip = audio_clip.volumex(1.0)  # Normalize volume
+            # Smooth audio fade in/out to prevent popping
+            audio_clip = audio_clip.volumex(1.0).audio_fadein(0.2).audio_fadeout(0.2)
             audio_clips.append(audio_clip)
-    
+            
     if not clips:
         print("      [ERROR] No valid clips to assemble", file=sys.stderr)
         sys.exit(1)
+        
+    print("      Concatenating scenes with smooth transitions...")
     
-    print("      Concatenating clips with transitions...")
-    
-    # Concatenate all clips
+    # Concatenate all video clips
     final_video = concatenate_videoclips(clips, method="compose")
     
-    # Combine audio
+    # Combine all audio clips
     if audio_clips:
+        final_audio = concatenate_videoclips(audio_clips, method="compose") # Note: concatenate_audioclips is deprecated in newer moviepy, use concatenate_videoclips on audio or just sum them
         from moviepy.editor import concatenate_audioclips
         final_audio = concatenate_audioclips(audio_clips)
         final_video = final_video.set_audio(final_audio)
-    
-    # Add final fade out
-    final_video = final_video.fadeout(0.5)
-    
+        
     # Write final video
-    print(f"      Writing final video to: {output_path}")
+    print(f"      Rendering final video to: {output_path}")
     final_video.write_videofile(
         output_path,
         fps=24,
@@ -112,13 +97,12 @@ def build_video(scene_data: list, size: tuple, output_path: str, tmp_dir: str):
         logger=None
     )
     
-    print(f"      ✓ Video assembled successfully: {output_path}")
+    print("      ✓ Video assembled successfully with smooth transitions!")
     
-    # Cleanup temp files
+    # Cleanup
+    final_video.close()
     for clip in clips:
         clip.close()
-    final_video.close()
 
 if __name__ == "__main__":
-    # Test
-    print("Video builder with sliding transitions loaded successfully")
+    print("Video builder with Ken Burns transitions loaded successfully.")
