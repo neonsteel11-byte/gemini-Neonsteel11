@@ -2,12 +2,14 @@ name: Shorts Automation
 on:
   workflow_dispatch:
   schedule:
-    # USA Peak: 2 PM EST (7 PM UTC) weekdays
+    # USA Peak Time: 2 PM EST = 7 PM UTC (weekdays) - HIGHEST ENGAGEMENT
     - cron: '0 19 * * 1-5'
-    # Weekend: 12 PM EST (5 PM UTC)
+    # Weekend: 12 PM EST = 5 PM UTC - Weekend browsing
     - cron: '0 17 * * 0,6'
-    # Europe Peak: 6 PM CET (5 PM UTC)
+    # Europe Peak: 6 PM CET = 5 PM UTC - European audience
     - cron: '0 17 * * *'
+    # Asia Peak: 9 PM JST = 12 PM UTC - Asian market
+    - cron: '0 12 * * *'
 
 jobs:
   build-and-run:
@@ -30,46 +32,23 @@ jobs:
         id: pick_company
         run: |
           COMPANY=$(python scripts/pick_company.py)
-          echo "company<<EOF" >> "$GITHUB_OUTPUT"
-          echo "$COMPANY" >> "$GITHUB_OUTPUT"
-          echo "EOF" >> "$GITHUB_OUTPUT"
+          echo "company=$COMPANY" >> "$GITHUB_OUTPUT"
           echo "Selected: $COMPANY"
       
       - name: Produce and upload Short
         env:
-          # Script Generation (Dual API)
           GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
-          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
-          
-          # News Sources (Dual API)
-          NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
-          MARKETAUX_API_KEY: ${{ secrets.MARKETAUX_API_KEY }}
-          
-          # Voice Generation (Premium + Fallback)
-          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
-          
-          # Image Generation (Multi-tier)
-          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
-          REPLICATE_API_TOKEN: ${{ secrets.REPLICATE_API_TOKEN }}
-          GEMINI_IMAGE_MODE: "false"
-          
-          # Google Services
-          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
-          VERTEX_SERVICE_ACCOUNT_JSON: ${{ secrets.VERTEX_SERVICE_ACCOUNT_JSON }}
-          
-          # YouTube Upload (OAuth)
           YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
           YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
           YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
-          
-          # YouTube Upload (Backup Token)
-          YOUTUBE_TOKEN_BASE64: ${{ secrets.YOUTUBE_TOKEN_BASE64 }}
-          
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
+          GEMINI_IMAGE_MODE: "false"
           COMPANY: ${{ steps.pick_company.outputs.company }}
         run: |
           set -e
           echo "Producing Short: $COMPANY"
-          python main.py "$COMPANY" --type short --upload --privacy private
+          python main.py "$COMPANY" --type short --upload --privacy public
       
       - name: Upload captions as downloadable artifact
         uses: actions/upload-artifact@v4
