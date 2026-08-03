@@ -980,5 +980,29 @@
     "privacy": "public",
     "auto_published": true,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "j8WXcTSRws8",
+    "company": "Silly Putty",
+    "video_type": "short",
+    "uploaded_at": "2026-08-03T05:34:04.922979+00:00",
+    "title_variants": [
+      "The Accidental Invention: How Silly Putty Was Born",
+      "From War Efforts to Wacky Toy: The Silly Putty Story",
+      "The Putty That Changed Everything: A Tale of Serendipity"
+    ],
+    "hashtags": [
+      "#SillyPutty",
+      "#JamesWright",
+      "#AccidentalInvention",
+      "#Toys",
+      "#Science",
+      "#History"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "private",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
