@@ -1,35 +1,26 @@
-"""
-Picks a random accidental invention/discovery for today's video.
-Focuses on real inventors and their real inventions.
-"""
 import random
 import json
 import os
 
 MANIFEST_PATH = "video_manifest.json"
 
-# ACCIDENTAL INVENTIONS with real inventors
+# HIGH-ENGAGEMENT INVENTIONS (proven viral topics)
 INVENTIONS = [
-    "INVENTION:Penicillin:Alexander Fleming",
-    "INVENTION:Microwave Oven:Percy Spencer",
-    "INVENTION:Post-it Notes:Spencer Silver",
-    "INVENTION:Velcro:George de Mestral",
-    "INVENTION:Saccharin:Constantin Fahlberg",
-    "INVENTION:Teflon:Roy Plunkett",
-    "INVENTION:X-Rays:Wilhelm Rontgen",
-    "INVENTION:Vulcanized Rubber:Charles Goodyear",
-    "INVENTION:Dynamite:Alfred Nobel",
-    "INVENTION:Safety Glass:Edouard Benedictus",
-    "INVENTION:Corn Flakes:John Harvey Kellogg",
-    "INVENTION:Play-Doh:Noah McVicker",
-    "INVENTION:Slinky:Richard James",
-    "INVENTION:Silly Putty:James Wright",
-    "INVENTION:Super Glue:Harry Coover",
-    "INVENTION:Ice Pops:Frank Epperson",
-    "INVENTION:Potato Chips:George Crum",
-    "INVENTION:Chocolate Chip Cookies:Ruth Wakefield",
-    "INVENTION:Champagne:Dom Perignon",
-    "INVENTION:Gunpowder:Chinese Alchemists",
+    "INVENTION:Potato Chips:George Crum",  # Food + revenge story
+    "INVENTION:Penicillin:Alexander Fleming",  # Life-saving accident
+    "INVENTION:Microwave Oven:Percy Spencer",  # Radar + chocolate bar
+    "INVENTION:Post-it Notes:Spencer Silver",  # Failed glue
+    "INVENTION:Velcro:George de Mestral",  # Burrs on dog
+    "INVENTION:Silly Putty:James Wright",  # WWII rubber substitute
+    "INVENTION:Play-Doh:Noah McVicker",  # Wallpaper cleaner → toy
+    "INVENTION:Safety Glass:Edouard Benedictus",  # Dropped flask
+    "INVENTION:Corn Flakes:John Harvey Kellogg",  # Stale wheat accident
+    "INVENTION:Ice Pops:Frank Epperson",  # Kid forgot soda outside
+    "INVENTION:Super Glue:Harry Coover",  # Failed gun sight
+    "INVENTION:Slinky:Richard James",  # Knocked over spring
+    "INVENTION:Teflon:Roy Plunkett",  # Leaking gas canister
+    "INVENTION:X-Rays:Wilhelm Rontgen",  # Glowing screen mystery
+    "INVENTION:Dynamite:Alfred Nobel",  # Nitroglycerin stabilization
 ]
 
 def _load_manifest():
@@ -40,20 +31,11 @@ def _load_manifest():
 
 def pick_company():
     manifest = _load_manifest()
-    
-    # Get inventions we've used in the last 10 videos
-    recent = [entry.get("company", "") for entry in manifest[-10:]]
-    
-    # Filter out recently used inventions
+    recent = [entry.get("company", "") for entry in manifest[-15:]]
     available = [inv for inv in INVENTIONS if inv not in recent]
-    
     if not available:
-        available = INVENTIONS  # Reset if all used recently
-    
-    selected = random.choice(available)
-    return selected
+        available = INVENTIONS
+    return random.choice(available)
 
 if __name__ == "__main__":
-    # CRITICAL: ONLY print the selected string. 
-    # No extra text, so it doesn't break GitHub Actions GITHUB_OUTPUT.
     print(pick_company())

@@ -1,0 +1,88 @@
+name: Shorts Automation
+on:
+  workflow_dispatch:
+  schedule:
+    # USA Peak: 2 PM EST (7 PM UTC) weekdays
+    - cron: '0 19 * * 1-5'
+    # Weekend: 12 PM EST (5 PM UTC)
+    - cron: '0 17 * * 0,6'
+    # Europe Peak: 6 PM CET (5 PM UTC)
+    - cron: '0 17 * * *'
+
+jobs:
+  build-and-run:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    
+    steps:
+      - uses: actions/checkout@v4
+      
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - run: sudo apt-get update && sudo apt-get install -y ffmpeg
+      
+      - run: python -m pip install --upgrade pip && python -m pip install -r requirements.txt
+      
+      - name: Pick today's content
+        id: pick_company
+        run: |
+          COMPANY=$(python scripts/pick_company.py)
+          echo "company=$COMPANY" >> "$GITHUB_OUTPUT"
+          echo "Selected: $COMPANY"
+      
+      - name: Produce and upload Short
+        env:
+          # Script Generation (Dual API)
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          
+          # News Sources (Dual API)
+          NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
+          MARKETAUX_API_KEY: ${{ secrets.MARKETAUX_API_KEY }}
+          
+          # Voice Generation (Premium + Fallback)
+          ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
+          
+          # Image Generation (Multi-tier)
+          PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          REPLICATE_API_TOKEN: ${{ secrets.REPLICATE_API_TOKEN }}
+          GEMINI_IMAGE_MODE: "false"
+          
+          # Google Services
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY }}
+          VERTEX_SERVICE_ACCOUNT_JSON: ${{ secrets.VERTEX_SERVICE_ACCOUNT_JSON }}
+          
+          # YouTube Upload (OAuth)
+          YT_CLIENT_ID: ${{ secrets.YT_CLIENT_ID }}
+          YT_CLIENT_SECRET: ${{ secrets.YT_CLIENT_SECRET }}
+          YT_REFRESH_TOKEN: ${{ secrets.YT_REFRESH_TOKEN }}
+          
+          # YouTube Upload (Backup Token)
+          YOUTUBE_TOKEN_BASE64: ${{ secrets.YOUTUBE_TOKEN_BASE64 }}
+          
+          COMPANY: ${{ steps.pick_company.outputs.company }}
+        run: |
+          set -e
+          echo "Producing Short: $COMPANY"
+          python main.py "$COMPANY" --type short --upload --privacy private
+      
+      - name: Upload captions as downloadable artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: captions-${{ github.run_id }}
+          path: output/*_caption.txt
+          retention-days: 14
+      
+      - name: Commit rotation state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add video_manifest.json company_state.json angle_state.json 2>/dev/null || git add video_manifest.json
+          git diff --staged --quiet || git commit -m "Log Short upload"
+          for i in 1 2 3 4 5; do
+            git pull --rebase origin main && git push && break
+            sleep 5
+          done
