@@ -30,7 +30,9 @@ jobs:
         id: pick_company
         run: |
           COMPANY=$(python scripts/pick_company.py)
-          echo "company=$COMPANY" >> "$GITHUB_OUTPUT"
+          echo "company<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$COMPANY" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
           echo "Selected: $COMPANY"
       
       - name: Produce and upload Short

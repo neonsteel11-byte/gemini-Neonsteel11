@@ -10,7 +10,6 @@ MANIFEST_PATH = "video_manifest.json"
 
 # ACCIDENTAL INVENTIONS with real inventors
 INVENTIONS = [
-    # Format: "INVENTION:InventionName:InventorName"
     "INVENTION:Penicillin:Alexander Fleming",
     "INVENTION:Microwave Oven:Percy Spencer",
     "INVENTION:Post-it Notes:Spencer Silver",
@@ -52,11 +51,9 @@ def pick_company():
         available = INVENTIONS  # Reset if all used recently
     
     selected = random.choice(available)
-    invention_name = selected.split(":")[1]
-    inventor_name = selected.split(":")[2]
-    
-    print(f"Selected: {invention_name} by {inventor_name}")
     return selected
 
 if __name__ == "__main__":
+    # CRITICAL: ONLY print the selected string. 
+    # No extra text, so it doesn't break GitHub Actions GITHUB_OUTPUT.
     print(pick_company())
