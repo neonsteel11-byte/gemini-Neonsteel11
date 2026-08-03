@@ -51,6 +51,7 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
         print(f"      How-it-works mode: {topic}")
         from scripts.script_gen import generate_money_story_script
         from scripts.fetch_wikipedia import fetch_wiki_info
+        from scripts.fetch_invention_uses import fetch_invention_details
         topic_info = fetch_wiki_info(topic)
         script = generate_money_story_script(topic, topic_info["summary"], video_type)
         company = topic
@@ -69,6 +70,7 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
         print(f"      Wide-topic mode: {topic}")
         from scripts.script_gen import generate_money_story_script
         from scripts.fetch_wikipedia import fetch_wiki_info
+        from scripts.fetch_invention_uses import fetch_invention_details
         topic_info = fetch_wiki_info(topic)
         script = generate_money_story_script(topic, topic_info["summary"], video_type)
         company = topic
@@ -79,6 +81,7 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
         print(f"      Money story mode: {topic}")
         from scripts.script_gen import generate_money_story_script
         from scripts.fetch_wikipedia import fetch_wiki_info
+        from scripts.fetch_invention_uses import fetch_invention_details
         topic_info = fetch_wiki_info(topic)
         script = generate_money_story_script(topic, topic_info["summary"], video_type)
         company = topic
@@ -89,10 +92,12 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
         print(f"      Invention mode: {invention} by {inventor}")
         from scripts.script_gen import generate_invention_script
         from scripts.fetch_wikipedia import fetch_wiki_info
+        from scripts.fetch_invention_uses import fetch_invention_details
         
         # Fetch BOTH inventor and invention info
         inventor_info = fetch_wiki_info(inventor)
         invention_info = fetch_wiki_info(invention)
+        invention_details = fetch_invention_details(invention)
         
         from scripts.fetch_reddit_facts import fetch_reddit_context
         reddit_snippets = fetch_reddit_context(invention)
