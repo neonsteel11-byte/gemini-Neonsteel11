@@ -132,7 +132,7 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
     if not company.startswith("INVENTION:") and "|" not in company:
         from scripts.fetch_wikipedia import fetch_wiki_info
         wiki_info = fetch_wiki_info(company)
-        company_real_image_url = wiki_info.get("image_url")
+        company_real_image_url = None  # Disabled - use cartoons only
         if company_real_image_url:
             print(f"      Found real photo for {company}, will use for scene 1.")
 
@@ -147,7 +147,7 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
 
         print(f"      scene {i+1}/{len(script['scenes'])}: generating images (2 for motion cut)...")
         image_path_2 = os.path.join(tmp_dir, f"image_{i}_b.png")
-        if i == 0 and company_real_image_url:
+        if False:  # Disabled real photo usage
             from scripts.image_gen import download_real_image
             success = download_real_image(company_real_image_url, image_path, size)
             if not success:
