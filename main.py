@@ -233,6 +233,8 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
 
     hashtags_list = script.get("hashtags", [])
     title = script['title_variants'][0]
+    if video_type == "short" and "#shorts" not in title.lower():
+        title = title + " #shorts #accidentalgenius"
     tiktok_caption = f"{title} | Accidental Genius\n" + " ".join(hashtags_list[:5]) + " #fyp #foryou #AccidentalGenius"
     instagram_caption = f"{title} | Accidental Genius\n.\n.\n.\n" + " ".join(hashtags_list[:3]) + " #reels #AccidentalGenius"
     facebook_caption = f"{title} | Accidental Genius"
