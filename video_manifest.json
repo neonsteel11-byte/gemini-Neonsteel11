@@ -1004,5 +1004,25 @@
     "privacy": "public",
     "auto_published": true,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "sXQESvaJWtc",
+    "company": "Post-it Notes",
+    "video_type": "short",
+    "uploaded_at": "2026-08-05T05:26:41.602043+00:00",
+    "title_variants": [
+      "Accidental Sticky Note #shorts #accidentalgenius",
+      "Sticky Note Origin"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#accidentalgenius",
+      "#postit"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
