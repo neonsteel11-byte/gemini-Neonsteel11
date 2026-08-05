@@ -1062,5 +1062,24 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "CD96nYOJAnQ",
+    "company": "The Great Emu War",
+    "video_type": "short",
+    "uploaded_at": "2026-08-05T12:48:27.725421+00:00",
+    "title_variants": [
+      "The Truth About The Great Emu War #shorts"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts",
+      "#education"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "money_story"
   }
 ]
