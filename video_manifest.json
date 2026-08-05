@@ -1081,5 +1081,24 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "money_story"
+  },
+  {
+    "video_id": "x8Qv6L5z1wE",
+    "company": "Corn Flakes",
+    "video_type": "short",
+    "uploaded_at": "2026-08-05T13:22:36.505341+00:00",
+    "title_variants": [
+      "The Truth About Corn Flakes #shorts"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts",
+      "#education"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
