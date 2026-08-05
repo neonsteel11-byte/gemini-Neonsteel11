@@ -2,13 +2,10 @@ name: Long-Form Automation
 on:
   workflow_dispatch:
   schedule:
-    # Long-form performs best on weekends & evenings
-    # Weekday Evening: 7 PM EST = 12 AM UTC (next day)
-    - cron: '0 0 * * *'
-    # Weekend Afternoon: 3 PM EST = 8 PM UTC
-    - cron: '0 20 * * 0,6'
-    # Thursday Prime Time: 6 PM EST = 11 PM UTC
-    - cron: '0 23 * * 4'
+    # Sunday at 12:00 PM UTC (5:45 PM Nepal Time) - Weekend deep dive
+    - cron: '0 12 * * 0'
+    # Thursday at 00:00 UTC (5:45 AM Nepal Time) - Midweek upload
+    - cron: '0 0 * * 4'
 
 jobs:
   build-and-run:
@@ -43,7 +40,6 @@ jobs:
           ELEVENLABS_API_KEY: ${{ secrets.ELEVENLABS_API_KEY }}
           NEWSAPI_KEY: ${{ secrets.NEWSAPI_KEY }}
           GEMINI_IMAGE_MODE: "false"
-          # NEW: Pexels + Replicate integration
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
           REPLICATE_API_TOKEN: ${{ secrets.REPLICATE_API_TOKEN }}
           USE_PEXELS: "true"
@@ -52,13 +48,14 @@ jobs:
         run: |
           set -e
           echo "Producing Long-Form Video: $COMPANY"
-          python main.py "$COMPANY" --type long --upload --privacy private
+          # Using 'unlisted' for long-form so you can review the 10-min video before making it public
+          python main.py "$COMPANY" --type long --upload --privacy unlisted
       
       - name: Upload captions as downloadable artifact
         uses: actions/upload-artifact@v4
         with:
           name: longform-captions-${{ github.run_id }}
-          path: output/*_long_caption.txt
+          path: output/*_caption.txt
           retention-days: 14
       
       - name: Commit rotation state
