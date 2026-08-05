@@ -1024,5 +1024,24 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "B-9ZUxL1Oa8",
+    "company": "Silly Putty",
+    "video_type": "short",
+    "uploaded_at": "2026-08-05T10:06:24.939815+00:00",
+    "title_variants": [
+      "The Truth About Silly Putty #shorts"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts",
+      "#education"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
