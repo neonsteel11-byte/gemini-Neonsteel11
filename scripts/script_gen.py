@@ -4,60 +4,57 @@ from config import GROQ_API_KEY, GROQ_MODEL
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 def generate_invention_script(invention, inventor, facts, info, video_type="short"):
-    length = "100-130 words, 6-7 scenes" if video_type=="short" else "1000 words"
-    prompt = f"Write educational script about {invention}. {length}. MUST include: 1) Shock hook 2) Origin story 3) What it is 4) How used today. Facts: {facts}"
+    # Define length and structure based on video type
+    if video_type == "long":
+        length = "1000-1200 words total, 12-15 scenes minimum"
+        structure = "1) Shocking Hook (2 scenes), 2) Detailed Origin Story & Inventor Background (4 scenes), 3) The Science/Mechanics: What it actually is (3 scenes), 4) Modern Applications & How it's used today (4 scenes), 5) The Ironic Legacy (2 scenes)."
+    else:
+        length = "100-130 words total, 6-7 scenes minimum"
+        structure = "1) Shock hook, 2) Origin story, 3) What it is, 4) How used today."
+
+    prompt = f"Write an educational script about {invention} by {inventor}. LENGTH: {length}. STRUCTURE: {structure}. Facts to include: {facts}. Make it highly engaging, use specific numbers, and explain things simply."
     
-    # Retry logic for API calls
     for attempt in range(3):
         try:
-            print(f"      Calling Groq API (attempt {attempt+1}/3)...")
+            print(f"      Calling Groq API for {video_type} script (attempt {attempt+1}/3)...")
             resp = requests.post(GROQ_URL, 
                 headers={"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"},
                 json={"model": GROQ_MODEL, "messages": [{"role": "user", "content": prompt}], 
                       "temperature": 0.9, "response_format": {"type": "json_object"}},
-                timeout=60)
+                timeout=120) # Longer timeout for long-form
             
             if resp.status_code == 200:
                 data = json.loads(resp.json()["choices"][0]["message"]["content"])
                 
-                # Ensure minimum 6 scenes
-                while len(data.get("scenes", [])) < 6:
+                # Validate scene count
+                min_scenes = 12 if video_type == "long" else 6
+                while len(data.get("scenes", [])) < min_scenes:
                     data["scenes"].append({
-                        "narration": "Today millions use this invention daily in homes, schools, and workplaces worldwide.",
-                        "image_prompt": "modern people using invention, cartoon style, bright colors",
-                        "on_screen_text": "Used worldwide"
+                        "narration": "Today, this invention is used by millions of people every single day in ways the original inventor never could have imagined.",
+                        "image_prompt": "modern people using the invention in everyday life, detailed cartoon style",
+                        "on_screen_text": "Used Worldwide"
                     })
                 
                 print(f"      ✓ Script generated: {len(data['scenes'])} scenes")
                 return data
             else:
                 print(f"      [!] API error: {resp.status_code}")
-                time.sleep(2)
-                
-        except KeyError as e:
-            print(f"      [!] API response error: {e}")
-            time.sleep(2)
+                time.sleep(3)
         except Exception as e:
             print(f"      [!] Request failed: {e}")
-            time.sleep(2)
+            time.sleep(3)
     
-    # Fallback: Return basic script if API fails completely
+    # Fallback template
     print("      [WARNING] Using fallback script template")
+    scene_count = 12 if video_type == "long" else 6
     return {
-        "title_variants": [f"The Surprising Truth About {invention} #shorts"],
-        "description": f"Discover the hidden history of {invention}",
+        "title_variants": [f"The Surprising Truth About {invention}"],
+        "description": f"Discover the hidden history and modern uses of {invention}.",
         "thumbnail_text": "DID YOU KNOW?",
         "company": invention,
-        "hashtags": ["#shorts", "#facts", "#education"],
-        "seo_tags": [invention, "history", "facts"],
-        "scenes": [
-            {"narration": f"You see {invention} every single day. But its origin story will shock you.", "image_prompt": "person looking shocked at object, cartoon", "on_screen_text": "You won't believe this"},
-            {"narration": "It was invented completely by accident while someone was trying to create something else entirely.", "image_prompt": "laboratory accident scene, cartoon", "on_screen_text": "Total accident"},
-            {"narration": "The inventor never expected this would become one of the most important inventions in history.", "image_prompt": "inventor surprised, cartoon", "on_screen_text": "Changed everything"},
-            {"narration": "So what exactly is it? It's a revolutionary product that works through a clever and simple mechanism.", "image_prompt": "close-up of invention, cartoon diagram", "on_screen_text": "How it works"},
-            {"narration": "Today, billions of people use this invention every single day without even thinking about it.", "image_prompt": "crowd using invention, cartoon", "on_screen_text": "Used worldwide"},
-            {"narration": "From a simple mistake to a world-changing invention - that's the power of accidental genius.", "image_prompt": "lightbulb moment, cartoon", "on_screen_text": "Accidental Genius"}
-        ]
+        "hashtags": ["#accidentalgenius", "#history", "#education"],
+        "seo_tags": [invention, "history", "facts", "how its made"],
+        "scenes": [{"narration": f"Let's explore the fascinating story of {invention}.", "image_prompt": "cartoon exploration scene", "on_screen_text": "The Story"} for _ in range(scene_count)]
     }
 
 def generate_script(company, video_type="short", **kwargs):
