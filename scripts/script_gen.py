@@ -11,7 +11,24 @@ def generate_invention_script(invention, inventor, facts, info, video_type="shor
         length = "100-130 words, 6-7 scenes"
         min_scenes = 6
 
-    prompt = f"Write JSON script about {invention} by {inventor}. Length: {length}. Include: 1) Shock hook 2) Origin 3) What it is 4) Modern uses. Facts: {facts}. Return ONLY JSON."
+    prompt = f"""Write an educational short-video script about {invention}, invented by {inventor}.
+Length: {length}.
+Structure: 1) Shock hook 2) Weird origin story 3) What it actually is 4) How it is used today.
+Facts to include: {facts}
+
+Return ONLY valid JSON in EXACTLY this structure, with no missing fields:
+{{
+  "title_variants": ["title option 1", "title option 2"],
+  "description": "short video description",
+  "thumbnail_text": "short punchy thumbnail text",
+  "hashtags": ["#shorts", "#facts"],
+  "seo_tags": ["tag1", "tag2"],
+  "scenes": [
+    {{"narration": "one or two sentences of spoken narration for this scene, no scene numbers or labels", "image_prompt": "specific visual description for this scene, cartoon style", "on_screen_text": "short on-screen caption, 2-5 words"}}
+  ]
+}}
+
+Every scene MUST include narration, image_prompt, and on_screen_text. Do not skip any field. Do not include the words "scene 1" or scene numbers anywhere in narration text."""
     
     try:
         print(f"      Calling Groq API...")
