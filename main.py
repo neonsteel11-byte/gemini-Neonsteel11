@@ -152,6 +152,9 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
     
     scene_data = []
     for i, scene in enumerate(script["scenes"]):
+        scene.setdefault("narration", f"Here is an interesting fact about {company}.")
+        scene.setdefault("image_prompt", f"cartoon illustration of {company}, bright colors")
+        scene.setdefault("on_screen_text", "")
         audio_path = os.path.join(tmp_dir, f"audio_{i}.mp3")
         image_path = os.path.join(tmp_dir, f"image_{i}.png")
         image_path_2 = os.path.join(tmp_dir, f"image_{i}_b.png")
