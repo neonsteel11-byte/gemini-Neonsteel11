@@ -1138,5 +1138,23 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "SKj21WYpmJo",
+    "company": "Play-Doh",
+    "video_type": "short",
+    "uploaded_at": "2026-08-06T06:02:47.347160+00:00",
+    "title_variants": [
+      "The Shocking Truth About Play-Doh #shorts"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
