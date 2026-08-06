@@ -142,6 +142,8 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
         script = generate_script(company, video_type, news_headlines=news_headlines, angle=angle, avoid_titles=past_titles)
 
     video_seed = random.randint(1, 999999)
+    script.setdefault('title_variants', [f"{script.get('company', company)} #shorts"])
+    script.setdefault('scenes', [])
     print(f"      Title: {script['title_variants'][0]}")
     print(f"      Visual seed: {video_seed}")
     print(f"      Scenes: {len(script['scenes'])}")
@@ -184,7 +186,7 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
                 print(f"      ✓ Generated cartoon portrait of inventor for Scene 1")
         else:
             # All other scenes: Use cartoon illustrations based on script
-            generate_image(scene["image_prompt"], image_path, size, seed=video_seed)
+            generate_image(scene["image_prompt"], image_path, size, seed=video_seed, specific_object=company)
             generate_image(scene["image_prompt"], image_path_2, size, seed=video_seed + 1000 + i)
         
         scene_data.append({
