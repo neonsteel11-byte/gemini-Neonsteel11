@@ -16,11 +16,14 @@ def _validate_and_save(img_bytes: bytes, output_path: str, size: tuple):
         print(f"      [!] Image save failed: {e}")
         return False
 
-def generate_image(prompt: str, output_path: str, size: tuple = (1920, 1080), seed: int = 42):
+def generate_image(prompt: str, output_path: str, size: tuple = (1920, 1080), seed: int = 42, specific_object: str = None):
     if not prompt:
         sys.exit(1)
     
-    full = prompt + ", flat cartoon, bold outlines, bright colors, no text"
+    if specific_object:
+        full = f"{prompt}, featuring {specific_object}, flat cartoon, bold outlines, bright colors, no text"
+    else:
+        full = prompt + ", flat cartoon, bold outlines, bright colors, no text"
     url = f"https://image.pollinations.ai/prompt/{quote(full)}?width={size[0]}&height={size[1]}&model=flux&seed={seed}&nologo=true"
     
     for attempt in range(3):
@@ -35,18 +38,25 @@ def generate_image(prompt: str, output_path: str, size: tuple = (1920, 1080), se
             print(f"      [!] Attempt {attempt+1} failed: {e}")
             time.sleep(2)
     
-    # LAST RESORT FALLBACK: Use Picsum to prevent crash
-    print("      [WARNING] Pollinations failed. Using fallback placeholder image.")
+    # LAST RESORT FALLBACK: Generate a clean title card instead of a random photo
+    print("      [WARNING] Pollinations failed. Generating text title card fallback.")
     try:
-        fallback_url = f"https://picsum.photos/seed/{seed}/{size[0]}/{size[1]}"
-        resp = requests.get(fallback_url, timeout=30)
-        if resp.status_code == 200:
-            _validate_and_save(resp.content, output_path, size)
-            print(f"      [✓] Fallback image saved: {output_path}")
-            return
+        from PIL import Image, ImageDraw, ImageFont
+        label = specific_object or prompt.split(",")[0][:40]
+        img = Image.new("RGB", size, color=(30, 30, 60))
+        draw = ImageDraw.Draw(img)
+        try:
+            font = ImageFont.truetype("assets/fonts/arialbd.ttf", 90)
+        except Exception:
+            font = ImageFont.load_default()
+        bbox = draw.textbbox((0, 0), label, font=font)
+        text_w, text_h = bbox[2] - bbox[0], bbox[3] - bbox[1]
+        draw.text(((size[0]-text_w)/2, (size[1]-text_h)/2), label, font=font, fill=(255, 255, 255))
+        img.save(output_path)
+        print(f"      [OK] Title card fallback saved: {output_path}")
+        return
     except Exception as e:
-        print(f"      [!] Fallback failed: {e}")
-        
+        print(f"      [!] Title card fallback failed: {e}")
     print(f"      [FATAL] All image methods failed", file=sys.stderr)
     sys.exit(1)
 
