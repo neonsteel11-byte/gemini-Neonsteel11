@@ -6,6 +6,26 @@ from urllib.parse import quote
 PEXELS_API_KEY = os.getenv('PEXELS_API_KEY', '')
 REPLICATE_API_TOKEN = os.getenv('REPLICATE_API_TOKEN', '')
 
+HF_API_TOKEN = os.getenv('HF_API_TOKEN', '')
+
+def generate_image_huggingface(prompt: str, output_path: str, size: tuple):
+    """Generate an image using Hugging Face's Inference API (Stable Diffusion XL). Returns True on success."""
+    if not HF_API_TOKEN:
+        return False
+    url = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0"
+    headers = {"Authorization": f"Bearer {HF_API_TOKEN}"}
+    payload = {"inputs": prompt}
+    try:
+        resp = requests.post(url, headers=headers, json=payload, timeout=90)
+        if resp.status_code == 200 and len(resp.content) > 5000:
+            return _validate_and_save(resp.content, output_path, size)
+        else:
+            print(f"      [!] HF image failed: HTTP {resp.status_code} - {resp.text[:200]}")
+            return False
+    except Exception as e:
+        print(f"      [!] HF image error: {e}")
+        return False
+
 def _validate_and_save(img_bytes: bytes, output_path: str, size: tuple):
     try:
         img = Image.open(BytesIO(img_bytes)).convert("RGB")
