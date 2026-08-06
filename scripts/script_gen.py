@@ -27,7 +27,7 @@ def generate_invention_script(invention, inventor, facts, info, video_type="shor
             data.setdefault("scenes", [])
 
             for idx, scene in enumerate(data["scenes"]):
-                scene.setdefault("narration", f"Here is an important fact about {invention}, scene {idx+1}.")
+                scene.setdefault("narration", f"Here is another important fact about {invention}.")
                 scene.setdefault("image_prompt", f"cartoon illustration of {invention}, bright colors")
                 scene.setdefault("on_screen_text", "")
 
