@@ -24,13 +24,28 @@ def generate_invention_script(invention, inventor, facts, info, video_type="shor
         resp_data = resp.json()
         if "choices" in resp_data and len(resp_data["choices"]) > 0:
             data = json.loads(resp_data["choices"][0]["message"]["content"])
-            while len(data.get("scenes", [])) < min_scenes:
+            data.setdefault("scenes", [])
+
+            for idx, scene in enumerate(data["scenes"]):
+                scene.setdefault("narration", f"Here is an important fact about {invention}, scene {idx+1}.")
+                scene.setdefault("image_prompt", f"cartoon illustration of {invention}, bright colors")
+                scene.setdefault("on_screen_text", "")
+
+            while len(data["scenes"]) < min_scenes:
                 data["scenes"].append({
                     "narration": f"The impact of {invention} on modern life is undeniable and massive.",
                     "image_prompt": f"cartoon showing {invention} being used worldwide",
                     "on_screen_text": "Global Impact"
                 })
-            print(f"      ✓ Script generated: {len(data['scenes'])} scenes")
+
+            data.setdefault("title_variants", [f"The Shocking Truth About {invention} #shorts"])
+            data.setdefault("description", f"Discover the hidden history of {invention}.")
+            data.setdefault("thumbnail_text", "DID YOU KNOW?")
+            data.setdefault("company", invention)
+            data.setdefault("hashtags", ["#shorts", "#facts"])
+            data.setdefault("seo_tags", [invention, "history"])
+
+            print(f"      [OK] Script generated: {len(data['scenes'])} scenes")
             return data
     except Exception as e:
         print(f"      [!] API Error: {e}")
