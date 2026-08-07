@@ -178,12 +178,12 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
                 else:
                     # Fallback: Generate cartoon portrait of inventor
                     print(f"      [!] Real photo failed, generating cartoon portrait...")
-                    generate_image(f"a respectful cartoon portrait of {inventor}, the inventor", 
+                    generate_image(f"a respectful cartoon portrait of {inventor}, historical inventor of {company}, period-appropriate clothing and setting, dignified expression, detailed facial features", 
                                  image_path, size, seed=video_seed)
                 image_path_2 = image_path  # Single image, no second cut
             else:
                 # No real photo available - generate cartoon portrait
-                generate_image(f"a respectful cartoon portrait of {inventor}, the inventor", 
+                generate_image(f"a respectful cartoon portrait of {inventor}, historical inventor of {company}, period-appropriate clothing and setting, dignified expression, detailed facial features", 
                              image_path, size, seed=video_seed)
                 image_path_2 = image_path
                 print(f"      ✓ Generated cartoon portrait of inventor for Scene 1")
