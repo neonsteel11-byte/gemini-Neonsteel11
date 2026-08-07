@@ -23,7 +23,7 @@ jobs:
           print(f"Token length: {len(token)}")
           print(f"Token starts with: {token[:10]}..." if token else "NO TOKEN!")
           
-          url = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0"
+          url = "https://router.huggingface.co/hf-inference/models/stabilityai/stable-diffusion-xl-base-1.0"
           headers = {"Authorization": f"Bearer {token}"}
           prompt = "cartoon lightbulb, bright colors"
           

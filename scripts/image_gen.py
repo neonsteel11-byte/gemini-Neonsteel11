@@ -12,7 +12,7 @@ def generate_image_huggingface(prompt: str, output_path: str, size: tuple):
     """Generate an image using Hugging Face's Inference API (Stable Diffusion XL). Returns True on success."""
     if not HF_API_TOKEN:
         return False
-    url = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0"
+    url = "https://router.huggingface.co/hf-inference/models/stabilityai/stable-diffusion-xl-base-1.0"
     headers = {"Authorization": f"Bearer {HF_API_TOKEN}"}
     payload = {"inputs": prompt}
     try:
