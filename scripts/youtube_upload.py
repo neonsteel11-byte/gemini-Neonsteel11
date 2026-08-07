@@ -30,7 +30,7 @@ def _get_credentials():
         sys.exit(1)
     return creds
 
-def upload_video(video_path: str, title: str, description: str, tags: list, is_short: bool, privacy_status: str = "public"):
+def upload_video(video_path: str, title: str, description: str, tags: list, is_short: bool, privacy_status: str = "public", thumbnail_path: str = None):
     if not os.path.exists(video_path):
         print(f"FATAL: video file {video_path} does not exist, cannot upload.", file=sys.stderr)
         sys.exit(1)
@@ -63,4 +63,12 @@ def upload_video(video_path: str, title: str, description: str, tags: list, is_s
         sys.exit(1)
     video_id = response["id"]
     print(f"Uploaded successfully: https://youtube.com/watch?v={video_id}")
+
+    if thumbnail_path and os.path.exists(thumbnail_path):
+        try:
+            youtube.thumbnails().set(videoId=video_id, media_body=MediaFileUpload(thumbnail_path)).execute()
+            print(f"      [OK] Thumbnail set for {video_id}")
+        except Exception as e:
+            print(f"      [!] Thumbnail upload failed (non-fatal): {e}")
+
     return video_id
