@@ -1195,5 +1195,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "how_it_works"
+  },
+  {
+    "video_id": "R-cojh2IZZ0",
+    "company": "Penicillin",
+    "video_type": "short",
+    "uploaded_at": "2026-08-07T11:56:40.711648+00:00",
+    "title_variants": [
+      "Penicillin Discovery",
+      "Fleming's Find"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts",
+      "#penicillin"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
