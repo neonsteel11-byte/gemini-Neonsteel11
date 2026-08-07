@@ -20,7 +20,6 @@ def _validate_and_save(img_bytes: bytes, output_path: str, size: tuple):
 
 
 def _generate_image_huggingface(full_prompt: str, output_path: str, size: tuple):
-    """Primary: Hugging Face Inference Providers (FLUX.1-schnell via 'together'). Returns True on success."""
     if not HF_API_TOKEN:
         return False
     try:
@@ -37,7 +36,6 @@ def _generate_image_huggingface(full_prompt: str, output_path: str, size: tuple)
 
 
 def _generate_image_pollinations(full_prompt: str, output_path: str, size: tuple, seed: int):
-    """Fallback: Pollinations AI."""
     url = f"https://image.pollinations.ai/prompt/{quote(full_prompt)}?width={size[0]}&height={size[1]}&model=flux&seed={seed}&nologo=true"
     for attempt in range(3):
         try:
@@ -54,7 +52,6 @@ def _generate_image_pollinations(full_prompt: str, output_path: str, size: tuple
 
 
 def _generate_title_card(label: str, output_path: str, size: tuple):
-    """Last resort: clean title card, no random stock photos."""
     print("      [WARNING] All image generation failed. Generating text title card fallback.")
     try:
         from PIL import ImageDraw, ImageFont
@@ -84,15 +81,12 @@ def generate_image(prompt: str, output_path: str, size: tuple = (1920, 1080), se
     else:
         full = prompt + ", flat cartoon, bold outlines, bright colors, no text"
 
-    # 1. Try Hugging Face (best quality)
     if _generate_image_huggingface(full, output_path, size):
         return
 
-    # 2. Fallback: Pollinations
     if _generate_image_pollinations(full, output_path, size, seed):
         return
 
-    # 3. Last resort: clean title card
     label = specific_object or prompt.split(",")[0][:40]
     if _generate_title_card(label, output_path, size):
         return
@@ -115,4 +109,9 @@ def download_real_image(url, path, size):
         resp = requests.get(url, timeout=15)
         if resp.status_code == 200:
             img = Image.open(BytesIO(resp.content)).convert("RGB")
-            img =
+            img = img.resize(size, Image.Resampling.LANCZOS)
+            img.save(path, "PNG")
+            return True
+    except Exception:
+        pass
+    return False
