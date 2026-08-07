@@ -1175,5 +1175,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "T_OlbUXfo0U",
+    "company": "Chainsaw",
+    "video_type": "short",
+    "uploaded_at": "2026-08-06T13:45:26.744920+00:00",
+    "title_variants": [
+      "Chainsaw Origin",
+      "Power Saw History"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts",
+      "#history"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "how_it_works"
   }
 ]
