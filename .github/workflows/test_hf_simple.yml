@@ -1,6 +1,5 @@
 name: Simple HF Test
 on: workflow_dispatch
-
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -9,41 +8,28 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-      
       - run: pip install requests Pillow huggingface_hub
-      
       - name: Test HF API
         env:
           HF_TOKEN: ${{ secrets.HF_API_TOKEN }}
         run: |
           python3 << 'PYEOF'
-          import requests, os, time
-          
+          import os
           token = os.getenv('HF_TOKEN', '')
           print(f"Token length: {len(token)}")
-          print(f"Token starts with: {token[:10]}..." if token else "NO TOKEN!")
-          
-          url = "https://router.huggingface.co/hf-inference/models/stabilityai/stable-diffusion-xl-base-1.0"
-          headers = {"Authorization": f"Bearer {token}"}
-          prompt = "cartoon lightbulb, bright colors"
-          
-          print("Sending request...")
-          resp = requests.post(url, headers=headers, data=prompt, timeout=120)
-          
-          print(f"Status: {resp.status_code}")
-          print(f"Response: {resp.text[:200]}")
-          
-          if resp.status_code == 200:
-              with open('image.png', 'wb') as f:
-                  f.write(resp.content)
-              print("✓ Image saved!")
-          else:
-              print("✗ Failed - creating blue placeholder")
+          from huggingface_hub import InferenceClient
+          print("Sending request via InferenceClient (provider=together)...")
+          try:
+              client = InferenceClient(provider="together", api_key=token)
+              img = client.text_to_image("cartoon lightbulb, bright colors", model="black-forest-labs/FLUX.1-schnell")
+              img.save("image.png")
+              print("SUCCESS: Image saved!")
+          except Exception as e:
+              print(f"FAILED: {e}")
               from PIL import Image
-              img = Image.new('RGB', (1920,1080), 'blue')
-              img.save('image.png')
+              placeholder = Image.new('RGB', (1920,1080), 'blue')
+              placeholder.save("image.png")
           PYEOF
-      
       - name: Upload
         uses: actions/upload-artifact@v4
         with:
