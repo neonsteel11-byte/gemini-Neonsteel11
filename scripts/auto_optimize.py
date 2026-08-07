@@ -73,7 +73,7 @@ Return ONLY the title text, no quotes, no explanations."""
             "https://api.groq.com/openai/v1/chat/completions",
             headers={"Authorization": f"Bearer {groq_key}", "Content-Type": "application/json"},
             json={
-                "model": "llama-3.1-70b-versatile",
+                "model": "llama-3.3-70b-versatile",
                 "messages": [{"role": "user", "content": prompt}],
                 "temperature": 0.8
             },
@@ -114,7 +114,7 @@ def optimize_video(youtube, video_data):
     
     if views >= 1000:
         print("✓ Has 1000+ views. Skipping.")
-        video_data["optimized"] = True
+        video_data["auto_optimized"] = True
         return False
         
     print("→ Under 1000 views. Optimizing...")
@@ -159,7 +159,7 @@ def optimize_video(youtube, video_data):
             os.remove(thumb_path)
 
     # 5. Mark as optimized
-    video_data["optimized"] = True
+    video_data["auto_optimized"] = True
     video_data["optimized_at"] = datetime.now().isoformat()
     video_data["optimized_title"] = new_title
     return True
@@ -171,7 +171,7 @@ def main():
     
     optimized_count = 0
     for video_data in manifest:
-        if not video_data.get("optimized", False):
+        if not video_data.get("auto_optimized", False):
             if optimize_video(youtube, video_data):
                 optimized_count += 1
                 
