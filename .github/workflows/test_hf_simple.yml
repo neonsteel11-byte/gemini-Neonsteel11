@@ -10,7 +10,7 @@ jobs:
         with:
           python-version: '3.11'
       
-      - run: pip install requests Pillow
+      - run: pip install requests Pillow huggingface_hub
       
       - name: Test HF API
         env:

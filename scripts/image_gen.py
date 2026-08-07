@@ -9,19 +9,16 @@ REPLICATE_API_TOKEN = os.getenv('REPLICATE_API_TOKEN', '')
 HF_API_TOKEN = os.getenv('HF_API_TOKEN', '')
 
 def generate_image_huggingface(prompt: str, output_path: str, size: tuple):
-    """Generate an image using Hugging Face's Inference API (Stable Diffusion XL). Returns True on success."""
+    """Generate an image using Hugging Face Inference Providers (FLUX.1-schnell via 'together'). Returns True on success."""
     if not HF_API_TOKEN:
         return False
-    url = "https://router.huggingface.co/hf-inference/models/stabilityai/stable-diffusion-xl-base-1.0"
-    headers = {"Authorization": f"Bearer {HF_API_TOKEN}"}
-    payload = {"inputs": prompt}
     try:
-        resp = requests.post(url, headers=headers, json=payload, timeout=90)
-        if resp.status_code == 200 and len(resp.content) > 5000:
-            return _validate_and_save(resp.content, output_path, size)
-        else:
-            print(f"      [!] HF image failed: HTTP {resp.status_code} - {resp.text[:200]}")
-            return False
+        from huggingface_hub import InferenceClient
+        client = InferenceClient(provider="together", api_key=HF_API_TOKEN)
+        img = client.text_to_image(prompt, model="black-forest-labs/FLUX.1-schnell")
+        img = img.convert("RGB").resize(size, Image.Resampling.LANCZOS)
+        img.save(output_path, "PNG")
+        return True
     except Exception as e:
         print(f"      [!] HF image error: {e}")
         return False
