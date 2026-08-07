@@ -250,6 +250,15 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
         f.write("=== FACEBOOK ===\n" + facebook_caption + "\n")
     print(f"      Platform-specific captions saved: {caption_path}")
 
+    thumbnail_path = os.path.join(tmp_dir, "thumbnail.png")
+    try:
+        from scripts.image_gen import generate_thumbnail
+        generate_thumbnail(script["title_variants"][0], thumbnail_path, specific_object=company)
+        print(f"      [OK] Thumbnail generated: {thumbnail_path}")
+    except Exception as e:
+        print(f"      [!] Thumbnail generation failed (non-fatal): {e}")
+        thumbnail_path = None
+
     if upload:
         from scripts.youtube_upload import upload_video
         hashtags = " ".join(script.get("hashtags", []))
@@ -263,6 +272,7 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
             tags=script.get("seo_tags", []) + [company, "finance", "cartoon"],
             is_short=(video_type == "short"),
             privacy_status=privacy,
+            thumbnail_path=thumbnail_path,
         )
         manifest = _load_manifest()
         manifest.append({
