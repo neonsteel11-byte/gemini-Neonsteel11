@@ -1215,5 +1215,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "Ep4uRbzm5dg",
+    "company": "Play-Doh",
+    "video_type": "short",
+    "uploaded_at": "2026-08-07T17:09:04.967054+00:00",
+    "title_variants": [
+      "Play-Doh Origin",
+      "The Accidental Invention"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts",
+      "#PlayDoh"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
