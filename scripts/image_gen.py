@@ -100,8 +100,9 @@ def generate_narrator(path, size=(500, 800)):
 
 
 def generate_thumbnail(title, path, size=(1280, 720), specific_object=None):
-    prompt = f"YouTube thumbnail style, shocked excited cartoon face reacting to {specific_object or title}, bold dramatic lighting, high contrast, eye-catching"
-    generate_image(prompt, path, size, specific_object=specific_object)
+    subject = specific_object or title
+    prompt = f"YouTube thumbnail style, detailed cartoon illustration of {subject}, expressive shocked or excited face, both the person and the object clearly visible, bold dramatic lighting, high contrast, eye-catching, professional character art"
+    generate_image(prompt, path, size, specific_object=subject)
 
 
 def download_real_image(url, path, size):

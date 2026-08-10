@@ -253,7 +253,12 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
     thumbnail_path = os.path.join(tmp_dir, "thumbnail.png")
     try:
         from scripts.image_gen import generate_thumbnail
-        generate_thumbnail(script["title_variants"][0], thumbnail_path, specific_object=company)
+        thumb_inventor = locals().get("inventor")
+        if thumb_inventor and thumb_inventor != "Unknown":
+            thumb_subject = f"{thumb_inventor} holding or next to {company}"
+        else:
+            thumb_subject = company
+        generate_thumbnail(script["title_variants"][0], thumbnail_path, specific_object=thumb_subject)
         print(f"      [OK] Thumbnail generated: {thumbnail_path}")
     except Exception as e:
         print(f"      [!] Thumbnail generation failed (non-fatal): {e}")
