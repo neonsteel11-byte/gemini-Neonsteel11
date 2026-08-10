@@ -18,7 +18,7 @@ Facts to include: {facts}
 
 Return ONLY valid JSON in EXACTLY this structure, with no missing fields:
 {{
-  "title_variants": ["title option 1", "title option 2"],
+  "title_variants": ["title using a specific number or dollar amount", "title using a curiosity gap (e.g. Why {invention} Almost Failed)", "title using direct contradiction/surprise (e.g. He Was Trying to X, He Invented Y Instead)"],
   "description": "short video description",
   "thumbnail_text": "short punchy thumbnail text",
   "hashtags": ["#shorts", "#facts"],
@@ -55,7 +55,11 @@ Every scene MUST include narration, image_prompt, and on_screen_text. Do not ski
                     "on_screen_text": "Global Impact"
                 })
 
-            data.setdefault("title_variants", [f"The Shocking Truth About {invention} #shorts"])
+            data.setdefault("title_variants", [
+                f"The ${invention} Mistake That Changed Everything",
+                f"Why {invention} Almost Never Existed",
+                f"{inventor} Was Trying to Fix Something Else"
+            ])
             data.setdefault("description", f"Discover the hidden history of {invention}.")
             data.setdefault("thumbnail_text", "DID YOU KNOW?")
             data.setdefault("company", invention)
@@ -96,7 +100,11 @@ Every scene MUST include narration, image_prompt, and on_screen_text. Do not ski
         fallback_scenes.extend(long_scenes)
     
     return {
-        "title_variants": [f"The Shocking Truth About {invention} #shorts", f"How {inventor} Accidentally Invented {invention}"],
+        "title_variants": [
+            f"The Accident That Created {invention}",
+            f"Why {inventor} Almost Gave Up on {invention}",
+            f"{invention}: The Billion-Dollar Mistake"
+        ],
         "description": f"Discover the hidden history of {invention} and how {inventor} created it by accident.",
         "thumbnail_text": "BY MISTAKE!",
         "company": invention,
