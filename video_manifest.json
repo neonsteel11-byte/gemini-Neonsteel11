@@ -1251,8 +1251,8 @@
       "#foodie",
       "#history"
     ],
-    "variant_index": 0,
-    "optimized": false,
+    "variant_index": 1,
+    "optimized": true,
     "privacy": "unlisted",
     "auto_published": false,
     "content_format": "invention_history"
@@ -1271,8 +1271,8 @@
       "#facts",
       "#bubblewrap"
     ],
-    "variant_index": 0,
-    "optimized": false,
+    "variant_index": 1,
+    "optimized": true,
     "privacy": "public",
     "auto_published": false,
     "content_format": "how_it_works"
