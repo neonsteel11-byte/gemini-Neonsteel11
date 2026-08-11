@@ -1296,5 +1296,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "oVauWk4DIlM",
+    "company": "Post-it Notes",
+    "video_type": "short",
+    "uploaded_at": "2026-08-11T17:13:23.716309+00:00",
+    "title_variants": [
+      "The $1 Billion Mistake",
+      "Why Post-it Notes Almost Failed",
+      "He Was Trying to Create Super Glue, He Invented Post-it Notes Instead"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
