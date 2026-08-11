@@ -3,22 +3,45 @@ import random, json, os
 MANIFEST_PATH = "video_manifest.json"
 
 TOPICS = [
-    "INVENTION:Penicillin:Alexander Fleming",
-    "INVENTION:Microwave Oven:Percy Spencer",
-    "INVENTION:Post-it Notes:Spencer Silver",
+    # Daily-use physical objects (highest priority -- proven best performer: Zipper at 243 views)
+    "INVENTION:Zipper:Whitcomb Judson",
     "INVENTION:Velcro:George de Mestral",
+    "INVENTION:Post-it Notes:Spencer Silver",
     "INVENTION:Silly Putty:James Wright",
     "INVENTION:Play-Doh:Noah McVicker",
     "INVENTION:Slinky:Richard James",
     "INVENTION:Super Glue:Harry Coover",
+    "INVENTION:Bubble Wrap:Alfred Fielding and Marc Chavannes",
+    "INVENTION:Microwave Oven:Percy Spencer",
+    "INVENTION:Toothbrush:William Addis",
+    "INVENTION:Safety Pin:Walter Hunt",
+    "INVENTION:Ballpoint Pen:Laszlo Biro",
+    "INVENTION:Umbrella:Samuel Fox",
+    "INVENTION:Matches:John Walker",
+    "INVENTION:Rubber Band:Stephen Perry",
+    "INVENTION:Paper Clip:Johan Vaaler",
+    "INVENTION:Sunglasses:Sam Foster",
+    "INVENTION:Chewing Gum:Thomas Adams",
+    "INVENTION:Bandage:Earle Dickson",
+    "INVENTION:Zipper Lighter:George Blaisdell",
+    "INVENTION:Alarm Clock:Levi Hutchins",
+    "INVENTION:Contact Lenses:Kevin Tuohy",
+    # Daily-use food/household items
     "INVENTION:Potato Chips:George Crum",
     "INVENTION:Corn Flakes:John Harvey Kellogg",
+    "INVENTION:Chocolate Chip Cookies:Ruth Wakefield",
+    "INVENTION:Popsicle:Frank Epperson",
+    "INVENTION:Coca-Cola:John Pemberton",
+    # How things work -- daily objects
     "HOWITWORKS:Bubble Wrap",
     "HOWITWORKS:Treadmill",
     "HOWITWORKS:Listerine",
     "HOWITWORKS:Chainsaw",
-    "MONEY:The Great Emu War",
-    "MONEY:Tulip Mania",
+    "HOWITWORKS:Toothpaste",
+    "HOWITWORKS:Zipper",
+    "HOWITWORKS:Velcro",
+    # Medical/science (still physical, still relatable)
+    "INVENTION:Penicillin:Alexander Fleming",
 ]
 
 def _load_manifest():
