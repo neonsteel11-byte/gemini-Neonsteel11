@@ -1251,8 +1251,8 @@
       "#foodie",
       "#history"
     ],
-    "variant_index": 0,
-    "optimized": false,
+    "variant_index": 1,
+    "optimized": true,
     "privacy": "unlisted",
     "auto_published": false,
     "content_format": "invention_history"
@@ -1271,10 +1271,30 @@
       "#facts",
       "#bubblewrap"
     ],
+    "variant_index": 1,
+    "optimized": true,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "how_it_works"
+  },
+  {
+    "video_id": "7UMiH0HZAw0",
+    "company": "Penicillin",
+    "video_type": "short",
+    "uploaded_at": "2026-08-10T17:10:13.614332+00:00",
+    "title_variants": [
+      "The $1 Discovery That Changed Medicine",
+      "Why Penicillin Almost Failed",
+      "He Was Trying to Study Bacteria, He Invented Penicillin Instead"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
     "variant_index": 0,
     "optimized": false,
     "privacy": "public",
     "auto_published": false,
-    "content_format": "how_it_works"
+    "content_format": "invention_history"
   }
 ]
