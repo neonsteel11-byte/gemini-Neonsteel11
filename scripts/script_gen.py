@@ -8,8 +8,8 @@ def generate_invention_script(invention, inventor, facts, info, video_type="shor
         length = "1500 words, 15-20 scenes"
         min_scenes = 15
     else:
-        length = "100-130 words, 6-7 scenes"
-        min_scenes = 6
+        length = "70-90 words, 5 scenes"
+        min_scenes = 5
 
     prompt = f"""Write an educational short-video script about {invention}, invented by {inventor}.
 Length: {length}.
