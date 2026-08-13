@@ -1336,5 +1336,27 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "SaUQsTbELnc",
+    "company": "Chewing Gum",
+    "video_type": "long",
+    "uploaded_at": "2026-08-13T01:52:34.017271+00:00",
+    "title_variants": [
+      "The $100 Million Dollar Invention",
+      "Why Chewing Gum Almost Failed",
+      "He Was Trying to Make Tires, He Invented Chewing Gum Instead"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts",
+      "#history",
+      "#chewinggum"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "unlisted",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
