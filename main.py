@@ -250,6 +250,14 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
         f.write("=== FACEBOOK ===\n" + facebook_caption + "\n")
     print(f"      Platform-specific captions saved: {caption_path}")
 
+    if content_format == "listicle":
+        try:
+            from scripts.infographic_gen import build_infographic
+            infographic_path = os.path.join(OUTPUT_DIR, f"{safe_name}_{video_type}_infographic.png")
+            build_infographic(script["title_variants"][0], script["scenes"], infographic_path, tmp_dir)
+        except Exception as e:
+            print(f"      [!] Infographic generation failed (non-fatal): {e}")
+
     thumbnail_path = os.path.join(tmp_dir, "thumbnail.png")
     try:
         from scripts.image_gen import generate_thumbnail
