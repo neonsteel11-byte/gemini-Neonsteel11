@@ -148,6 +148,17 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
     print(f"      Visual seed: {video_seed}")
     print(f"      Scenes: {len(script['scenes'])}")
 
+
+    infographic_recap_path = None
+    if content_format == "listicle":
+        try:
+            from scripts.infographic_gen import build_infographic
+            infographic_out_path = os.path.join(OUTPUT_DIR, f"{safe_name}_{video_type}_infographic.png")
+            build_infographic(script["title_variants"][0], script["scenes"], infographic_out_path, tmp_dir)
+            infographic_recap_path = infographic_out_path
+        except Exception as e:
+            print(f"      [!] Infographic generation failed (non-fatal): {e}")
+
     print("[2/4] Generating voiceover + images per scene...")
     
     scene_data = []
@@ -200,6 +211,27 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
             "duration": duration,
             "has_punchline": scene.get("has_punchline", False),
         })
+
+    if infographic_recap_path and os.path.exists(infographic_recap_path):
+        try:
+            recap_text = "Here is the full list, one more time."
+            recap_audio_path = os.path.join(tmp_dir, "recap_audio.mp3")
+            recap_duration, recap_words = generate_voiceover(recap_text, recap_audio_path)
+            recap_image_path = os.path.join(tmp_dir, "recap_image.png")
+            from PIL import Image as _Image
+            _img = _Image.open(infographic_recap_path).convert("RGB").resize(size)
+            _img.save(recap_image_path)
+            scene_data.append({
+                "image_path": recap_image_path,
+                "image_path_2": recap_image_path,
+                "audio_path": recap_audio_path,
+                "words": recap_words,
+                "duration": recap_duration,
+                "has_punchline": False,
+            })
+            print("      [OK] Added infographic recap scene.")
+        except Exception as e:
+            print(f"      [!] Recap scene failed (non-fatal): {e}")
 
     print("      Generating subscribe call-to-action scene...")
     cta_audio_path = os.path.join(tmp_dir, "cta_audio.mp3")
