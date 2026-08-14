@@ -42,6 +42,11 @@ TOPICS = [
     "HOWITWORKS:Velcro",
     # Medical/science (still physical, still relatable)
     "INVENTION:Penicillin:Alexander Fleming",
+    # Listicles -- numbered countdowns, also generate a Community-post infographic
+    "LISTICLE:Everyday Objects With Insane Origin Stories",
+    "LISTICLE:Scientists Who Changed Everything By Accident",
+    "LISTICLE:Inventions That Were Total Mistakes",
+    "LISTICLE:Household Items You Never Knew Had a Wild History",
 ]
 
 def _load_manifest():
