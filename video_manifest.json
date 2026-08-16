@@ -1398,5 +1398,27 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "NftIIQIoMKw",
+    "company": "Microwave Oven",
+    "video_type": "long",
+    "uploaded_at": "2026-08-16T12:54:20.027808+00:00",
+    "title_variants": [
+      "The $5 Billion Microwave Oven",
+      "Why Microwave Oven Almost Failed",
+      "He Was Trying to Improve Radar, He Invented Microwave Oven Instead"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts",
+      "#microwaveoven",
+      "#percyspencer"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "unlisted",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
