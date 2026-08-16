@@ -1358,5 +1358,45 @@
     "privacy": "unlisted",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "4Cz1gjVL9gc",
+    "company": "Alarm Clock",
+    "video_type": "short",
+    "uploaded_at": "2026-08-14T17:06:47.983953+00:00",
+    "title_variants": [
+      "The $1 Alarm Clock",
+      "Why Alarm Clock Almost Failed",
+      "He Was Trying to Sleep, He Invented Alarm Clock Instead"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 1,
+    "optimized": true,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
+  },
+  {
+    "video_id": "APArIJmEBEw",
+    "company": "Zipper Lighter",
+    "video_type": "short",
+    "uploaded_at": "2026-08-15T16:38:08.258881+00:00",
+    "title_variants": [
+      "The $10 Million Zipper Lighter",
+      "Why Zipper Lighter Almost Failed",
+      "He Was Trying to Fix Pipes, He Invented Zipper Lighter Instead"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
