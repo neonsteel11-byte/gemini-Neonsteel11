@@ -1393,6 +1393,48 @@
       "#shorts",
       "#facts"
     ],
+    "variant_index": 1,
+    "optimized": true,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
+  },
+  {
+    "video_id": "NftIIQIoMKw",
+    "company": "Microwave Oven",
+    "video_type": "long",
+    "uploaded_at": "2026-08-16T12:54:20.027808+00:00",
+    "title_variants": [
+      "The $5 Billion Microwave Oven",
+      "Why Microwave Oven Almost Failed",
+      "He Was Trying to Improve Radar, He Invented Microwave Oven Instead"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts",
+      "#microwaveoven",
+      "#percyspencer"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "unlisted",
+    "auto_published": false,
+    "content_format": "invention_history"
+  },
+  {
+    "video_id": "SUr1YmQpTzw",
+    "company": "Sunglasses",
+    "video_type": "short",
+    "uploaded_at": "2026-08-16T16:33:12.472400+00:00",
+    "title_variants": [
+      "Sunglasses: $100M Industry",
+      "Why Sunglasses Almost Failed",
+      "He Was Trying to Study Stars, He Invented Shades Instead"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
     "variant_index": 0,
     "optimized": false,
     "privacy": "public",
