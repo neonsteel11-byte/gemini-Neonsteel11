@@ -1440,5 +1440,24 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "zAut2zG5Ye8",
+    "company": "Inventions That Were Total Mistakes",
+    "video_type": "short",
+    "uploaded_at": "2026-08-17T10:33:32.930767+00:00",
+    "title_variants": [
+      "5 Things About Inventions That Were Total Mistakes"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts",
+      "#listicle"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "listicle"
   }
 ]
