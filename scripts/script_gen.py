@@ -5,7 +5,7 @@ GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 def generate_invention_script(invention, inventor, facts, info, video_type="short"):
     if video_type == "long":
-        length = "1500 words, 15-20 scenes"
+        length = "15-18 scenes, EACH scene must have 80-110 words of narration (this is a strict per-scene minimum, not a total to divide up)"
         min_scenes = 15
     else:
         length = "70-90 words, 5 scenes"
