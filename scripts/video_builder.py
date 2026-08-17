@@ -64,6 +64,19 @@ def build_video(scene_data, size, output_path, tmp_dir):
         if combined_audio.duration > video.duration:
             video = video.set_duration(combined_audio.duration)
 
+    print(f"      Expected final duration before render: {video.duration:.2f}s")
     video.write_videofile(output_path, fps=24, codec='libx264', audio_codec='aac',
                          temp_audiofile='temp.m4a', remove_temp=True, verbose=False, logger=None)
     video.close()
+
+    try:
+        import subprocess
+        result = subprocess.run(
+            ["ffprobe", "-v", "error", "-show_entries", "format=duration",
+             "-of", "default=noprint_wrappers=1:nokey=1", output_path],
+            capture_output=True, text=True
+        )
+        actual_duration = result.stdout.strip()
+        print(f"      [CHECK] Actual rendered file duration (ffprobe): {actual_duration}s")
+    except Exception as e:
+        print(f"      [!] Could not verify rendered duration: {e}")
