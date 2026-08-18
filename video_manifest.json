@@ -1480,5 +1480,26 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "qP4gKUg26FA",
+    "company": "Bandage",
+    "video_type": "short",
+    "uploaded_at": "2026-08-18T16:39:49.995475+00:00",
+    "title_variants": [
+      "The Accident That Created Bandage",
+      "Why Earle Dickson Almost Gave Up on Bandage",
+      "Bandage: The Billion-Dollar Mistake"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#accidentalgenius",
+      "#bandage"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
