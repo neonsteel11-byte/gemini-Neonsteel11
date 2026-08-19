@@ -148,6 +148,13 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
     print(f"      Visual seed: {video_seed}")
     print(f"      Scenes: {len(script['scenes'])}")
 
+    try:
+        _episode_num = len(_load_manifest()) + 1
+        script["title_variants"] = [f"Ep. {_episode_num}: {t}" for t in script.get("title_variants", [])]
+    except Exception as e:
+        print(f"      [!] Episode numbering skipped (non-fatal): {e}")
+
+
 
     infographic_recap_path = None
     if content_format == "listicle":
@@ -220,7 +227,8 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
     cta_image_path = os.path.join(tmp_dir, "cta_image.png")
     import random as _r
     cta_text = _r.choice([
-        "Subscribe to see the accidental side of history you were never taught in school.",
+        "If you like weird invention origin stories like this one, subscribe for a new one every day.",
+        "Subscribe if you want more accidental inventions like this.",
         "If that surprised you, tag a friend who needs to see this.",
         "Send this to someone who won't believe it either."
     ])
