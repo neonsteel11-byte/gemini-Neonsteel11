@@ -2,31 +2,26 @@ import os, sys
 from moviepy.editor import ImageClip, AudioFileClip, CompositeVideoClip, TextClip, concatenate_videoclips, concatenate_audioclips
 
 
-def add_captions_to_clip(clip, words, video_width, video_height, group_size=3):
-    """Overlay captions synced to word timings, grouped into short readable phrases."""
+def add_captions_to_clip(clip, words, video_width, video_height):
+    """Overlay the full narration as one readable caption for the whole scene,
+    so it always reads as a complete line/sentence instead of fragments."""
     if not words:
         return clip
     is_vertical = video_height > video_width
-    fontsize = int(video_height * 0.045) if is_vertical else int(video_height * 0.038)
-    clean_words = [w for w in words if w.get("text", "").strip()]
-    groups = [clean_words[i:i + group_size] for i in range(0, len(clean_words), group_size)]
-    caption_clips = []
-    for group in groups:
-        text = " ".join(w["text"].strip() for w in group)
-        start = group[0].get("start", 0)
-        end = group[-1].get("end", start + 0.6)
-        try:
-            txt = TextClip(text, fontsize=fontsize, color='white', font='Arial-Bold',
-                            stroke_color='black', stroke_width=3, method='caption',
-                            size=(int(video_width * 0.85), None))
-            txt = txt.set_position(('center', 0.78), relative=True)
-            txt = txt.set_start(start).set_duration(max(end - start, 0.3))
-            caption_clips.append(txt)
-        except Exception as e:
-            print(f"      [!] Caption render failed for phrase '{text}': {e}", file=sys.stderr)
-    if not caption_clips:
+    fontsize = int(video_height * 0.04) if is_vertical else int(video_height * 0.034)
+    full_text = " ".join(w.get("text", "").strip() for w in words if w.get("text", "").strip())
+    if not full_text:
         return clip
-    return CompositeVideoClip([clip] + caption_clips)
+    try:
+        txt = TextClip(full_text, fontsize=fontsize, color='white', font='Arial-Bold',
+                        stroke_color='black', stroke_width=3, method='caption',
+                        size=(int(video_width * 0.85), None))
+        txt = txt.set_position(('center', 0.78), relative=True)
+        txt = txt.set_start(0).set_duration(clip.duration)
+        return CompositeVideoClip([clip, txt])
+    except Exception as e:
+        print(f"      [!] Caption render failed: {e}", file=sys.stderr)
+        return clip
 
 
 def build_video(scene_data, size, output_path, tmp_dir):
@@ -39,11 +34,9 @@ def build_video(scene_data, size, output_path, tmp_dir):
             print(f"      [ERROR] Missing: {img_path}", file=sys.stderr)
             continue
 
-        # Derive duration directly from the real audio clip so image and audio
-        # can never mismatch and silently truncate dialogue on export.
         if os.path.exists(aud_path):
             aud_clip = AudioFileClip(aud_path)
-            dur = aud_clip.duration + 0.15  # small safety buffer
+            dur = aud_clip.duration + 0.15
             audio_clips.append(aud_clip)
         else:
             dur = scene.get("duration", 3.0)
@@ -60,7 +53,6 @@ def build_video(scene_data, size, output_path, tmp_dir):
     if audio_clips:
         combined_audio = concatenate_audioclips(audio_clips)
         video = video.set_audio(combined_audio)
-        # Guarantee the exported video is never shorter than the full audio track.
         if combined_audio.duration > video.duration:
             video = video.set_duration(combined_audio.duration)
 
