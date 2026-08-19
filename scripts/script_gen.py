@@ -3,6 +3,7 @@ from config import GROQ_API_KEY, GROQ_MODEL
 
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 
+
 def generate_invention_script(invention, inventor, facts, info, video_type="short"):
     if video_type == "long":
         length = "15-18 scenes, EACH scene must have 80-110 words of narration (this is a strict per-scene minimum, not a total to divide up)"
@@ -29,15 +30,15 @@ Return ONLY valid JSON in EXACTLY this structure, with no missing fields:
 }}
 
 Every scene MUST include narration, image_prompt, and on_screen_text. Do not skip any field. Do not include the words "scene 1" or scene numbers anywhere in narration text."""
-    
+
     try:
         print(f"      Calling Groq API...")
-        resp = requests.post(GROQ_URL, 
+        resp = requests.post(GROQ_URL,
             headers={"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"},
-            json={"model": GROQ_MODEL, "messages": [{"role": "user", "content": prompt}], 
+            json={"model": GROQ_MODEL, "messages": [{"role": "user", "content": prompt}],
                   "temperature": 0.9, "response_format": {"type": "json_object"}},
             timeout=90)
-        
+
         resp_data = resp.json()
         if "choices" in resp_data and len(resp_data["choices"]) > 0:
             data = json.loads(resp_data["choices"][0]["message"]["content"])
@@ -71,10 +72,8 @@ Every scene MUST include narration, image_prompt, and on_screen_text. Do not ski
     except Exception as e:
         print(f"      [!] API Error: {e}")
 
-    # 100% DYNAMIC FALLBACK - ZERO GENERIC PHRASES
     print("      [!] Using dynamic fallback...")
-    
-    # EVERY sentence mentions {invention} or {inventor}
+
     fallback_scenes = [
         {"narration": f"Did you know {invention} was created completely by accident?", "image_prompt": f"cartoon of {invention} with explosion effect", "on_screen_text": "By Accident!"},
         {"narration": f"{inventor} never intended to create {invention} - it was a total mistake.", "image_prompt": f"cartoon of {inventor} looking shocked", "on_screen_text": "Total Mistake"},
@@ -84,8 +83,7 @@ Every scene MUST include narration, image_prompt, and on_screen_text. Do not ski
         {"narration": f"Today {invention} is used by billions of people every single day.", "image_prompt": f"cartoon showing {invention} used worldwide", "on_screen_text": "Used Worldwide"},
         {"narration": f"The {invention} industry is now worth billions of dollars globally.", "image_prompt": f"cartoon showing money and {invention}", "on_screen_text": "Billion Dollar Industry"},
     ]
-    
-    # For long videos, add MORE specific scenes
+
     if video_type == "long":
         long_scenes = [
             {"narration": f"The original version of {invention} looked very different from today.", "image_prompt": f"cartoon showing old version of {invention}", "on_screen_text": "Original Design"},
@@ -98,13 +96,9 @@ Every scene MUST include narration, image_prompt, and on_screen_text. Do not ski
             {"narration": f"The environmental impact of {invention} is now being studied carefully.", "image_prompt": f"cartoon showing eco-friendly {invention}", "on_screen_text": "Environmental Impact"},
         ]
         fallback_scenes.extend(long_scenes)
-    
+
     return {
-        "title_variants": [
-            f"The Accident That Created {invention}",
-            f"Why {inventor} Almost Gave Up on {invention}",
-            f"{invention}: The Billion-Dollar Mistake"
-        ],
+        "title_variants": [f"The Accident That Created {invention}", f"Why {inventor} Almost Gave Up on {invention}", f"{invention}: The Billion-Dollar Mistake"],
         "description": f"Discover the hidden history of {invention} and how {inventor} created it by accident.",
         "thumbnail_text": "BY MISTAKE!",
         "company": invention,
@@ -113,11 +107,18 @@ Every scene MUST include narration, image_prompt, and on_screen_text. Do not ski
         "scenes": fallback_scenes[:min_scenes]
     }
 
-def generate_script(company, video_type="short", **kwargs): 
+
+def generate_script(company, video_type="short", **kwargs):
     return generate_invention_script(company, "Unknown", "", "", video_type)
 
-def generate_money_story_script(topic, facts, video_type="short"): 
+
+def generate_money_story_script(topic, facts, video_type="short"):
     return generate_invention_script(topic, "Unknown", facts, "", video_type)
+
+
+def generate_comparison_script(a, b, video_type="short", **kwargs):
+    return generate_invention_script(f"{a} vs {b}", "Unknown", "", "", video_type)
+
 
 def generate_listicle_script(topic, video_type="short"):
     """Generates a numbered listicle script. Each entry becomes one scene:
@@ -144,32 +145,35 @@ Return ONLY valid JSON in EXACTLY this structure:
 
 Include exactly {num_entries} scenes, one per entry, each with a DIFFERENT real name or subject."""
 
-    try:
-        print("      Calling Groq API for listicle...")
-        resp = requests.post(GROQ_URL,
-            headers={"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"},
-            json={"model": GROQ_MODEL, "messages": [{"role": "user", "content": prompt}],
-                  "temperature": 0.8, "response_format": {"type": "json_object"}},
-            timeout=90)
-        resp_data = resp.json()
-        if "choices" in resp_data and len(resp_data["choices"]) > 0:
-            data = json.loads(resp_data["choices"][0]["message"]["content"])
-            data.setdefault("scenes", [])
-            for idx, scene in enumerate(data["scenes"]):
-                scene.setdefault("entry_name", topic)
-                scene.setdefault("narration", f"Here is another key fact about {topic}.")
-                scene.setdefault("image_prompt", f"cartoon illustration related to {topic}, entry {idx+1}")
-                scene.setdefault("on_screen_text", scene.get("entry_name", ""))
-            data.setdefault("title_variants", [f"{num_entries} Things You Didn't Know About {topic}"])
-            data.setdefault("description", f"A countdown of {topic}.")
-            data.setdefault("thumbnail_text", "DID YOU KNOW?")
-            data.setdefault("company", topic)
-            data.setdefault("hashtags", ["#shorts", "#facts", "#listicle"])
-            data.setdefault("seo_tags", [topic, "facts", "list"])
-            print(f"      [OK] Listicle script generated: {len(data['scenes'])} entries")
-            return data
-    except Exception as e:
-        print(f"      [!] Listicle API Error: {e}")
+    for attempt in range(2):
+        try:
+            print(f"      Calling Groq API for listicle (attempt {attempt+1}/2)...")
+            resp = requests.post(GROQ_URL,
+                headers={"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"},
+                json={"model": GROQ_MODEL, "messages": [{"role": "user", "content": prompt}],
+                      "temperature": 0.8, "response_format": {"type": "json_object"}},
+                timeout=120)
+            resp_data = resp.json()
+            if "choices" in resp_data and len(resp_data["choices"]) > 0:
+                data = json.loads(resp_data["choices"][0]["message"]["content"])
+                data.setdefault("scenes", [])
+                for idx, scene in enumerate(data["scenes"]):
+                    scene.setdefault("entry_name", topic)
+                    scene.setdefault("narration", f"Here is another key fact about {topic}.")
+                    scene.setdefault("image_prompt", f"cartoon illustration related to {topic}, entry {idx+1}")
+                    scene.setdefault("on_screen_text", scene.get("entry_name", ""))
+                data.setdefault("title_variants", [f"{num_entries} Things You Didn't Know About {topic}"])
+                data.setdefault("description", f"A countdown of {topic}.")
+                data.setdefault("thumbnail_text", "DID YOU KNOW?")
+                data.setdefault("company", topic)
+                data.setdefault("hashtags", ["#shorts", "#facts", "#listicle"])
+                data.setdefault("seo_tags", [topic, "facts", "list"])
+                print(f"      [OK] Listicle script generated: {len(data['scenes'])} entries")
+                return data
+            else:
+                print(f"      [!] Listicle attempt {attempt+1} returned no choices")
+        except Exception as e:
+            print(f"      [!] Listicle API Error (attempt {attempt+1}): {e}")
 
     print("      [!] Using dynamic listicle fallback...")
     return {
@@ -185,7 +189,3 @@ Include exactly {num_entries} scenes, one per entry, each with a DIFFERENT real 
             for i in range(num_entries)
         ]
     }
-
-
-def generate_comparison_script(a, b, video_type="short", **kwargs): 
-    return generate_invention_script(f"{a} vs {b}", "Unknown", "", "", video_type)
