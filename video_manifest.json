@@ -1440,5 +1440,66 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "zAut2zG5Ye8",
+    "company": "Inventions That Were Total Mistakes",
+    "video_type": "short",
+    "uploaded_at": "2026-08-17T10:33:32.930767+00:00",
+    "title_variants": [
+      "5 Things About Inventions That Were Total Mistakes"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts",
+      "#listicle"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "listicle"
+  },
+  {
+    "video_id": "92DuPVkgO5E",
+    "company": "Bubble Wrap",
+    "video_type": "short",
+    "uploaded_at": "2026-08-17T16:33:13.693452+00:00",
+    "title_variants": [
+      "The Accident That Created Bubble Wrap",
+      "Why Alfred Fielding and Marc Chavannes Almost Gave Up on Bubble Wrap",
+      "Bubble Wrap: The Billion-Dollar Mistake"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#accidentalgenius",
+      "#bubblewrap"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
+  },
+  {
+    "video_id": "qP4gKUg26FA",
+    "company": "Bandage",
+    "video_type": "short",
+    "uploaded_at": "2026-08-18T16:39:49.995475+00:00",
+    "title_variants": [
+      "The Accident That Created Bandage",
+      "Why Earle Dickson Almost Gave Up on Bandage",
+      "Bandage: The Billion-Dollar Mistake"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#accidentalgenius",
+      "#bandage"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
