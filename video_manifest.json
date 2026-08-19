@@ -1501,5 +1501,26 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "YtZSbJzmiac",
+    "company": "Microwave Oven",
+    "video_type": "short",
+    "uploaded_at": "2026-08-19T04:09:53.885670+00:00",
+    "title_variants": [
+      "Ep. 71: The Accident That Created Microwave Oven",
+      "Ep. 71: Why Percy Spencer Almost Gave Up on Microwave Oven",
+      "Ep. 71: Microwave Oven: The Billion-Dollar Mistake"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#accidentalgenius",
+      "#microwaveoven"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
