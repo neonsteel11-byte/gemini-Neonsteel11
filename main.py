@@ -192,6 +192,9 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
                          image_path, size, seed=video_seed)
             image_path_2 = image_path
             print(f"      [OK] Generated cartoon portrait of inventor for Scene 1")
+        else:
+            generate_image(scene["image_prompt"], image_path, size, seed=video_seed, specific_object=company)
+            generate_image(scene["image_prompt"], image_path_2, size, seed=video_seed + 1000 + i)
         scene_data.append({
             "image_path": image_path,
             "image_path_2": image_path_2,
