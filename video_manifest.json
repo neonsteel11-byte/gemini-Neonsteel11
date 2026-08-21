@@ -1564,5 +1564,26 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "S-o1fyRh1Aw",
+    "company": "Contact Lenses",
+    "video_type": "short",
+    "uploaded_at": "2026-08-21T16:50:42.053682+00:00",
+    "title_variants": [
+      "Ep. 74: The Accident That Created Contact Lenses",
+      "Ep. 74: Why Kevin Tuohy Almost Gave Up on Contact Lenses",
+      "Ep. 74: Contact Lenses: The Billion-Dollar Mistake"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#accidentalgenius",
+      "#contactlenses"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
