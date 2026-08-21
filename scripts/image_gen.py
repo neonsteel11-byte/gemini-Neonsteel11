@@ -77,9 +77,9 @@ def generate_image(prompt: str, output_path: str, size: tuple = (1920, 1080), se
         sys.exit(1)
 
     if specific_object:
-        full = f"{prompt}, featuring {specific_object}, flat cartoon, bold outlines, bright colors, no text"
+        full = f"{prompt}, featuring {specific_object}, highly detailed digital illustration, semi-realistic style, cinematic lighting, sharp facial features, high detail, no text"
     else:
-        full = prompt + ", flat cartoon, bold outlines, bright colors, no text"
+        full = prompt + ", highly detailed digital illustration, semi-realistic style, cinematic lighting, sharp facial features, high detail, no text"
 
     if _generate_image_huggingface(full, output_path, size):
         return
