@@ -1543,5 +1543,26 @@
     "privacy": "unlisted",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "Cl6Mw0dYHBQ",
+    "company": "Safety Pin",
+    "video_type": "short",
+    "uploaded_at": "2026-08-20T16:47:22.051133+00:00",
+    "title_variants": [
+      "Ep. 73: The Accident That Created Safety Pin",
+      "Ep. 73: Why Walter Hunt Almost Gave Up on Safety Pin",
+      "Ep. 73: Safety Pin: The Billion-Dollar Mistake"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#accidentalgenius",
+      "#safetypin"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
