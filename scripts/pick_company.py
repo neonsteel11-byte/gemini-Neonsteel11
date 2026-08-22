@@ -1,4 +1,4 @@
-import random, json, os
+import random, json, os, sys
 
 MANIFEST_PATH = "video_manifest.json"
 
@@ -49,19 +49,40 @@ TOPICS = [
     "LISTICLE:Household Items You Never Knew Had a Wild History",
 ]
 
+# Quirky, wild historical events -- proven engaging (Emu War Explained outperformed
+# most invention videos). Used only for long-form, where there's room to tell the
+# full weird story properly.
+LONGFORM_TOPICS = TOPICS + [
+    "MONEY:The Great Emu War",
+    "MONEY:Tulip Mania",
+    "MONEY:The Cod Wars Between Iceland and Britain",
+    "MONEY:The War of the Bucket",
+    "MONEY:The Great Molasses Flood of Boston",
+    "MONEY:The Pig War Between the US and Britain",
+    "MONEY:The Toilet Paper Panic of 1973",
+    "MONEY:The Great Stork Derby",
+    "LISTICLE:The Strangest Wars in History",
+    "LISTICLE:Bizarre Historical Events Nobody Believes Happened",
+]
+
+
 def _load_manifest():
     if os.path.exists(MANIFEST_PATH):
         with open(MANIFEST_PATH, "r", encoding="utf-8") as f:
             return json.load(f)
     return []
 
-def pick_company():
+
+def pick_company(video_type="short"):
     manifest = _load_manifest()
     recent = [entry.get("company", "") for entry in manifest[-10:]]
-    available = [t for t in TOPICS if t not in recent]
+    pool = LONGFORM_TOPICS if video_type == "long" else TOPICS
+    available = [t for t in pool if t not in recent]
     if not available:
-        available = TOPICS
+        available = pool
     return random.choice(available)
 
+
 if __name__ == "__main__":
-    print(pick_company())
+    video_type = sys.argv[1] if len(sys.argv) > 1 else "short"
+    print(pick_company(video_type))

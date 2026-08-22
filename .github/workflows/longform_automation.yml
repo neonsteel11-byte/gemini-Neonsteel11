@@ -28,7 +28,7 @@ jobs:
       - name: Pick today's content
         id: pick_company
         run: |
-          COMPANY=$(python scripts/pick_company.py)
+          COMPANY=$(python scripts/pick_company.py long)
           echo "company=$COMPANY" >> "$GITHUB_OUTPUT"
           echo "Selected: $COMPANY"
       
