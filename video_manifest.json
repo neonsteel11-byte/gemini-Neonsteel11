@@ -1627,5 +1627,26 @@
     "privacy": "unlisted",
     "auto_published": false,
     "content_format": "how_it_works"
+  },
+  {
+    "video_id": "F1bQCsFtsi8",
+    "company": "Alarm Clock",
+    "video_type": "short",
+    "uploaded_at": "2026-08-23T16:42:02.264114+00:00",
+    "title_variants": [
+      "Ep. 77: The Accident That Created Alarm Clock",
+      "Ep. 77: Why Levi Hutchins Almost Gave Up on Alarm Clock",
+      "Ep. 77: Alarm Clock: The Billion-Dollar Mistake"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#accidentalgenius",
+      "#alarmclock"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
