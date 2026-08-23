@@ -188,7 +188,7 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
         # other scene -- mixing in a real photo here looked visually inconsistent
         # and correlated with subscriber drop-off.
         if i == 0 and content_format == "invention_history":
-            generate_image(f"a highly detailed semi-realistic portrait of {inventor}, historical inventor of {company}, period-appropriate clothing and setting, dignified expression, sharp facial features, cinematic lighting",
+            generate_image(f"a realistic photographic portrait of {inventor}, historical inventor of {company}, mid-20th century business attire appropriate to their era, plain studio background, dignified expression, natural lighting, no fantasy or sci-fi clothing",
                          image_path, size, seed=video_seed)
             image_path_2 = image_path
             print(f"      [OK] Generated cartoon portrait of inventor for Scene 1")
