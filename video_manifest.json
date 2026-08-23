@@ -1606,5 +1606,26 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "Nqx_ACEuP7o",
+    "company": "Velcro",
+    "video_type": "long",
+    "uploaded_at": "2026-08-23T13:16:45.004823+00:00",
+    "title_variants": [
+      "Ep. 76: The Accident That Created Velcro",
+      "Ep. 76: Why Unknown Almost Gave Up on Velcro",
+      "Ep. 76: Velcro: The Billion-Dollar Mistake"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#accidentalgenius",
+      "#velcro"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "unlisted",
+    "auto_published": false,
+    "content_format": "how_it_works"
   }
 ]
