@@ -41,7 +41,10 @@ def build_video(scene_data, size, output_path, tmp_dir):
         else:
             dur = scene.get("duration", 3.0)
 
-        clip = ImageClip(img_path).set_duration(dur).fadein(0.3).fadeout(0.3)
+        base_clip = ImageClip(img_path).set_duration(dur)
+        zoom_rate = 0.06  # subtle Ken Burns zoom over the scene duration
+        clip = base_clip.resize(lambda t: 1 + zoom_rate * (t / max(dur, 0.01)))
+        clip = clip.set_position(("center", "center")).fadein(0.3).fadeout(0.3)
         words = scene.get("words", [])
         clip = add_captions_to_clip(clip, words, size[0], size[1])
         clips.append(clip)
