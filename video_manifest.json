@@ -1648,5 +1648,26 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "1X60XJWeklc",
+    "company": "Zipper Lighter",
+    "video_type": "short",
+    "uploaded_at": "2026-08-24T16:54:39.988396+00:00",
+    "title_variants": [
+      "Ep. 78: The Accident That Created Zipper Lighter",
+      "Ep. 78: Why George Blaisdell Almost Gave Up on Zipper Lighter",
+      "Ep. 78: Zipper Lighter: The Billion-Dollar Mistake"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#accidentalgenius",
+      "#zipperlighter"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
