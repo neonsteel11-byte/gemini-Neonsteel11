@@ -79,11 +79,19 @@ def _load_manifest():
     return []
 
 
+def _short_name(topic):
+    """Extract the comparable short name from a topic string, e.g.
+    "INVENTION:Zipper Lighter:George Blaisdell" -> "Zipper Lighter",
+    matching the plain names actually stored in the manifest."""
+    parts = topic.split(":")
+    return parts[1] if len(parts) > 1 else parts[0]
+
+
 def pick_company(video_type="short"):
     manifest = _load_manifest()
-    recent = [entry.get("company", "") for entry in manifest[-10:]]
+    recent = [entry.get("company", "") for entry in manifest[-15:]]
     pool = LONGFORM_TOPICS if video_type == "long" else TOPICS
-    available = [t for t in pool if t not in recent]
+    available = [t for t in pool if _short_name(t) not in recent]
     if not available:
         available = pool
     return random.choice(available)
