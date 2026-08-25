@@ -18,7 +18,7 @@ KEYWORDS = ["accidentally", "by accident", "by mistake", "fluke", "accident led"
             "unintentionally", "randomly discovered", "happy accident"]
 
 
-def fetch_candidates(limit=50, timeframe="month"):
+def fetch_candidates(limit=50, timeframe="week"):
     headers = {"User-Agent": "AccidentalGeniusBot/1.0"}
     params = {"limit": limit, "t": timeframe}
     try:
@@ -44,6 +44,7 @@ def fetch_candidates(limit=50, timeframe="month"):
         if not any(kw in title.lower() for kw in KEYWORDS):
             continue
         candidates.append({"id": post_id, "title": clean_title, "upvotes": upvotes})
+    candidates.sort(key=lambda c: c["upvotes"], reverse=True)
     return candidates
 
 

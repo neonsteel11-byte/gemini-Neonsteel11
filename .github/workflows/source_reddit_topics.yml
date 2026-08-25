@@ -2,7 +2,7 @@ name: Source Reddit TIL Topics
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 8 * * 1'
+    - cron: '0 8 * * *'
 jobs:
   fetch:
     runs-on: ubuntu-latest

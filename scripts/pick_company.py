@@ -87,7 +87,31 @@ def _short_name(topic):
     return parts[1] if len(parts) > 1 else parts[0]
 
 
+MANUAL_QUEUE_PATH = "manual_topics.json"
+
+
+def _pop_hot_topic():
+    """Take the hottest freshly-discovered real trending story, if any are queued."""
+    if not os.path.exists(MANUAL_QUEUE_PATH):
+        return None
+    try:
+        with open(MANUAL_QUEUE_PATH, "r", encoding="utf-8") as f:
+            queue = json.load(f)
+        if not queue:
+            return None
+        title = queue.pop(0)
+        with open(MANUAL_QUEUE_PATH, "w", encoding="utf-8") as f:
+            json.dump(queue, f, indent=2)
+        return f"MONEY:{title}"
+    except Exception:
+        return None
+
+
 def pick_company(video_type="short"):
+    hot = _pop_hot_topic()
+    if hot:
+        return hot
+
     manifest = _load_manifest()
     recent = [entry.get("company", "") for entry in manifest[-15:]]
     pool = LONGFORM_TOPICS if video_type == "long" else TOPICS
