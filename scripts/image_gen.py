@@ -77,7 +77,7 @@ def generate_image(prompt: str, output_path: str, size: tuple = (1920, 1080), se
         sys.exit(1)
 
     if specific_object:
-        full = f"{prompt}, featuring {specific_object}, realistic portrait photography style, natural studio lighting, period-appropriate clothing, sharp facial features, high detail, no fantasy or sci-fi elements, no text"
+        full = f"{prompt}, featuring {specific_object}, realistic detailed illustration, natural lighting, high detail, no fantasy or sci-fi elements, no text"
     else:
         full = prompt + ", realistic photography style, natural lighting, high detail, no fantasy or sci-fi elements, no text"
 
