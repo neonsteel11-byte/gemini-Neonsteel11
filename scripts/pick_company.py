@@ -52,7 +52,11 @@ TOPICS = [
 # Quirky, wild historical events -- proven engaging (Emu War Explained outperformed
 # most invention videos). Used only for long-form, where there's room to tell the
 # full weird story properly.
-LONGFORM_TOPICS = TOPICS + [
+# Long-form gets its OWN dedicated pool of wild, narrative-driven historical
+# events (proven engaging -- Emu War Explained outperformed most invention videos).
+# Kept separate from TOPICS so long-form reliably gets story-driven content
+# instead of randomly landing on a plain object topic.
+LONGFORM_TOPICS = [
     "MONEY:The Great Emu War",
     "MONEY:Tulip Mania",
     "MONEY:The Cod Wars Between Iceland and Britain",
@@ -63,6 +67,8 @@ LONGFORM_TOPICS = TOPICS + [
     "MONEY:The Great Stork Derby",
     "LISTICLE:The Strangest Wars in History",
     "LISTICLE:Bizarre Historical Events Nobody Believes Happened",
+    "LISTICLE:Everyday Objects With Insane Origin Stories",
+    "LISTICLE:Scientists Who Changed Everything By Accident",
 ]
 
 
