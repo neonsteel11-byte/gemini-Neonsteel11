@@ -8,6 +8,33 @@ REPLICATE_API_TOKEN = os.getenv('REPLICATE_API_TOKEN', '')
 HF_API_TOKEN = os.getenv('HF_API_TOKEN', '')
 
 
+def _generate_image_pexels(search_term: str, output_path: str, size: tuple):
+    """Try a real photo of the actual object/invention from Pexels. Returns True on success."""
+    if not PEXELS_API_KEY or not search_term:
+        return False
+    try:
+        resp = requests.get(
+            'https://api.pexels.com/v1/search',
+            headers={'Authorization': PEXELS_API_KEY},
+            params={'query': search_term, 'per_page': 1, 'orientation': 'portrait' if size[1] > size[0] else 'landscape'},
+            timeout=20
+        )
+        if resp.status_code == 200:
+            data = resp.json()
+            photos = data.get('photos', [])
+            if photos:
+                img_url = photos[0]['src']['large2x']
+                img_resp = requests.get(img_url, timeout=20)
+                if img_resp.status_code == 200:
+                    if _validate_and_save(img_resp.content, output_path, size):
+                        print(f'      [OK] Real Pexels photo saved: {output_path}')
+                        return True
+        return False
+    except Exception as e:
+        print(f'      [!] Pexels lookup failed: {e}')
+        return False
+
+
 def _validate_and_save(img_bytes: bytes, output_path: str, size: tuple):
     try:
         img = Image.open(BytesIO(img_bytes)).convert("RGB")
@@ -80,6 +107,9 @@ def generate_image(prompt: str, output_path: str, size: tuple = (1920, 1080), se
         full = f"{prompt}, featuring {specific_object}, realistic detailed illustration, natural lighting, high detail, no fantasy or sci-fi elements, no text"
     else:
         full = prompt + ", realistic photography style, natural lighting, high detail, no fantasy or sci-fi elements, no text"
+
+    if specific_object and _generate_image_pexels(specific_object, output_path, size):
+        return
 
     if _generate_image_huggingface(full, output_path, size):
         return
