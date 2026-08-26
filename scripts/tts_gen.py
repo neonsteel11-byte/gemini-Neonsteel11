@@ -3,6 +3,7 @@ Generates voiceover with word-level timings for karaoke-style captions.
 Priority: ElevenLabs (premium quality) → Edge TTS (unlimited free fallback).
 """
 import os
+import time
 import sys
 import subprocess
 import asyncio
@@ -144,14 +145,20 @@ def generate_voiceover(text: str, output_path: str):
     
     # 2. Fallback to Edge TTS (Unlimited Free)
     if not words:
-        try:
-            print("      Attempting Edge TTS (free fallback)...")
-            words = asyncio.run(_edge_tts_save_with_timing(text, output_path, EDGE_VOICE, EDGE_RATE))
-            used_engine = "Edge TTS"
-            print("      ✓ Edge TTS generation successful")
-        except Exception as e:
-            print(f"FATAL: Both ElevenLabs and Edge TTS failed: {e}", file=sys.stderr)
-            sys.exit(1)
+        for attempt in range(3):
+            try:
+                print(f"      Attempting Edge TTS (free fallback, try {attempt+1}/3)...")
+                words = asyncio.run(_edge_tts_save_with_timing(text, output_path, EDGE_VOICE, EDGE_RATE))
+                used_engine = "Edge TTS"
+                print("      [OK] Edge TTS generation successful")
+                break
+            except Exception as e:
+                print(f"      [!] Edge TTS attempt {attempt+1} failed: {e}", file=sys.stderr)
+                if attempt < 2:
+                    time.sleep(3)
+                else:
+                    print(f"FATAL: Both ElevenLabs and Edge TTS failed after 3 attempts: {e}", file=sys.stderr)
+                    sys.exit(1)
 
     # Validate output
     if not os.path.exists(output_path) or os.path.getsize(output_path) == 0:
