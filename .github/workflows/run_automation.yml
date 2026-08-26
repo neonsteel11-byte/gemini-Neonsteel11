@@ -2,7 +2,7 @@ name: Shorts Automation
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 16 * * *'
+    - cron: '0 20 * * *'  # 4 PM US Eastern - highest-engagement Shorts slot per research
 
 jobs:
   build-and-run:
