@@ -113,7 +113,86 @@ def generate_script(company, video_type="short", **kwargs):
 
 
 def generate_money_story_script(topic, facts, video_type="short"):
-    return generate_invention_script(topic, "Unknown", facts, "", video_type)
+    """Generates a script for a wild historical/financial STORY (not an invention).
+    Uses its own prompt and fallback, since 'invented by X' framing doesn't fit
+    story titles like 'How Ancient Spice Routes Accidentally Created Modern Banking'."""
+    if video_type == "long":
+        length = "15-18 scenes, EACH scene must have 80-110 words of narration (strict per-scene minimum)"
+        min_scenes = 15
+    else:
+        length = "140-170 words, 7 scenes"
+        min_scenes = 7
+
+    prompt = f"""Write an educational short-video script telling the true story of: {topic}.
+Length: {length}.
+Structure: 1) Shock hook 2) How the events unfolded 3) The surprising twist or consequence 4) Why it still matters today.
+Facts to include: {facts}
+
+Return ONLY valid JSON in EXACTLY this structure, with no missing fields:
+{{
+  "title_variants": ["title using a number or striking detail", "title using a curiosity gap", "title using direct contradiction/surprise"],
+  "description": "short video description",
+  "thumbnail_text": "short punchy thumbnail text",
+  "hashtags": ["#shorts", "#facts"],
+  "seo_tags": ["tag1", "tag2"],
+  "scenes": [
+    {{"narration": "one or two sentences of spoken narration for this scene, no scene numbers or labels", "image_prompt": "specific visual description for this scene, realistic detailed illustration", "on_screen_text": "short on-screen caption, 2-5 words"}}
+  ]
+}}
+
+Every scene MUST include narration, image_prompt, and on_screen_text. Do not skip any field. Do not include the words "scene 1" or scene numbers anywhere in narration text."""
+
+    try:
+        print("      Calling Groq API for story...")
+        resp = requests.post(GROQ_URL,
+            headers={"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"},
+            json={"model": GROQ_MODEL, "messages": [{"role": "user", "content": prompt}],
+                  "temperature": 0.9, "response_format": {"type": "json_object"}},
+            timeout=90)
+        resp_data = resp.json()
+        if "choices" in resp_data and len(resp_data["choices"]) > 0:
+            data = json.loads(resp_data["choices"][0]["message"]["content"])
+            data.setdefault("scenes", [])
+            for idx, scene in enumerate(data["scenes"]):
+                scene.setdefault("narration", f"Here is another key detail about this story.")
+                scene.setdefault("image_prompt", f"realistic detailed illustration related to {topic}")
+                scene.setdefault("on_screen_text", "")
+            while len(data["scenes"]) < min_scenes:
+                data["scenes"].append({
+                    "narration": "This story still shapes how we understand the world today.",
+                    "image_prompt": f"realistic detailed illustration related to {topic}",
+                    "on_screen_text": "Still Relevant Today"
+                })
+            data.setdefault("title_variants", [f"The Wild True Story Behind This"])
+            data.setdefault("description", f"The surprising true story: {topic}.")
+            data.setdefault("thumbnail_text", "TRUE STORY")
+            data.setdefault("company", topic)
+            data.setdefault("hashtags", ["#shorts", "#facts", "#truestory"])
+            data.setdefault("seo_tags", ["history", "facts", "true story"])
+            print(f"      [OK] Story script generated: {len(data['scenes'])} scenes")
+            return data
+    except Exception as e:
+        print(f"      [!] Story API Error: {e}")
+
+    print("      [!] Using dynamic story fallback...")
+    fallback_scenes = [
+        {"narration": f"Here's a true story most people have never heard.", "image_prompt": f"realistic dramatic illustration related to {topic}", "on_screen_text": "True Story"},
+        {"narration": f"It started small, and nobody expected what came next.", "image_prompt": f"realistic illustration, early stage of the story", "on_screen_text": "It Started Small"},
+        {"narration": f"Things quickly spiraled in a direction no one saw coming.", "image_prompt": f"realistic dramatic illustration, events unfolding", "on_screen_text": "Then It Escalated"},
+        {"narration": f"The twist is what makes this story so unbelievable.", "image_prompt": f"realistic illustration of the surprising twist", "on_screen_text": "The Twist"},
+        {"narration": f"Even historians find this one hard to believe.", "image_prompt": f"realistic illustration, aftermath of the story", "on_screen_text": "Historians Agree"},
+        {"narration": f"The consequences of this story are still felt today.", "image_prompt": f"realistic illustration, modern-day connection", "on_screen_text": "Still Felt Today"},
+        {"narration": f"It's proof that reality is often stranger than fiction.", "image_prompt": f"realistic illustration, closing scene", "on_screen_text": "Stranger Than Fiction"},
+    ]
+    return {
+        "title_variants": ["The True Story Nobody Talks About"],
+        "description": f"The surprising true story: {topic}.",
+        "thumbnail_text": "TRUE STORY",
+        "company": topic,
+        "hashtags": ["#shorts", "#facts", "#truestory"],
+        "seo_tags": ["history", "facts", "true story"],
+        "scenes": fallback_scenes[:min_scenes] if video_type != "long" else fallback_scenes
+    }
 
 
 def generate_comparison_script(a, b, video_type="short", **kwargs):
