@@ -108,7 +108,11 @@ def generate_image(prompt: str, output_path: str, size: tuple = (1920, 1080), se
     else:
         full = prompt + ", realistic photography style, natural lighting, high detail, no fantasy or sci-fi elements, no text"
 
-    if specific_object and _generate_image_pexels(specific_object, output_path, size):
+    # Vary the Pexels search term per scene using the actual prompt content,
+    # not just the constant topic name -- otherwise every scene searches the
+    # same term and Pexels returns the identical top result every time.
+    pexels_query = " ".join(prompt.split(",")[0].split()[:6]) if prompt else specific_object
+    if pexels_query and _generate_image_pexels(pexels_query, output_path, size):
         return
 
     if _generate_image_huggingface(full, output_path, size):
