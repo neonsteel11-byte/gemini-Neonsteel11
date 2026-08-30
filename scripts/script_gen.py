@@ -177,12 +177,12 @@ Every scene MUST include narration, image_prompt, and on_screen_text. Do not ski
     print("      [!] Using dynamic story fallback...")
     fallback_scenes = [
         {"narration": f"Here is a true story: {topic}.", "image_prompt": f"realistic illustration depicting {topic}", "on_screen_text": topic[:30]},
-        {"narration": f"Most people have never heard the full story behind {topic}.", "image_prompt": f"realistic illustration, early events of {topic}", "on_screen_text": "The Untold Story"},
-        {"narration": f"{topic} unfolded in a way nobody expected at the time.", "image_prompt": f"realistic dramatic illustration of {topic} unfolding", "on_screen_text": "How It Happened"},
-        {"narration": f"The details of {topic} are stranger than most people realize.", "image_prompt": f"realistic illustration, key moment of {topic}", "on_screen_text": "The Surprising Details"},
-        {"narration": f"Historians still study {topic} because of how unusual it was.", "image_prompt": f"realistic illustration, historians examining {topic}", "on_screen_text": "Still Studied Today"},
-        {"narration": f"The effects of {topic} can still be seen in the world today.", "image_prompt": f"realistic illustration, modern-day connection to {topic}", "on_screen_text": "Still Felt Today"},
-        {"narration": f"{topic} remains one of the strangest true stories in history.", "image_prompt": f"realistic illustration, closing scene of {topic}", "on_screen_text": "A True Story"},
+        {"narration": "Most people have never heard the full story behind this.", "image_prompt": f"realistic illustration, early events related to {topic}", "on_screen_text": "The Untold Story"},
+        {"narration": "It unfolded in a way nobody expected at the time.", "image_prompt": f"realistic dramatic illustration, events unfolding related to {topic}", "on_screen_text": "How It Happened"},
+        {"narration": "The details are stranger than most people realize.", "image_prompt": f"realistic illustration, a key moment related to {topic}", "on_screen_text": "The Surprising Details"},
+        {"narration": "Historians still study it because of how unusual it was.", "image_prompt": f"realistic illustration, historians examining evidence related to {topic}", "on_screen_text": "Still Studied Today"},
+        {"narration": "The effects can still be seen in the world today.", "image_prompt": f"realistic illustration, a modern-day connection to {topic}", "on_screen_text": "Still Felt Today"},
+        {"narration": "It remains one of the strangest true stories in history.", "image_prompt": f"realistic illustration, closing scene related to {topic}", "on_screen_text": "A True Story"},
     ]
     return {
         "title_variants": [f"{topic}"[:95]],
