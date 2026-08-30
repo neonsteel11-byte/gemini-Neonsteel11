@@ -99,7 +99,7 @@ def _generate_title_card(label: str, output_path: str, size: tuple):
         return False
 
 
-def generate_image(prompt: str, output_path: str, size: tuple = (1920, 1080), seed: int = 42, specific_object: str = None):
+def generate_image(prompt: str, output_path: str, size: tuple = (1920, 1080), seed: int = 42, specific_object: str = None, allow_pexels: bool = True):
     if not prompt:
         sys.exit(1)
 
@@ -112,7 +112,7 @@ def generate_image(prompt: str, output_path: str, size: tuple = (1920, 1080), se
     # not just the constant topic name -- otherwise every scene searches the
     # same term and Pexels returns the identical top result every time.
     pexels_query = " ".join(prompt.split(",")[0].split()[:6]) if prompt else specific_object
-    if pexels_query and _generate_image_pexels(pexels_query, output_path, size):
+    if allow_pexels and pexels_query and _generate_image_pexels(pexels_query, output_path, size):
         return
 
     if _generate_image_huggingface(full, output_path, size):
