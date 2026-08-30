@@ -9,7 +9,7 @@ ELEVENLABS_API_KEY = os.getenv("ELEVENLABS_API_KEY", "").strip().replace("\n", "
 GEMINI_IMAGE_MODE = os.getenv("GEMINI_IMAGE_MODE", "false").lower() == "true"
 
 GROQ_API_KEY = os.getenv("GROQ_API_KEY", "").strip()
-GROQ_MODEL = os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile").strip()
+GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b").strip()
 
 USE_VERTEX = os.getenv("GOOGLE_GENAI_USE_VERTEXAI", "false").lower() == "true"
 GOOGLE_CLOUD_PROJECT = os.getenv("GOOGLE_CLOUD_PROJECT", "").strip()
