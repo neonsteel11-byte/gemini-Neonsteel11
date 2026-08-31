@@ -1669,5 +1669,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "s3TEPPtX2TA",
+    "company": "Corn Flakes",
+    "video_type": "short",
+    "uploaded_at": "2026-08-31T23:38:35.273315+00:00",
+    "title_variants": [
+      "Ep. 79: 5 Surprising Facts About Corn Flakes Worth $10",
+      "Ep. 79: Why Corn Flakes Almost Failed",
+      "Ep. 79: He Was Trying to Cure Digestion, He Invented Corn Flakes Instead"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
