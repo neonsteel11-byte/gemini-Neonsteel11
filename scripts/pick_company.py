@@ -56,20 +56,9 @@ TOPICS = [
 # events (proven engaging -- Emu War Explained outperformed most invention videos).
 # Kept separate from TOPICS so long-form reliably gets story-driven content
 # instead of randomly landing on a plain object topic.
-LONGFORM_TOPICS = [
-    "MONEY:The Great Emu War",
-    "MONEY:Tulip Mania",
-    "MONEY:The Cod Wars Between Iceland and Britain",
-    "MONEY:The War of the Bucket",
-    "MONEY:The Great Molasses Flood of Boston",
-    "MONEY:The Pig War Between the US and Britain",
-    "MONEY:The Toilet Paper Panic of 1973",
-    "MONEY:The Great Stork Derby",
-    "LISTICLE:The Strangest Wars in History",
-    "LISTICLE:Bizarre Historical Events Nobody Believes Happened",
-    "LISTICLE:Everyday Objects With Insane Origin Stories",
-    "LISTICLE:Scientists Who Changed Everything By Accident",
-]
+# Long-form now uses the SAME famous, everyday-invention pool as Shorts --
+# just with more scenes/length (handled by script_gen's video_type branching).
+LONGFORM_TOPICS = TOPICS
 
 
 def _load_manifest():
@@ -108,10 +97,9 @@ def _pop_hot_topic():
 
 
 def pick_company(video_type="short"):
-    hot = _pop_hot_topic()
-    if hot:
-        return hot
-
+    # Hot-topic Reddit queue disabled for now -- it was surfacing abstract
+    # historical/economic stories (Spice Routes, Banking) instead of the
+    # famous, everyday inventions the channel is actually about.
     manifest = _load_manifest()
     recent = [entry.get("company", "") for entry in manifest[-15:]]
     pool = LONGFORM_TOPICS if video_type == "long" else TOPICS
