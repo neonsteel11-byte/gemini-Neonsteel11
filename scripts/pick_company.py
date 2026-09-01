@@ -56,9 +56,21 @@ TOPICS = [
 # events (proven engaging -- Emu War Explained outperformed most invention videos).
 # Kept separate from TOPICS so long-form reliably gets story-driven content
 # instead of randomly landing on a plain object topic.
-# Long-form now uses the SAME famous, everyday-invention pool as Shorts --
-# just with more scenes/length (handled by script_gen's video_type branching).
-LONGFORM_TOPICS = TOPICS
+# Long-form gets its OWN dedicated pool of unique, narrative-driven historical
+# events (Emu War-style) -- kept separate from Shorts, which stays focused on
+# famous, everyday accidental inventions only.
+LONGFORM_TOPICS = [
+    "MONEY:The Great Emu War",
+    "MONEY:Tulip Mania",
+    "MONEY:The Cod Wars Between Iceland and Britain",
+    "MONEY:The War of the Bucket",
+    "MONEY:The Great Molasses Flood of Boston",
+    "MONEY:The Pig War Between the US and Britain",
+    "MONEY:The Toilet Paper Panic of 1973",
+    "MONEY:The Great Stork Derby",
+    "LISTICLE:The Strangest Wars in History",
+    "LISTICLE:Bizarre Historical Events Nobody Believes Happened",
+]
 
 
 def _load_manifest():
