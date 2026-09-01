@@ -148,13 +148,6 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
     print(f"      Visual seed: {video_seed}")
     print(f"      Scenes: {len(script['scenes'])}")
 
-    try:
-        _episode_num = len(_load_manifest()) + 1
-        script["title_variants"] = [f"Ep. {_episode_num}: {t}" for t in script.get("title_variants", [])]
-    except Exception as e:
-        print(f"      [!] Episode numbering skipped (non-fatal): {e}")
-
-
 
     infographic_recap_path = None
     if content_format == "listicle":

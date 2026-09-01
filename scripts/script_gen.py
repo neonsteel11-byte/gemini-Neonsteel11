@@ -19,7 +19,7 @@ Facts to include: {facts}
 
 Return ONLY valid JSON in EXACTLY this structure, with no missing fields:
 {{
-  "title_variants": ["title using a specific number or dollar amount", "title using a curiosity gap (e.g. Why {invention} Almost Failed)", "title using direct contradiction/surprise (e.g. He Was Trying to X, He Invented Y Instead)"],
+  "title_variants": ["title with a shocking specific number or dollar figure written in words, e.g. This One Dollar Mistake Made Four Billion Dollars", "title using direct you address that makes viewer feel targeted, e.g. You Use This Every Day and Never Knew This", "title using a banned or secret or hidden angle, e.g. The Real Reason {invention} Almost Got Banned"],
   "description": "short video description",
   "thumbnail_text": "short punchy thumbnail text",
   "hashtags": ["#shorts", "#facts"],
@@ -98,7 +98,7 @@ Every scene MUST include narration, image_prompt, and on_screen_text. Do not ski
         fallback_scenes.extend(long_scenes)
 
     return {
-        "title_variants": [f"The Accident That Created {invention}", f"Why {inventor} Almost Gave Up on {invention}", f"{invention}: The Billion-Dollar Mistake"],
+        "title_variants": [f"You Use {invention} Every Day and Never Knew This", f"The Mistake That Turned Into {invention}", f"{invention}: The Billion-Dollar Accident"],
         "description": f"Discover the hidden history of {invention} and how {inventor} created it by accident.",
         "thumbnail_text": "BY MISTAKE!",
         "company": invention,
