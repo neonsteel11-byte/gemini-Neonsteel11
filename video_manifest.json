@@ -1727,5 +1727,25 @@
     "privacy": "unlisted",
     "auto_published": false,
     "content_format": "money_story"
+  },
+  {
+    "video_id": "sLvgO5SzwJ8",
+    "company": "Paper Clip",
+    "video_type": "short",
+    "uploaded_at": "2026-09-01T22:15:20.661931+00:00",
+    "title_variants": [
+      "One Hundred Fifty\u2011Two Million Paper Clips: The Unexpected Fortune Behind a Tiny Loop",
+      "You\u2019ve Been Using This Everyday Clip and Never Heard Its True Story",
+      "The Secret Paper Clip Conspiracy That Almost Got It Banned"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
