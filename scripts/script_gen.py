@@ -40,6 +40,9 @@ Every scene MUST include narration, image_prompt, and on_screen_text. Do not ski
             timeout=90)
 
         resp_data = resp.json()
+        print(f"      [DEBUG] Groq HTTP status: {resp.status_code}")
+        if "choices" not in resp_data or len(resp_data.get("choices", [])) == 0:
+            print(f"      [DEBUG] Groq response missing choices. Full response: {str(resp_data)[:500]}")
         if "choices" in resp_data and len(resp_data["choices"]) > 0:
             data = json.loads(resp_data["choices"][0]["message"]["content"])
             data.setdefault("scenes", [])
@@ -150,6 +153,9 @@ Every scene MUST include narration, image_prompt, and on_screen_text. Do not ski
                   "temperature": 0.9, "response_format": {"type": "json_object"}},
             timeout=90)
         resp_data = resp.json()
+        print(f"      [DEBUG] Groq HTTP status: {resp.status_code}")
+        if "choices" not in resp_data or len(resp_data.get("choices", [])) == 0:
+            print(f"      [DEBUG] Groq response missing choices. Full response: {str(resp_data)[:500]}")
         print(f"      [DEBUG] Groq HTTP status: {resp.status_code}")
         if "choices" not in resp_data or len(resp_data.get("choices", [])) == 0:
             print(f"      [DEBUG] Groq response missing choices. Full response: {str(resp_data)[:500]}")
