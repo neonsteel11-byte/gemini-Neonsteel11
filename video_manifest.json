@@ -1768,5 +1768,24 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "4EnPi0rFukA",
+    "company": "The Great Emu War",
+    "video_type": "long",
+    "uploaded_at": "2026-09-03T02:35:01.154004+00:00",
+    "title_variants": [
+      "The Great Emu War"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts",
+      "#truestory"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "unlisted",
+    "auto_published": false,
+    "content_format": "money_story"
   }
 ]
