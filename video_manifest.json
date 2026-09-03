@@ -1684,8 +1684,8 @@
       "#shorts",
       "#facts"
     ],
-    "variant_index": 0,
-    "optimized": false,
+    "variant_index": 1,
+    "optimized": true,
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
@@ -1708,5 +1708,84 @@
     "privacy": "unlisted",
     "auto_published": false,
     "content_format": "how_it_works"
+  },
+  {
+    "video_id": "Qd1NoHM4jZA",
+    "company": "The Great Molasses Flood of Boston",
+    "video_type": "long",
+    "uploaded_at": "2026-09-01T10:09:59.412644+00:00",
+    "title_variants": [
+      "The Great Molasses Flood of Boston"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts",
+      "#truestory"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "unlisted",
+    "auto_published": false,
+    "content_format": "money_story"
+  },
+  {
+    "video_id": "sLvgO5SzwJ8",
+    "company": "Paper Clip",
+    "video_type": "short",
+    "uploaded_at": "2026-09-01T22:15:20.661931+00:00",
+    "title_variants": [
+      "One Hundred Fifty\u2011Two Million Paper Clips: The Unexpected Fortune Behind a Tiny Loop",
+      "You\u2019ve Been Using This Everyday Clip and Never Heard Its True Story",
+      "The Secret Paper Clip Conspiracy That Almost Got It Banned"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 1,
+    "optimized": true,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
+  },
+  {
+    "video_id": "B9AaDSt_dAw",
+    "company": "Rubber Band",
+    "video_type": "short",
+    "uploaded_at": "2026-09-02T22:12:11.178673+00:00",
+    "title_variants": [
+      "You Use Rubber Band Every Day and Never Knew This",
+      "The Mistake That Turned Into Rubber Band",
+      "Rubber Band: The Billion-Dollar Accident"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#accidentalgenius",
+      "#rubberband"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
+  },
+  {
+    "video_id": "4EnPi0rFukA",
+    "company": "The Great Emu War",
+    "video_type": "long",
+    "uploaded_at": "2026-09-03T02:35:01.154004+00:00",
+    "title_variants": [
+      "The Great Emu War"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts",
+      "#truestory"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "unlisted",
+    "auto_published": false,
+    "content_format": "money_story"
   }
 ]
