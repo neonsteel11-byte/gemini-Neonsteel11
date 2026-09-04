@@ -1807,5 +1807,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "kcRfScGtT28",
+    "company": "Inventions That Were Total Mistakes",
+    "video_type": "short",
+    "uploaded_at": "2026-09-04T22:07:24.990894+00:00",
+    "title_variants": [
+      "5 Inventions That Were Total Mistakes",
+      "You Won\u2019t Believe These Failed Inventions!",
+      "How Mistakes Became Iconic Inventions"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "listicle"
   }
 ]
