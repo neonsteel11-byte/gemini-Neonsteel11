@@ -1827,5 +1827,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "listicle"
+  },
+  {
+    "video_id": "PExmHk7zDuk",
+    "company": "Toothbrush",
+    "video_type": "short",
+    "uploaded_at": "2026-09-05T21:54:55.576188+00:00",
+    "title_variants": [
+      "One Penny Toothbrush Revolution Saved Millions of Smiles",
+      "You Use This Every Day and Never Knew Its Prison Origin",
+      "The Secret Reason Toothbrush Almost Got Banned"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
