@@ -1866,5 +1866,26 @@
     "privacy": "unlisted",
     "auto_published": false,
     "content_format": "money_story"
+  },
+  {
+    "video_id": "FImYds4jDUE",
+    "company": "Slinky",
+    "video_type": "short",
+    "uploaded_at": "2026-09-06T21:53:46.199158+00:00",
+    "title_variants": [
+      "You Use Slinky Every Day and Never Knew This",
+      "The Mistake That Turned Into Slinky",
+      "Slinky: The Billion-Dollar Accident"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#accidentalgenius",
+      "#slinky"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
