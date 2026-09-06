@@ -1847,5 +1847,24 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "cRlHtTtdXgI",
+    "company": "The Toilet Paper Panic of 1973",
+    "video_type": "long",
+    "uploaded_at": "2026-09-06T15:29:45.722397+00:00",
+    "title_variants": [
+      "The Toilet Paper Panic of 1973"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts",
+      "#truestory"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "unlisted",
+    "auto_published": false,
+    "content_format": "money_story"
   }
 ]
