@@ -1253,8 +1253,8 @@
     ],
     "variant_index": 1,
     "optimized": true,
-    "privacy": "unlisted",
-    "auto_published": false,
+    "privacy": "public",
+    "auto_published": true,
     "content_format": "invention_history"
   },
   {
@@ -1355,8 +1355,8 @@
     ],
     "variant_index": 1,
     "optimized": true,
-    "privacy": "unlisted",
-    "auto_published": false,
+    "privacy": "public",
+    "auto_published": true,
     "content_format": "invention_history"
   },
   {
