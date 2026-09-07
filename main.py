@@ -186,7 +186,7 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
             image_path_2 = image_path
             print(f"      [OK] Generated cartoon portrait of inventor for Scene 1")
         else:
-            use_pexels = content_format == "invention_history"
+            use_pexels = content_format == "invention_history" or video_type == "long"
             generate_image(scene["image_prompt"], image_path, size, seed=video_seed, specific_object=company, allow_pexels=use_pexels)
             generate_image(scene["image_prompt"], image_path_2, size, seed=video_seed + 1000 + i, allow_pexels=use_pexels)
         scene_data.append({
