@@ -256,6 +256,8 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
     print(f"[4/4] Done. Final video: {final_path}")
 
     hashtags_list = script.get("hashtags", [])
+    if video_type == "long":
+        hashtags_list = [h for h in hashtags_list if h.lower() != "#shorts"]
     title = script['title_variants'][0]
     if video_type == "short" and "#shorts" not in title.lower():
         title = title + " #shorts #accidentalgenius"
