@@ -85,6 +85,28 @@ Return ONLY the title text, no quotes, no explanations."""
         pass
     return old_title
 
+def generate_new_description(old_description, company):
+    """Use Groq to generate a fresh, more engaging video description."""
+    groq_key = os.getenv("GROQ_API_KEY")
+    if not groq_key:
+        return old_description
+    prompt = f"""Write a fresh, engaging YouTube video description for a video about: {company}
+Old description: {old_description}
+Rules: 2-4 sentences, hook the reader in the first line, include a call to subscribe, end with 3-5 relevant hashtags.
+Return ONLY the description text, no quotes, no explanations."""
+    try:
+        resp = requests.post(
+            "https://api.groq.com/openai/v1/chat/completions",
+            headers={"Authorization": f"Bearer {groq_key}", "Content-Type": "application/json"},
+            json={"model": "openai/gpt-oss-120b", "messages": [{"role": "user", "content": prompt}], "temperature": 0.8},
+            timeout=15
+        )
+        if resp.status_code == 200:
+            return resp.json()["choices"][0]["message"]["content"].strip().strip('"')
+    except:
+        pass
+    return old_description
+
 def generate_new_thumbnail(company, output_path):
     """Generate a new high-CTR thumbnail."""
     prompt = f"extreme close-up cartoon face with MOUTH WIDE OPEN in shock, eyes popping out, exaggerated surprised expression, holding or looking at {company}, flat vector cartoon illustration, bold black outlines, bright RED and YELLOW background for maximum CTR, professional YouTube thumbnail style, no text, no logos"
@@ -119,9 +141,12 @@ def optimize_video(youtube, video_data):
         
     print("→ Under 1000 views. Optimizing...")
     
-    # 2. Generate new title
+    # 2. Generate new title and description
     new_title = generate_new_title(old_title, company)
     print(f"New title: {new_title}")
+    old_description = video_data.get("description", "Accidental Genius -- the wild stories behind history's most brilliant mistakes.")
+    new_description = generate_new_description(old_description, company)
+    print(f"New description: {new_description}")
     
     # 3. Update Video Metadata (Title & Description)
     try:
@@ -131,13 +156,15 @@ def optimize_video(youtube, video_data):
                 "id": video_id,
                 "snippet": {
                     "title": new_title,
-                    "description": video_data.get("description", "Accidental Genius -- the wild stories behind history's most brilliant mistakes.")
+                    "description": new_description
                 }
             }
         ).execute()
-        print("✓ Title updated on YouTube.")
+        print("✓ Title and description updated on YouTube.")
+        video_data["description"] = new_description
+        video_data["optimized_description"] = new_description
     except HttpError as e:
-        print(f"  [!] Failed to update title: {e}")
+        print(f"  [!] Failed to update title/description: {e}")
         return False
 
     # 4. Generate and Upload New Thumbnail
@@ -164,6 +191,20 @@ def optimize_video(youtube, video_data):
     video_data["optimized_title"] = new_title
     return True
 
+COOLDOWN_DAYS = float(os.getenv("OPTIMIZE_COOLDOWN_DAYS", "7"))
+
+def _needs_check(video_data):
+    """True if this video has never been optimized, or its cooldown has elapsed."""
+    optimized_at = video_data.get("optimized_at")
+    if not optimized_at:
+        return True
+    try:
+        last_dt = datetime.fromisoformat(optimized_at)
+    except ValueError:
+        return True
+    days_since = (datetime.now() - last_dt).total_seconds() / 86400
+    return days_since >= COOLDOWN_DAYS
+
 def main():
     print("🚀 Starting Auto-Optimization...")
     youtube = get_youtube_client()
@@ -171,7 +212,7 @@ def main():
     
     optimized_count = 0
     for video_data in manifest:
-        if not video_data.get("auto_optimized", False):
+        if _needs_check(video_data):
             if optimize_video(youtube, video_data):
                 optimized_count += 1
                 
