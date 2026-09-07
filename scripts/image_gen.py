@@ -133,10 +133,13 @@ def generate_narrator(path, size=(500, 800)):
     generate_image("cartoon mascot, green background", path, size)
 
 
-def generate_thumbnail(title, path, size=(1280, 720), specific_object=None):
+def generate_thumbnail(title, path, size=(1280, 720), specific_object=None, allow_pexels=False):
     subject = specific_object or title
-    prompt = f"YouTube thumbnail style, clear detailed realistic photo of {subject} itself, prominently centered, bold dramatic lighting, high contrast, sharp focus, eye-catching, no text overlays"
-    generate_image(prompt, path, size, specific_object=subject, allow_pexels=True)
+    if allow_pexels:
+        prompt = f"YouTube thumbnail style, clear detailed realistic photo of {subject} itself, prominently centered, bold dramatic lighting, high contrast, sharp focus, eye-catching, no text overlays"
+    else:
+        prompt = f"YouTube thumbnail style, realistic detailed illustration of {subject}, prominently centered, bold dramatic lighting, high contrast, eye-catching, no text overlays"
+    generate_image(prompt, path, size, specific_object=subject, allow_pexels=allow_pexels)
 
 
 def download_real_image(url, path, size):

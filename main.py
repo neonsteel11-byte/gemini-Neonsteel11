@@ -285,7 +285,7 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
             thumb_subject = f"{thumb_inventor} holding or next to {company}"
         else:
             thumb_subject = company
-        generate_thumbnail(script["title_variants"][0], thumbnail_path, specific_object=thumb_subject)
+        generate_thumbnail(script["title_variants"][0], thumbnail_path, specific_object=thumb_subject, allow_pexels=(content_format == "invention_history"))
         print(f"      [OK] Thumbnail generated: {thumbnail_path}")
     except Exception as e:
         print(f"      [!] Thumbnail generation failed (non-fatal): {e}")

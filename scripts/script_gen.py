@@ -193,6 +193,13 @@ Every scene MUST include narration, image_prompt, and on_screen_text. Do not ski
         {"narration": "The effects can still be seen in the world today.", "image_prompt": f"realistic illustration, a modern-day connection to {topic}", "on_screen_text": "Still Felt Today"},
         {"narration": "It remains one of the strangest true stories in history.", "image_prompt": f"realistic illustration, closing scene related to {topic}", "on_screen_text": "A True Story"},
     ]
+    while len(fallback_scenes) < min_scenes:
+        fallback_scenes.append({
+            "narration": "There's another surprising layer to this story most people don't know about.",
+            "image_prompt": f"realistic detailed illustration, additional detail related to {topic}",
+            "on_screen_text": "Another Twist"
+        })
+
     return {
         "title_variants": [f"{topic}"[:95]],
         "description": f"The surprising true story: {topic}.",
@@ -200,7 +207,7 @@ Every scene MUST include narration, image_prompt, and on_screen_text. Do not ski
         "company": topic,
         "hashtags": ["#shorts", "#facts", "#truestory"],
         "seo_tags": ["history", "facts", "true story"],
-        "scenes": fallback_scenes[:min_scenes] if video_type != "long" else fallback_scenes
+        "scenes": fallback_scenes[:min_scenes]
     }
 
 
