@@ -1908,5 +1908,26 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "kvMXLZFTXmY",
+    "company": "Bandage",
+    "video_type": "short",
+    "uploaded_at": "2026-09-08T22:13:16.031097+00:00",
+    "title_variants": [
+      "You Use Bandage Every Day and Never Knew This",
+      "The Mistake That Turned Into Bandage",
+      "Bandage: The Billion-Dollar Accident"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#accidentalgenius",
+      "#bandage"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
