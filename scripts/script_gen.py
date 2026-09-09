@@ -9,12 +9,12 @@ def generate_invention_script(invention, inventor, facts, info, video_type="shor
         length = "15-18 scenes, EACH scene must have 80-110 words of narration (this is a strict per-scene minimum, not a total to divide up)"
         min_scenes = 15
     else:
-        length = "220-260 words, 9 scenes"
-        min_scenes = 9
+        length = "380-450 words, 12 scenes"
+        min_scenes = 12
 
     prompt = f"""Write an educational short-video script about {invention}, invented by {inventor}.
 Length: {length}.
-Structure: 1) Shock hook 2) Weird origin story 3) What it actually is 4) How it is used today.
+Structure: 1) Shock hook 2) Weird origin story 3) What it actually is 4) How it is used today 5) What it could be used for in the future.
 Facts to include: {facts}
 
 Return ONLY valid JSON in EXACTLY this structure, with no missing fields:
@@ -99,6 +99,13 @@ Every scene MUST include narration, image_prompt, and on_screen_text. Do not ski
             {"narration": f"The environmental impact of {invention} is now being studied carefully.", "image_prompt": f"cartoon showing eco-friendly {invention}", "on_screen_text": "Environmental Impact"},
         ]
         fallback_scenes.extend(long_scenes)
+
+    while len(fallback_scenes) < min_scenes:
+        fallback_scenes.append({
+            "narration": f"There's even more to the story of {invention} than most people realize.",
+            "image_prompt": f"cartoon illustration showing another detail about {invention}",
+            "on_screen_text": "Even More"
+        })
 
     return {
         "title_variants": [f"You Use {invention} Every Day and Never Knew This", f"The Mistake That Turned Into {invention}", f"{invention}: The Billion-Dollar Accident"],
