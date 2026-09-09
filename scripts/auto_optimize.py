@@ -13,6 +13,7 @@ from googleapiclient.errors import HttpError
 
 MANIFEST_PATH = "video_manifest.json"
 OUTPUT_DIR = "output"
+VIEWS_THRESHOLD = int(os.getenv("OPTIMIZE_VIEWS_THRESHOLD", "1000000"))
 
 def get_youtube_client():
     """Build YouTube API client using existing refresh token (no browser needed)."""
@@ -134,12 +135,12 @@ def optimize_video(youtube, video_data):
     views = get_video_stats(youtube, video_id)
     print(f"Current views: {views}")
     
-    if views >= 1000:
-        print("✓ Has 1000+ views. Skipping.")
+    if views >= VIEWS_THRESHOLD:
+        print(f"✓ Has {VIEWS_THRESHOLD}+ views. Skipping.")
         video_data["auto_optimized"] = True
         return False
         
-    print("→ Under 1000 views. Optimizing...")
+    print(f"→ Under {VIEWS_THRESHOLD} views. Optimizing...")
     
     # 2. Generate new title and description
     new_title = generate_new_title(old_title, company)
