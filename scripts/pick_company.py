@@ -1,5 +1,6 @@
 import random, json, os, sys, requests
-from config import GROQ_API_KEY, GROQ_MODEL
+GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
+GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
 
 MANIFEST_PATH = "video_manifest.json"
 ALLTIME_USED_PATH = "topics_used_alltime.json"
