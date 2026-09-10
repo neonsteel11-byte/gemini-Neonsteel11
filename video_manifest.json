@@ -1950,5 +1950,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "n7TySdYPSL0",
+    "company": "The Strangest Wars in History",
+    "video_type": "long",
+    "uploaded_at": "2026-09-10T02:32:04.212083+00:00",
+    "title_variants": [
+      "8 Bizarre Wars That Actually Happened",
+      "You Won't Believe These Crazy Conflicts",
+      "When War Made No Sense"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "unlisted",
+    "auto_published": false,
+    "content_format": "listicle"
   }
 ]
