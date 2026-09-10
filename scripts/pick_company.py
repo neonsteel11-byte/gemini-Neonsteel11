@@ -1,6 +1,9 @@
-import random, json, os, sys
+import random, json, os, sys, requests
+from config import GROQ_API_KEY, GROQ_MODEL
 
 MANIFEST_PATH = "video_manifest.json"
+ALLTIME_USED_PATH = "topics_used_alltime.json"
+GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 TOPICS = [
     # Daily-use physical objects (highest priority -- proven best performer: Zipper at 243 views)
@@ -26,13 +29,11 @@ TOPICS = [
     "INVENTION:Zipper Lighter:George Blaisdell",
     "INVENTION:Alarm Clock:Levi Hutchins",
     "INVENTION:Contact Lenses:Kevin Tuohy",
-    # Daily-use food/household items
     "INVENTION:Potato Chips:George Crum",
     "INVENTION:Corn Flakes:John Harvey Kellogg",
     "INVENTION:Chocolate Chip Cookies:Ruth Wakefield",
     "INVENTION:Popsicle:Frank Epperson",
     "INVENTION:Coca-Cola:John Pemberton",
-    # How things work -- daily objects
     "HOWITWORKS:Bubble Wrap",
     "HOWITWORKS:Treadmill",
     "HOWITWORKS:Listerine",
@@ -40,22 +41,13 @@ TOPICS = [
     "HOWITWORKS:Toothpaste",
     "HOWITWORKS:Zipper",
     "HOWITWORKS:Velcro",
-    # Medical/science (still physical, still relatable)
     "INVENTION:Penicillin:Alexander Fleming",
-    # Listicles -- numbered countdowns, also generate a Community-post infographic
     "LISTICLE:Everyday Objects With Insane Origin Stories",
     "LISTICLE:Scientists Who Changed Everything By Accident",
     "LISTICLE:Inventions That Were Total Mistakes",
     "LISTICLE:Household Items You Never Knew Had a Wild History",
 ]
 
-# Quirky, wild historical events -- proven engaging (Emu War Explained outperformed
-# most invention videos). Used only for long-form, where there's room to tell the
-# full weird story properly.
-# Long-form gets its OWN dedicated pool of wild, narrative-driven historical
-# events (proven engaging -- Emu War Explained outperformed most invention videos).
-# Kept separate from TOPICS so long-form reliably gets story-driven content
-# instead of randomly landing on a plain object topic.
 # Long-form gets its OWN dedicated pool of unique, narrative-driven historical
 # events (Emu War-style) -- kept separate from Shorts, which stays focused on
 # famous, everyday accidental inventions only.
@@ -68,8 +60,6 @@ LONGFORM_TOPICS = [
     "MONEY:The Pig War Between the US and Britain",
     "MONEY:The Toilet Paper Panic of 1973",
     "MONEY:The Great Stork Derby",
-    "LISTICLE:The Strangest Wars in History",
-    "LISTICLE:Bizarre Historical Events Nobody Believes Happened",
 ]
 
 
@@ -108,17 +98,79 @@ def _pop_hot_topic():
         return None
 
 
+def _load_alltime_used():
+    if os.path.exists(ALLTIME_USED_PATH):
+        with open(ALLTIME_USED_PATH, "r", encoding="utf-8") as f:
+            return set(json.load(f))
+    return set()
+
+
+def _save_alltime_used(used):
+    with open(ALLTIME_USED_PATH, "w", encoding="utf-8") as f:
+        json.dump(sorted(used), f, indent=2)
+
+
+def _brainstorm_new_topic(video_type, used_names):
+    """Ask Groq for a brand-new topic, in the channel's existing style, that
+    hasn't been used before. Returns None if Groq is unavailable or fails."""
+    if not GROQ_API_KEY:
+        return None
+    if video_type == "long":
+        style = "a bizarre, little-known true historical event (in the style of The Great Emu War, Tulip Mania, The Cod Wars) that would make a compelling story-driven video"
+        prefix = "MONEY"
+    else:
+        style = "a famous everyday object that was invented completely by accident"
+        prefix = "INVENTION"
+    prompt = f"""Suggest ONE topic for a YouTube video about {style}.
+Do not suggest any of these already-used topics: {', '.join(sorted(used_names)) or 'none yet'}.
+Return ONLY the topic name, nothing else, no quotes, no explanation."""
+    try:
+        resp = requests.post(GROQ_URL,
+            headers={"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"},
+            json={"model": GROQ_MODEL, "messages": [{"role": "user", "content": prompt}], "temperature": 1.0},
+            timeout=30)
+        if resp.status_code == 200:
+            data = resp.json()
+            if "choices" in data and data["choices"]:
+                title = data["choices"][0]["message"]["content"].strip().strip('"')
+                if title:
+                    if prefix == "INVENTION":
+                        return f"INVENTION:{title}:Unknown"
+                    return f"{prefix}:{title}"
+    except Exception as e:
+        print(f"[WARNING] Groq brainstorm failed: {e}", file=sys.stderr)
+    return None
+
+
 def pick_company(video_type="short"):
-    # Hot-topic Reddit queue disabled for now -- it was surfacing abstract
-    # historical/economic stories (Spice Routes, Banking) instead of the
-    # famous, everyday inventions the channel is actually about.
+    alltime_used = _load_alltime_used()
     manifest = _load_manifest()
     recent = [entry.get("company", "") for entry in manifest[-15:]]
+
+    if video_type == "long":
+        hot = _pop_hot_topic()
+        if hot and _short_name(hot) not in alltime_used:
+            alltime_used.add(_short_name(hot))
+            _save_alltime_used(alltime_used)
+            return hot
+
     pool = LONGFORM_TOPICS if video_type == "long" else TOPICS
-    available = [t for t in pool if _short_name(t) not in recent]
+    available = [t for t in pool if _short_name(t) not in alltime_used]
+
     if not available:
-        available = pool
-    return random.choice(available)
+        new_topic = _brainstorm_new_topic(video_type, alltime_used)
+        if new_topic:
+            alltime_used.add(_short_name(new_topic))
+            _save_alltime_used(alltime_used)
+            return new_topic
+        # Groq brainstorm unavailable/failed -- fall back to least-recently-used
+        # repeat rather than a hard failure.
+        available = [t for t in pool if _short_name(t) not in recent] or pool
+
+    chosen = random.choice(available)
+    alltime_used.add(_short_name(chosen))
+    _save_alltime_used(alltime_used)
+    return chosen
 
 
 if __name__ == "__main__":

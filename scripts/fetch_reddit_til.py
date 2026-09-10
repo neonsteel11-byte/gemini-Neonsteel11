@@ -9,10 +9,12 @@ import os
 import re
 import sys
 import requests
+from config import GROQ_API_KEY, GROQ_MODEL
 
 REDDIT_URL = "https://www.reddit.com/r/todayilearned/top.json"
 USED_IDS_PATH = "til_used_ids.json"
 QUEUE_PATH = "manual_topics.json"
+GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 KEYWORDS = ["accidentally", "by accident", "by mistake", "fluke", "accident led",
             "unintentionally", "randomly discovered", "happy accident"]
@@ -37,7 +39,6 @@ def fetch_candidates(limit=50, timeframe="week"):
         title = data.get("title", "")
         post_id = data.get("id", "")
         upvotes = data.get("ups", 0)
-        # TIL titles usually start with "TIL that..." -- strip that prefix
         clean_title = re.sub(r"^TIL\s*(that)?\s*", "", title, flags=re.IGNORECASE).strip()
         if upvotes < 500:
             continue
@@ -46,6 +47,37 @@ def fetch_candidates(limit=50, timeframe="week"):
         candidates.append({"id": post_id, "title": clean_title, "upvotes": upvotes})
     candidates.sort(key=lambda c: c["upvotes"], reverse=True)
     return candidates
+
+
+def _is_concrete_story(title):
+    """Reject abstract/systemic topics (e.g. trade routes, banking systems) and
+    only accept concrete, single, visual, story-driven events -- the same style
+    as the channel's existing Emu War/Tulip Mania content. Defaults to rejecting
+    if Groq is unavailable, to stay conservative."""
+    if not GROQ_API_KEY:
+        return False
+    prompt = f"""Is the following a CONCRETE, SINGLE, VISUAL, story-driven historical event or object
+(like "The Great Emu War" or "Tulip Mania" -- something with a clear beginning, middle,
+and end that can be shown visually in a short video)?
+Or is it an ABSTRACT, systemic, or conceptual topic (like ancient trade routes, monetary
+policy, or a broad historical trend)?
+
+Topic: "{title}"
+
+Answer with ONLY one word: CONCRETE or ABSTRACT."""
+    try:
+        resp = requests.post(GROQ_URL,
+            headers={"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"},
+            json={"model": GROQ_MODEL, "messages": [{"role": "user", "content": prompt}], "temperature": 0.2},
+            timeout=20)
+        if resp.status_code == 200:
+            data = resp.json()
+            if "choices" in data and data["choices"]:
+                answer = data["choices"][0]["message"]["content"].strip().upper()
+                return "CONCRETE" in answer
+    except Exception as e:
+        print(f"[WARNING] Groq validation failed for '{title}': {e}", file=sys.stderr)
+    return False
 
 
 def main():
@@ -64,10 +96,13 @@ def main():
     for c in candidates:
         if c["id"] in used_ids:
             continue
-        queue.append(c["title"])
         used_ids.add(c["id"])
+        if not _is_concrete_story(c["title"]):
+            print(f"[SKIP] Rejected as abstract/non-visual: {c['title']}")
+            continue
+        queue.append(c["title"])
         added += 1
-        if added >= 10:  # cap per run so the queue doesn't explode
+        if added >= 10:
             break
 
     with open(QUEUE_PATH, "w", encoding="utf-8") as f:
