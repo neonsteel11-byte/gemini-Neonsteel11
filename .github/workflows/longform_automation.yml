@@ -27,6 +27,8 @@ jobs:
       
       - name: Pick today's content
         id: pick_company
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: |
           COMPANY=$(python scripts/pick_company.py long)
           echo "company=$COMPANY" >> "$GITHUB_OUTPUT"
