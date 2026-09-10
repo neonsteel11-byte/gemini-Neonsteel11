@@ -1970,5 +1970,25 @@
     "privacy": "public",
     "auto_published": true,
     "content_format": "listicle"
+  },
+  {
+    "video_id": "NX89vv6_a1U",
+    "company": "Slinky",
+    "video_type": "short",
+    "uploaded_at": "2026-09-10T22:10:43.870410+00:00",
+    "title_variants": [
+      "One Dollar Toy That Sold Over Three Hundred Million: The Slinky Story",
+      "You\u2019ve Played With This Toy All Your Life\u2014Never Knew Its Naval Engineer Roots",
+      "The Secret Physics Behind the Slinky Almost Got Banned"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
