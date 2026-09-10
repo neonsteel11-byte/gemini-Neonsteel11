@@ -53,13 +53,15 @@ TOPICS = [
 # famous, everyday accidental inventions only.
 LONGFORM_TOPICS = [
     "MONEY:The Great Emu War",
-    "MONEY:Tulip Mania",
     "MONEY:The Cod Wars Between Iceland and Britain",
     "MONEY:The War of the Bucket",
-    "MONEY:The Great Molasses Flood of Boston",
     "MONEY:The Pig War Between the US and Britain",
-    "MONEY:The Toilet Paper Panic of 1973",
-    "MONEY:The Great Stork Derby",
+    "MONEY:The Football War Between El Salvador and Honduras",
+    "MONEY:The Anglo-Zanzibar War, the Shortest War in History",
+    "MONEY:The Pastry War Between France and Mexico",
+    "MONEY:The War of Jenkins' Ear",
+    "MONEY:The Kettle War Between the Dutch and Holy Roman Empire",
+    "MONEY:The Toledo War Between Ohio and Michigan",
 ]
 
 
