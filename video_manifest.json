@@ -1990,5 +1990,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "zSewYTAe-HI",
+    "company": "Bubble Wrap",
+    "video_type": "short",
+    "uploaded_at": "2026-09-11T22:13:36.819246+00:00",
+    "title_variants": [
+      "Three Hundred Dollars in Bubble Wrap Made Billions",
+      "You Use Bubble Wrap Every Day Without Knowing This",
+      "The Secret Reason Bubble Wrap Almost Got Banned"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
