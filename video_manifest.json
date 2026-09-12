@@ -2010,5 +2010,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "zyJwRzO-tfk",
+    "company": "Toothbrush",
+    "video_type": "short",
+    "uploaded_at": "2026-09-12T21:56:22.495303+00:00",
+    "title_variants": [
+      "One Dollar Mistake Created Four Billion Smiles",
+      "You Use This Every Day and Never Knew Its Prison Origin",
+      "The Secret Toothbrush Story That Almost Got Banned"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
