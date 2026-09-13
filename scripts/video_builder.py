@@ -8,13 +8,13 @@ def add_captions_to_clip(clip, words, video_width, video_height):
     if not words:
         return clip
     is_vertical = video_height > video_width
-    fontsize = int(video_height * 0.04) if is_vertical else int(video_height * 0.034)
+    fontsize = int(video_height * 0.065) if is_vertical else int(video_height * 0.05)
     full_text = " ".join(w.get("text", "").strip() for w in words if w.get("text", "").strip())
     if not full_text:
         return clip
     try:
         txt = TextClip(full_text, fontsize=fontsize, color='white', font='Arial-Bold',
-                        stroke_color='black', stroke_width=3, method='caption',
+                        stroke_color='black', stroke_width=2, method='caption',
                         size=(int(video_width * 0.85), None))
         txt = txt.set_position(('center', 0.78), relative=True)
         txt = txt.set_start(0).set_duration(clip.duration)
