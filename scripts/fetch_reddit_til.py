@@ -9,7 +9,8 @@ import os
 import re
 import sys
 import requests
-from config import GROQ_API_KEY, GROQ_MODEL
+GROQ_API_KEY = os.getenv("GROQ_API_KEY", "")
+GROQ_MODEL = os.getenv("GROQ_MODEL", "openai/gpt-oss-120b")
 
 REDDIT_URL = "https://www.reddit.com/r/todayilearned/top.json"
 USED_IDS_PATH = "til_used_ids.json"

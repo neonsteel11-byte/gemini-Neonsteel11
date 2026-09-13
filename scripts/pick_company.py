@@ -84,19 +84,54 @@ def _short_name(topic):
 MANUAL_QUEUE_PATH = "manual_topics.json"
 
 
+def _is_concrete_story(title):
+    """Reject abstract/systemic topics (e.g. trade routes, banking systems) and
+    only accept concrete, single, visual, story-driven events. Defaults to
+    rejecting if Groq is unavailable, to stay conservative."""
+    if not GROQ_API_KEY:
+        return False
+    prompt = f"""Is the following a CONCRETE, SINGLE, VISUAL, story-driven historical event
+(like "The Great Emu War" or "The Pig War" -- something with a clear beginning, middle,
+and end that can be shown visually in a short video)?
+Or is it an ABSTRACT, systemic, or conceptual topic (like ancient trade routes, monetary
+policy, or a broad historical trend)?
+
+Topic: "{title}"
+
+Answer with ONLY one word: CONCRETE or ABSTRACT."""
+    try:
+        resp = requests.post(GROQ_URL,
+            headers={"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"},
+            json={"model": GROQ_MODEL, "messages": [{"role": "user", "content": prompt}], "temperature": 0.2},
+            timeout=20)
+        if resp.status_code == 200:
+            data = resp.json()
+            if "choices" in data and data["choices"]:
+                answer = data["choices"][0]["message"]["content"].strip().upper()
+                return "CONCRETE" in answer
+    except Exception:
+        pass
+    return False
+
+
 def _pop_hot_topic():
-    """Take the hottest freshly-discovered real trending story, if any are queued."""
+    """Take the hottest freshly-discovered real trending story that passes the
+    concrete-story validity check, if any are queued. Discards invalid ones."""
     if not os.path.exists(MANUAL_QUEUE_PATH):
         return None
     try:
         with open(MANUAL_QUEUE_PATH, "r", encoding="utf-8") as f:
             queue = json.load(f)
-        if not queue:
-            return None
-        title = queue.pop(0)
+        while queue:
+            title = queue.pop(0)
+            if _is_concrete_story(title):
+                with open(MANUAL_QUEUE_PATH, "w", encoding="utf-8") as f:
+                    json.dump(queue, f, indent=2)
+                return f"MONEY:{title}"
+            print(f"      [SKIP] Discarding non-story queued topic: {title}")
         with open(MANUAL_QUEUE_PATH, "w", encoding="utf-8") as f:
             json.dump(queue, f, indent=2)
-        return f"MONEY:{title}"
+        return None
     except Exception:
         return None
 
