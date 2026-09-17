@@ -2149,5 +2149,25 @@
     "privacy": "public",
     "auto_published": true,
     "content_format": "money_story"
+  },
+  {
+    "video_id": "vT0H7JZIvuY",
+    "company": "Zipper",
+    "video_type": "short",
+    "uploaded_at": "2026-09-17T22:45:41.028370+00:00",
+    "title_variants": [
+      "The 130\u2011Year\u2011Old Invention That Still Holds Up Your Jeans",
+      "How a Forgotten 'Clasp Locker' Became the World's Most Trusted Fastener",
+      "What If Zippers Never Existed? The Shocking Truth"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "how_it_works"
   }
 ]
