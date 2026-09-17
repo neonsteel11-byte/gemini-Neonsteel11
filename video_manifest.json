@@ -2130,5 +2130,24 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "how_it_works"
+  },
+  {
+    "video_id": "h6Kq7fegIZg",
+    "company": "The Great Emu War",
+    "video_type": "long",
+    "uploaded_at": "2026-09-17T02:52:29.708345+00:00",
+    "title_variants": [
+      "The Great Emu War"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts",
+      "#truestory"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "unlisted",
+    "auto_published": false,
+    "content_format": "money_story"
   }
 ]
