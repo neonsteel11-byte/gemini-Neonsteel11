@@ -100,12 +100,33 @@ Every scene MUST include narration, image_prompt, and on_screen_text. Do not ski
         ]
         fallback_scenes.extend(long_scenes)
 
+    filler_variants = [
+        (f"There's even more to the story of {invention} than most people realize.",
+         f"cartoon illustration showing an unexpected detail about {invention}", "Even More"),
+        (f"Most people have no idea how {invention} actually spread around the world.",
+         f"cartoon map showing {invention} spreading across the globe", "Worldwide Spread"),
+        (f"The design of {invention} has been copied countless times since.",
+         f"cartoon showing many different versions of {invention} side by side", "Copied Everywhere"),
+        (f"Factories today produce {invention} on an enormous scale.",
+         f"cartoon factory assembly line mass producing {invention}", "Mass Produced"),
+        (f"Engineers keep finding smarter ways to improve {invention}.",
+         f"cartoon engineers redesigning {invention} at a workbench", "Always Improving"),
+        (f"It is hard to imagine daily life without {invention} now.",
+         f"cartoon of a busy household using {invention} in several rooms", "Everyday Essential"),
+        (f"Collectors still hunt down the earliest versions of {invention}.",
+         f"cartoon collector examining a vintage {invention}", "Collector Item"),
+        (f"Schools now teach the story of {invention} as a lesson in creativity.",
+         f"cartoon classroom learning about {invention}", "Taught In Schools"),
+    ]
+    _fi = 0
     while len(fallback_scenes) < min_scenes:
+        _n, _p, _t = filler_variants[_fi % len(filler_variants)]
         fallback_scenes.append({
-            "narration": f"There's even more to the story of {invention} than most people realize.",
-            "image_prompt": f"cartoon illustration showing another detail about {invention}",
-            "on_screen_text": "Even More"
+            "narration": _n,
+            "image_prompt": _p,
+            "on_screen_text": _t
         })
+        _fi += 1
 
     return {
         "title_variants": [f"You Use {invention} Every Day and Never Knew This", f"The Mistake That Turned Into {invention}", f"{invention}: The Billion-Dollar Accident"],
@@ -200,12 +221,33 @@ Every scene MUST include narration, image_prompt, and on_screen_text. Do not ski
         {"narration": "The effects can still be seen in the world today.", "image_prompt": f"realistic illustration, a modern-day connection to {topic}", "on_screen_text": "Still Felt Today"},
         {"narration": "It remains one of the strangest true stories in history.", "image_prompt": f"realistic illustration, closing scene related to {topic}", "on_screen_text": "A True Story"},
     ]
+    story_filler_variants = [
+        ("There's another surprising layer to this story most people don't know about.",
+         f"realistic detailed illustration, an overlooked detail of {topic}", "Another Twist"),
+        ("The people involved had no idea how it would be remembered.",
+         f"realistic illustration, the key figures involved in {topic}", "The People Involved"),
+        ("Newspapers at the time struggled to explain what was happening.",
+         f"realistic illustration, period newspapers reporting on {topic}", "In The Headlines"),
+        ("Officials scrambled to respond as the situation escalated.",
+         f"realistic illustration, officials reacting during {topic}", "Official Response"),
+        ("What happened next surprised almost everyone watching.",
+         f"realistic dramatic illustration, the turning point of {topic}", "The Turning Point"),
+        ("The consequences lasted far longer than anyone expected.",
+         f"realistic illustration, the long aftermath of {topic}", "The Aftermath"),
+        ("Historians still argue about how it should be interpreted.",
+         f"realistic illustration, historians debating records of {topic}", "Still Debated"),
+        ("Today it is remembered as one of history's strangest episodes.",
+         f"realistic illustration, a modern memorial or reminder of {topic}", "Remembered Today"),
+    ]
+    _sfi = 0
     while len(fallback_scenes) < min_scenes:
+        _n, _p, _t = story_filler_variants[_sfi % len(story_filler_variants)]
         fallback_scenes.append({
-            "narration": "There's another surprising layer to this story most people don't know about.",
-            "image_prompt": f"realistic detailed illustration, additional detail related to {topic}",
-            "on_screen_text": "Another Twist"
+            "narration": _n,
+            "image_prompt": _p,
+            "on_screen_text": _t
         })
+        _sfi += 1
 
     return {
         "title_variants": [f"{topic}"[:95]],
