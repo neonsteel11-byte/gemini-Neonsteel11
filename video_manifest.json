@@ -2126,7 +2126,7 @@
       "#truestory"
     ],
     "variant_index": 0,
-    "optimized": false,
+    "optimized": true,
     "privacy": "public",
     "auto_published": false,
     "content_format": "how_it_works"
