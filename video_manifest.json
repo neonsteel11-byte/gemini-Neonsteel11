@@ -2189,5 +2189,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "L9jRAyjWEAw",
+    "company": "Bandage",
+    "video_type": "short",
+    "uploaded_at": "2026-09-19T22:04:14.682873+00:00",
+    "title_variants": [
+      "One Tiny Strip Saved Millions and Earned Billions",
+      "You Use This Every Day and Never Knew Its Origin",
+      "The Hidden History Behind the Bandage Almost Got Banned"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
