@@ -2228,5 +2228,26 @@
     "privacy": "public",
     "auto_published": true,
     "content_format": "money_story"
+  },
+  {
+    "video_id": "Hv067vvwrLY",
+    "company": "Coca-Cola",
+    "video_type": "short",
+    "uploaded_at": "2026-09-20T22:06:37.316641+00:00",
+    "title_variants": [
+      "You Use Coca-Cola Every Day and Never Knew This",
+      "The Mistake That Turned Into Coca-Cola",
+      "Coca-Cola: The Billion-Dollar Accident"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#accidentalgenius",
+      "#coca-cola"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
