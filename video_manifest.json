@@ -2209,5 +2209,24 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "mKExvkj9IZk",
+    "company": "The Toledo War Between Ohio and Michigan",
+    "video_type": "long",
+    "uploaded_at": "2026-09-20T15:56:35.595738+00:00",
+    "title_variants": [
+      "The Toledo War Between Ohio and Michigan"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts",
+      "#truestory"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "unlisted",
+    "auto_published": false,
+    "content_format": "money_story"
   }
 ]
