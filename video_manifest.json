@@ -2270,5 +2270,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "xDUn3JusX0g",
+    "company": "Velcro",
+    "video_type": "short",
+    "uploaded_at": "2026-09-22T22:46:23.087793+00:00",
+    "title_variants": [
+      "1 Minute: How a Burdock Inspired the World's Stickiest Fastener",
+      "The Hook Mystery: Why Your Shoes Might Be Borrowed from Nature",
+      "Velcro Isn't Just a Brand \u2013 It's a Revolution"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "how_it_works"
   }
 ]
