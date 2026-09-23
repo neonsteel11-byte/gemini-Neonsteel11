@@ -2290,5 +2290,26 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "how_it_works"
+  },
+  {
+    "video_id": "Wb6H63jUCZ0",
+    "company": "Popsicle",
+    "video_type": "short",
+    "uploaded_at": "2026-09-23T22:37:04.238171+00:00",
+    "title_variants": [
+      "You Use Popsicle Every Day and Never Knew This",
+      "The Mistake That Turned Into Popsicle",
+      "Popsicle: The Billion-Dollar Accident"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#accidentalgenius",
+      "#popsicle"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
