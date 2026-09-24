@@ -2311,5 +2311,24 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "9E-Bx4nP8Jk",
+    "company": "The Pastry War Between France and Mexico",
+    "video_type": "long",
+    "uploaded_at": "2026-09-24T02:36:28.312371+00:00",
+    "title_variants": [
+      "The Pastry War Between France and Mexico"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts",
+      "#truestory"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "unlisted",
+    "auto_published": false,
+    "content_format": "money_story"
   }
 ]
