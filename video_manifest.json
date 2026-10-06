@@ -2615,5 +2615,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "6OkTF_ZlEuA",
+    "company": "Everyday Objects With Insane Origin Stories",
+    "video_type": "short",
+    "uploaded_at": "2026-10-06T01:06:38.485175+00:00",
+    "title_variants": [
+      "5 Everyday Objects With Crazy Origins",
+      "You Won\u2019t Believe These Everyday Items Came From\u2026",
+      "How Simple Things Became Insane Inventions"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "listicle"
   }
 ]
