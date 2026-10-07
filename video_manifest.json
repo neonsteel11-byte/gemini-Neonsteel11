@@ -2655,5 +2655,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "hU9HzycBXuI",
+    "company": "Rubber Band",
+    "video_type": "short",
+    "uploaded_at": "2026-10-07T23:59:27.350499+00:00",
+    "title_variants": [
+      "One Cent Loop That Holds Billions: The Rubber Band Story",
+      "You\u2019re Using This Tiny Loop Every Day and Never Knew Its History",
+      "The Secret Reason Rubber Bands Almost Got Banned"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
