@@ -1,4 +1,4 @@
-import sys, time, os, requests
+import sys, time, os, requests, zlib
 from io import BytesIO
 from PIL import Image
 from urllib.parse import quote
@@ -16,14 +16,14 @@ def _generate_image_pexels(search_term: str, output_path: str, size: tuple):
         resp = requests.get(
             'https://api.pexels.com/v1/search',
             headers={'Authorization': PEXELS_API_KEY},
-            params={'query': search_term, 'per_page': 1, 'orientation': 'portrait' if size[1] > size[0] else 'landscape'},
+            params={'query': search_term, 'per_page': 8, 'orientation': 'portrait' if size[1] > size[0] else 'landscape'},
             timeout=20
         )
         if resp.status_code == 200:
             data = resp.json()
             photos = data.get('photos', [])
             if photos:
-                img_url = photos[0]['src']['large2x']
+                img_url = photos[zlib.crc32(output_path.encode()) % len(photos)]['src']['large2x']
                 img_resp = requests.get(img_url, timeout=20)
                 if img_resp.status_code == 200:
                     if _validate_and_save(img_resp.content, output_path, size):
@@ -99,6 +99,24 @@ def _generate_title_card(label: str, output_path: str, size: tuple):
         return False
 
 
+_GENERIC_WORDS = {"realistic","detailed","illustration","cartoon","photo","photographic","style","image","drawing","dramatic","closing","scene","related","to","of","the","a","an","and","with","showing","depicting","early","events","key","moment","modern","day","connection"}
+
+
+def _pexels_query(prompt, specific_object=None):
+    """Search terms from the concrete subject of the prompt, skipping generic
+    style words that return unrelated stock art."""
+    words = []
+    for seg in (prompt or "").split(","):
+        ws = [w.strip(".:;!?()\"'") for w in seg.split()]
+        ws = [w for w in ws if w and w.lower() not in _GENERIC_WORDS]
+        if len(ws) >= 2:
+            words = ws[:5]
+            break
+    if not words and specific_object:
+        words = specific_object.split()[:5]
+    return " ".join(words)
+
+
 def generate_image(prompt: str, output_path: str, size: tuple = (1920, 1080), seed: int = 42, specific_object: str = None, allow_pexels: bool = True):
     if not prompt:
         sys.exit(1)
@@ -111,7 +129,7 @@ def generate_image(prompt: str, output_path: str, size: tuple = (1920, 1080), se
     # Vary the Pexels search term per scene using the actual prompt content,
     # not just the constant topic name -- otherwise every scene searches the
     # same term and Pexels returns the identical top result every time.
-    pexels_query = " ".join(prompt.split(",")[0].split()[:6]) if prompt else specific_object
+    pexels_query = _pexels_query(prompt, specific_object)
     if allow_pexels and pexels_query and _generate_image_pexels(pexels_query, output_path, size):
         return
 
