@@ -4,6 +4,51 @@ from config import GROQ_API_KEY, GROQ_MODEL
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 
+def _post_with_retry(url, **kwargs):
+    """POST to Groq with retries. Backs off on 429/5xx, drops strict JSON mode
+    after a 400 json_validate_failed, and cleans the reply down to pure JSON."""
+    last = None
+    for attempt in range(3):
+        try:
+            resp = requests.post(url, **kwargs)
+        except Exception as e:
+            print(f"      [RETRY] Groq request error (attempt {attempt+1}/3): {e}")
+            time.sleep(3 * (attempt + 1))
+            continue
+        last = resp
+        try:
+            data = resp.json()
+        except Exception:
+            data = {}
+        if resp.status_code == 200 and data.get("choices"):
+            try:
+                content = data["choices"][0]["message"]["content"]
+                start, end = content.find("{"), content.rfind("}")
+                if start != -1 and end > start:
+                    parsed = json.loads(content[start:end + 1])
+                    data["choices"][0]["message"]["content"] = json.dumps(parsed)
+                    resp._content = json.dumps(data).encode("utf-8")
+            except Exception:
+                pass
+            return resp
+        print(f"      [RETRY] Groq attempt {attempt+1}/3 failed: HTTP {resp.status_code} {str(data)[:200]}")
+        if resp.status_code == 400:
+            body = dict(kwargs.get("json", {}))
+            body.pop("response_format", None)
+            kwargs["json"] = body
+        wait = 3 * (attempt + 1)
+        if resp.status_code == 429:
+            try:
+                wait = min(int(resp.headers.get("retry-after", 10)), 30)
+            except Exception:
+                wait = 10
+        time.sleep(wait)
+    if last is not None:
+        return last
+    raise RuntimeError("Groq request failed after 3 attempts")
+
+
+
 def generate_invention_script(invention, inventor, facts, info, video_type="short"):
     if video_type == "long":
         length = "15-18 scenes, EACH scene must have 80-110 words of narration (this is a strict per-scene minimum, not a total to divide up)"
@@ -33,7 +78,7 @@ Every scene MUST include narration, image_prompt, and on_screen_text. Do not ski
 
     try:
         print(f"      Calling Groq API...")
-        resp = requests.post(GROQ_URL,
+        resp = _post_with_retry(GROQ_URL,
             headers={"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"},
             json={"model": GROQ_MODEL, "messages": [{"role": "user", "content": prompt}],
                   "temperature": 0.9, "response_format": {"type": "json_object"}},
@@ -175,7 +220,7 @@ Every scene MUST include narration, image_prompt, and on_screen_text. Do not ski
 
     try:
         print("      Calling Groq API for story...")
-        resp = requests.post(GROQ_URL,
+        resp = _post_with_retry(GROQ_URL,
             headers={"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"},
             json={"model": GROQ_MODEL, "messages": [{"role": "user", "content": prompt}],
                   "temperature": 0.9, "response_format": {"type": "json_object"}},
@@ -292,7 +337,7 @@ Include exactly {num_entries} scenes, one per entry, each with a DIFFERENT real 
     for attempt in range(2):
         try:
             print(f"      Calling Groq API for listicle (attempt {attempt+1}/2)...")
-            resp = requests.post(GROQ_URL,
+            resp = _post_with_retry(GROQ_URL,
                 headers={"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"},
                 json={"model": GROQ_MODEL, "messages": [{"role": "user", "content": prompt}],
                       "temperature": 0.8, "response_format": {"type": "json_object"}},
