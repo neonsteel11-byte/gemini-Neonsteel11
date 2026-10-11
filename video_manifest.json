@@ -2756,5 +2756,24 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "FODcq_tctBk",
+    "company": "The Pig War Between the US and Britain",
+    "video_type": "long",
+    "uploaded_at": "2026-10-11T17:42:20.518978+00:00",
+    "title_variants": [
+      "The Pig War Between the US and Britain"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts",
+      "#truestory"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "unlisted",
+    "auto_published": false,
+    "content_format": "money_story"
   }
 ]
