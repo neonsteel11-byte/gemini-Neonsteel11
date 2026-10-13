@@ -2795,5 +2795,26 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "listicle"
+  },
+  {
+    "video_id": "D5R1U4HKSPs",
+    "company": "Zipper",
+    "video_type": "short",
+    "uploaded_at": "2026-10-13T23:37:35.577248+00:00",
+    "title_variants": [
+      "You Use Zipper Every Day and Never Knew This",
+      "The Mistake That Turned Into Zipper",
+      "Zipper: The Billion-Dollar Accident"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#accidentalgenius",
+      "#zipper"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
