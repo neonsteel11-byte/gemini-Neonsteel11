@@ -2837,5 +2837,24 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "x0NV_YZRCgs",
+    "company": "The Cod Wars Between Iceland and Britain",
+    "video_type": "long",
+    "uploaded_at": "2026-10-15T02:44:29.739748+00:00",
+    "title_variants": [
+      "The Cod Wars Between Iceland and Britain"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts",
+      "#truestory"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "unlisted",
+    "auto_published": false,
+    "content_format": "money_story"
   }
 ]
