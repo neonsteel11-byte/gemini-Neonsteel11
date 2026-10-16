@@ -2877,5 +2877,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "omftY1gX4kw",
+    "company": "Toothpaste",
+    "video_type": "short",
+    "uploaded_at": "2026-10-16T22:28:47.425606+00:00",
+    "title_variants": [
+      "How 1 Tiny Ingredient Cut Cavities in Half",
+      "What Your Toothpaste Is Hiding (And Why It Matters)",
+      "Fluoride Toothpaste: The Deadly Sweet Threat?"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "how_it_works"
   }
 ]
