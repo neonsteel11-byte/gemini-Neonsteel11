@@ -24,6 +24,8 @@ jobs:
       
       - name: Pick today's content
         id: pick_company
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
         run: |
           COMPANY=$(python scripts/pick_company.py short)
           echo "company=$COMPANY" >> "$GITHUB_OUTPUT"
@@ -45,9 +47,13 @@ jobs:
           USE_REPLICATE: "true"
           COMPANY: ${{ steps.pick_company.outputs.company }}
         run: |
-          set -e
+          set -o pipefail
           echo "Producing Short: $COMPANY"
-          python main.py "$COMPANY" --type short --upload --privacy public
+          RC=0
+          python -u main.py "$COMPANY" --type short --upload --privacy public 2>&1 | tee run_full.log || RC=$?
+          mkdir -p diagnostics
+          grep -v "ElevenLabs" run_full.log | tail -n 400 > diagnostics/last_short.txt || true
+          exit $RC
       
       - name: Upload captions as downloadable artifact
         uses: actions/upload-artifact@v4
@@ -57,11 +63,19 @@ jobs:
           retention-days: 14
       
       - name: Commit rotation state
+        if: always()
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add video_manifest.json company_state.json angle_state.json topics_used_alltime.json manual_topics.json til_used_ids.json 2>/dev/null || git add video_manifest.json
+          FILES="diagnostics/last_short.txt"
+          if [ "${{ job.status }}" = "success" ]; then
+            FILES="$FILES video_manifest.json topics_used_alltime.json manual_topics.json til_used_ids.json"
+          fi
+          for f in $FILES; do
+            if [ -f "$f" ]; then git add "$f"; fi
+          done
           git diff --staged --quiet || git commit -m "Log Short upload"
+          git checkout -- . 2>/dev/null || true
           for i in 1 2 3 4 5; do
             git pull --rebase origin main && git push && break
             sleep 5
