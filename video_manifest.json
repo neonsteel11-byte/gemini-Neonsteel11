@@ -2957,5 +2957,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "ko1qr_i7-QA",
+    "company": "Chainsaw",
+    "video_type": "short",
+    "uploaded_at": "2026-10-19T23:19:20.129079+00:00",
+    "title_variants": [
+      "1. The 1926 Invention That Changed Forests Forever",
+      "How a Handheld Saw Became a War Weapon",
+      "Chainsaws Don't Cut Trees\u2014They Rewrite History"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "how_it_works"
   }
 ]
