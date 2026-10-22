@@ -3019,5 +3019,24 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "TKNE7Z2tpVM",
+    "company": "The Kettle War Between the Dutch and Holy Roman Empire",
+    "video_type": "long",
+    "uploaded_at": "2026-10-22T03:27:05.969150+00:00",
+    "title_variants": [
+      "The Kettle War Between the Dutch and Holy Roman Empire"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts",
+      "#truestory"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "unlisted",
+    "auto_published": false,
+    "content_format": "money_story"
   }
 ]
