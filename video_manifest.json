@@ -3059,5 +3059,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "CwXCtmv6LVw",
+    "company": "Zipper",
+    "video_type": "short",
+    "uploaded_at": "2026-10-23T22:50:53.009620+00:00",
+    "title_variants": [
+      "1 Invention That Changed Every Closet",
+      "How a Failed Fastener Became Everyday Magic",
+      "Zippers Aren\u2019t What You Think \u2013 The Truth Revealed"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "how_it_works"
   }
 ]
