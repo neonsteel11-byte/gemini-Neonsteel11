@@ -3119,5 +3119,25 @@
     "privacy": "public",
     "auto_published": true,
     "content_format": "money_story"
+  },
+  {
+    "video_id": "KK805-JA7NA",
+    "company": "Treadmill",
+    "video_type": "short",
+    "uploaded_at": "2026-10-25T22:43:22.907539+00:00",
+    "title_variants": [
+      "The 1,000\u2011Year Journey of the Treadmill",
+      "How a Prison Punishment Became Your Home Gym",
+      "From Grinding Grain to Burning Calories \u2013 The Treadmill Truth"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "how_it_works"
   }
 ]
