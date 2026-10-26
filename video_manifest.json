@@ -3139,5 +3139,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "how_it_works"
+  },
+  {
+    "video_id": "212MMfW18cY",
+    "company": "Listerine",
+    "video_type": "short",
+    "uploaded_at": "2026-10-26T23:34:04.020152+00:00",
+    "title_variants": [
+      "The Mouthwash That Saved Romance",
+      "What You Never Knew About Listerine",
+      "Why Listerine Isn\u2019t Just a Breath Freshener"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "how_it_works"
   }
 ]
