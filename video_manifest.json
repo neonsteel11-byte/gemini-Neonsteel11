@@ -3159,5 +3159,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "how_it_works"
+  },
+  {
+    "video_id": "9eNC8lWjuMU",
+    "company": "Rubber Band",
+    "video_type": "short",
+    "uploaded_at": "2026-10-27T23:27:34.383358+00:00",
+    "title_variants": [
+      "One Hundred Thousand Rubber Bands Made Millions in Forgotten History",
+      "You Use This Everyday and Never Knew Its Crazy Origin",
+      "The Secret Story Behind the Rubber Band Almost Getting Banned"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
