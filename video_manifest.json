@@ -3179,5 +3179,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "iHxSisaMhxE",
+    "company": "Bubble Wrap",
+    "video_type": "short",
+    "uploaded_at": "2026-10-28T23:52:37.826054+00:00",
+    "title_variants": [
+      "The $1 Mistake That Became a $3 Billion Cushion",
+      "You Use This Everyday and Never Knew Its Crazy History",
+      "The Hidden Reason Bubble Wrap Almost Got Banned"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
