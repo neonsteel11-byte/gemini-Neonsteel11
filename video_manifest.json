@@ -3199,5 +3199,24 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "dP9CNwoLNJo",
+    "company": "The War of the Bucket",
+    "video_type": "long",
+    "uploaded_at": "2026-10-29T03:54:28.301977+00:00",
+    "title_variants": [
+      "The War of the Bucket"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts",
+      "#truestory"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "unlisted",
+    "auto_published": false,
+    "content_format": "money_story"
   }
 ]
