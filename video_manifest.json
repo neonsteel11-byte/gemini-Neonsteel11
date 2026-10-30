@@ -3239,5 +3239,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "o4LBE_W9xzQ",
+    "company": "Velcro",
+    "video_type": "short",
+    "uploaded_at": "2026-10-30T23:26:40.912904+00:00",
+    "title_variants": [
+      "How 1 Tiny Burr Invented the Fastener That Holds Up Space Missions",
+      "What If a Plant Seed Could Replace Screws?",
+      "The Fastener You Think Is Plastic\u2014Actually Inspired by Nature"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "how_it_works"
   }
 ]
