@@ -3299,5 +3299,26 @@
     "privacy": "public",
     "auto_published": true,
     "content_format": "money_story"
+  },
+  {
+    "video_id": "wjqN4efeEYM",
+    "company": "Chewing Gum",
+    "video_type": "short",
+    "uploaded_at": "2026-11-01T23:19:12.522483+00:00",
+    "title_variants": [
+      "You Use Chewing Gum Every Day and Never Knew This",
+      "The Mistake That Turned Into Chewing Gum",
+      "Chewing Gum: The Billion-Dollar Accident"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#accidentalgenius",
+      "#chewinggum"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
