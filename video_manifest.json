@@ -3320,5 +3320,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "n362hfyFWVA",
+    "company": "Chocolate Chip Cookies",
+    "video_type": "short",
+    "uploaded_at": "2026-11-03T02:07:20.189304+00:00",
+    "title_variants": [
+      "One Dollar Mistake Turned Into Four Billion Dollars",
+      "You\u2019ve Been Baking Chocolate Chip Cookies Wrong All Your Life",
+      "The Secret Reason Chocolate Chip Cookies Almost Got Banned"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
