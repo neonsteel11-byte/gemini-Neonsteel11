@@ -3340,5 +3340,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "AaMyTDoBIcA",
+    "company": "Toothpaste",
+    "video_type": "short",
+    "uploaded_at": "2026-11-04T00:22:52.031916+00:00",
+    "title_variants": [
+      "1 Minute: The Shocking Rise of Toothpaste",
+      "What Secrets Hide Inside Your Toothpaste Tube?",
+      "Fluoride Toothpaste Isn't What You Think"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "how_it_works"
   }
 ]
