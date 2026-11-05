@@ -1,282 +1,400 @@
-[1/4] Generating script for 'MONEY:The Toledo War Between Ohio and Michigan' (long)...
-      Money story mode: The Toledo War Between Ohio and Michigan
-      [WARNING] Wikipedia lookup failed for 'The Toledo War Between Ohio and Michigan' (404), no real image available.
-      Calling Groq API for story...
-      [RETRY] Groq attempt 1/3 failed: HTTP 400 {'error': {'message': "Failed to validate JSON. Please adjust your prompt. See 'failed_generation' for more details.", 'type': 'invalid_request_error', 'code': 'json_validate_failed', 'failed_generati
-      [DEBUG] Groq HTTP status: 200
-      [DEBUG] Groq HTTP status: 200
-      [!] Story API Error: Expecting value: line 1 column 1 (char 0)
-      [!] Using dynamic story fallback...
-      Title: The Toledo War Between Ohio and Michigan
-      Visual seed: 768106
-      Scenes: 15
-[2/4] Generating voiceover + images per scene...
-      scene 1/15: generating voiceover...
-      Processing audio file generation...
-      Attempting Edge TTS (free fallback, try 1/3)...
-      [OK] Edge TTS generation successful
-      Voice: Edge TTS, 12 word timings captured
-      scene 1 audio duration: 4.78s
-      scene 1: generating images...
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+.
+
+.This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
+      [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
+
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpp7po96fs.txt' @ error/string.c/FileToString/989.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+.
+
+.This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
+      [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
+
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpo5oe_7ut.txt' @ error/string.c/FileToString/989.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+.
+
+.This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
+      [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
+
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpw6aplhfd.txt' @ error/string.c/FileToString/989.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+.
+
+.This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
+      [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
+
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpka80c07s.txt' @ error/string.c/FileToString/989.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+.
+
+.This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
+      [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
+
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpkybra082.txt' @ error/string.c/FileToString/989.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+.
+
+.This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
+      [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
+
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpq0tsu0pt.txt' @ error/string.c/FileToString/989.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+.
+
+.This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
+      [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
+
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmp40jvwmqu.txt' @ error/string.c/FileToString/989.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+.
+
+.This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
+      Expected final duration before render: 58.91s
+      [CHECK] Actual rendered file duration (ffprobe): 58.916667s
+[4/4] Done. Final video: output/MONEY_The_Football_War_Between_El_Salvador_and_Honduras_long.mp4
+      Platform-specific captions saved: output/MONEY_The_Football_War_Between_El_Salvador_and_Honduras_long_captions.txt
       Pollinations attempt 1/3...
-      [OK] Pollinations image saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_0.png
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_0_b.png
-      scene 2/15: generating voiceover...
-      Processing audio file generation...
-      Attempting Edge TTS (free fallback, try 1/3)...
-      [OK] Edge TTS generation successful
-      Voice: Edge TTS, 10 word timings captured
-      scene 2 audio duration: 3.34s
-      scene 2: generating images...
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_1.png
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_1_b.png
-      scene 3/15: generating voiceover...
-      Processing audio file generation...
-      Attempting Edge TTS (free fallback, try 1/3)...
-      [OK] Edge TTS generation successful
-      Voice: Edge TTS, 10 word timings captured
-      scene 3 audio duration: 3.07s
-      scene 3: generating images...
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_2.png
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_2_b.png
-      scene 4/15: generating voiceover...
-      Processing audio file generation...
-      Attempting Edge TTS (free fallback, try 1/3)...
-      [OK] Edge TTS generation successful
-      Voice: Edge TTS, 8 word timings captured
-      scene 4 audio duration: 3.24s
-      scene 4: generating images...
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_3.png
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_3_b.png
-      scene 5/15: generating voiceover...
-      Processing audio file generation...
-      Attempting Edge TTS (free fallback, try 1/3)...
-      [OK] Edge TTS generation successful
-      Voice: Edge TTS, 10 word timings captured
-      scene 5 audio duration: 3.41s
-      scene 5: generating images...
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_4.png
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_4_b.png
-      scene 6/15: generating voiceover...
-      Processing audio file generation...
-      Attempting Edge TTS (free fallback, try 1/3)...
-      [OK] Edge TTS generation successful
-      Voice: Edge TTS, 10 word timings captured
-      scene 6 audio duration: 2.66s
-      scene 6: generating images...
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_5.png
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_5_b.png
-      scene 7/15: generating voiceover...
-      Processing audio file generation...
-      Attempting Edge TTS (free fallback, try 1/3)...
-      [OK] Edge TTS generation successful
-      Voice: Edge TTS, 10 word timings captured
-      scene 7 audio duration: 3.29s
-      scene 7: generating images...
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_6.png
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_6_b.png
-      scene 8/15: generating voiceover...
-      Processing audio file generation...
-      Attempting Edge TTS (free fallback, try 1/3)...
-      [OK] Edge TTS generation successful
-      Voice: Edge TTS, 12 word timings captured
-      scene 8 audio duration: 4.22s
-      scene 8: generating images...
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_7.png
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_7_b.png
-      scene 9/15: generating voiceover...
-      Processing audio file generation...
-      Attempting Edge TTS (free fallback, try 1/3)...
-      [OK] Edge TTS generation successful
-      Voice: Edge TTS, 11 word timings captured
-      scene 9 audio duration: 3.17s
-      scene 9: generating images...
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_8.png
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_8_b.png
-      scene 10/15: generating voiceover...
-      Processing audio file generation...
-      Attempting Edge TTS (free fallback, try 1/3)...
-      [OK] Edge TTS generation successful
-      Voice: Edge TTS, 10 word timings captured
-      scene 10 audio duration: 3.34s
-      scene 10: generating images...
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_9.png
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_9_b.png
-      scene 11/15: generating voiceover...
-      Processing audio file generation...
-      Attempting Edge TTS (free fallback, try 1/3)...
-      [OK] Edge TTS generation successful
-      Voice: Edge TTS, 8 word timings captured
-      scene 11 audio duration: 3.62s
-      scene 11: generating images...
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_10.png
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_10_b.png
-      scene 12/15: generating voiceover...
-      Processing audio file generation...
-      Attempting Edge TTS (free fallback, try 1/3)...
-      [OK] Edge TTS generation successful
-      Voice: Edge TTS, 7 word timings captured
-      scene 12 audio duration: 3.26s
-      scene 12: generating images...
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_11.png
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_11_b.png
-      scene 13/15: generating voiceover...
-      Processing audio file generation...
-      Attempting Edge TTS (free fallback, try 1/3)...
-      [OK] Edge TTS generation successful
-      Voice: Edge TTS, 8 word timings captured
-      scene 13 audio duration: 3.72s
-      scene 13: generating images...
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_12.png
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_12_b.png
-      scene 14/15: generating voiceover...
-      Processing audio file generation...
-      Attempting Edge TTS (free fallback, try 1/3)...
-      [OK] Edge TTS generation successful
-      Voice: Edge TTS, 9 word timings captured
-      scene 14 audio duration: 3.31s
-      scene 14: generating images...
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_13.png
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_13_b.png
-      scene 15/15: generating voiceover...
-      Processing audio file generation...
-      Attempting Edge TTS (free fallback, try 1/3)...
-      [OK] Edge TTS generation successful
-      Voice: Edge TTS, 10 word timings captured
-      scene 15 audio duration: 3.98s
-      scene 15: generating images...
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_14.png
-      Pollinations attempt 1/3...
-      Pollinations attempt 2/3...
-      Pollinations attempt 3/3...
-      [WARNING] All image generation failed. Generating text title card fallback.
-      [OK] Title card fallback saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/image_14_b.png
-      Generating subscribe call-to-action scene...
-      Processing audio file generation...
-      Attempting Edge TTS (free fallback, try 1/3)...
-      [OK] Edge TTS generation successful
-      Voice: Edge TTS, 17 word timings captured
-      Using lucky mascot for CTA scene.
-[3/4] Assembling final video...
-      Expected final duration before render: 60.19s
-      [CHECK] Actual rendered file duration (ffprobe): 60.208333s
-[4/4] Done. Final video: output/MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long.mp4
-      Platform-specific captions saved: output/MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long_captions.txt
-      Pollinations attempt 1/3...
-      [OK] Pollinations image saved: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/thumbnail.png
-      [OK] Thumbnail generated: output/tmp_MONEY_The_Toledo_War_Between_Ohio_and_Michigan_long/thumbnail.png
-Uploaded successfully: https://youtube.com/watch?v=Z_4--Xn_DJg
-      [OK] Thumbnail set for Z_4--Xn_DJg
+      [OK] Pollinations image saved: output/tmp_MONEY_The_Football_War_Between_El_Salvador_and_Honduras_long/thumbnail.png
+      [OK] Thumbnail generated: output/tmp_MONEY_The_Football_War_Between_El_Salvador_and_Honduras_long/thumbnail.png
+Uploaded successfully: https://youtube.com/watch?v=6YfR93JsAIo
+      [OK] Thumbnail set for 6YfR93JsAIo
       Logged to video_manifest.json for performance tracking.

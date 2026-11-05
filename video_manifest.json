@@ -3380,5 +3380,24 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "6YfR93JsAIo",
+    "company": "The Football War Between El Salvador and Honduras",
+    "video_type": "long",
+    "uploaded_at": "2026-11-05T05:23:00.697610+00:00",
+    "title_variants": [
+      "The Football War Between El Salvador and Honduras"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts",
+      "#truestory"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "unlisted",
+    "auto_published": false,
+    "content_format": "money_story"
   }
 ]
