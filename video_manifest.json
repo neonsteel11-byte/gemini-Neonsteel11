@@ -3399,5 +3399,25 @@
     "privacy": "public",
     "auto_published": true,
     "content_format": "money_story"
+  },
+  {
+    "video_id": "L9zA0fC_p20",
+    "company": "Everyday Objects With Insane Origin Stories",
+    "video_type": "short",
+    "uploaded_at": "2026-11-06T01:20:35.852870+00:00",
+    "title_variants": [
+      "5 Everyday Objects With Insane Origin Stories",
+      "You Won\u2019t Believe How These Common Items Were Invented",
+      "Ordinary Things, Extraordinary Beginnings"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "listicle"
   }
 ]
