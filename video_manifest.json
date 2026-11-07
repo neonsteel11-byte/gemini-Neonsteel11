@@ -3440,5 +3440,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "0UL0yfT0ss0",
+    "company": "Inventions That Were Total Mistakes",
+    "video_type": "short",
+    "uploaded_at": "2026-11-07T23:17:23.586404+00:00",
+    "title_variants": [
+      "5 Inventions That Were Total Mistakes",
+      "What If the Biggest Mistakes Became Our Everyday Tools?",
+      "How Accidents Created the World's Most Useful Gadgets"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "listicle"
   }
 ]
