@@ -33,7 +33,7 @@ convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpp7po96fs.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpp0r40ujm.txt' @ error/string.c/FileToString/989.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
@@ -84,7 +84,7 @@ convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpo5oe_7ut.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmphjfzuna1.txt' @ error/string.c/FileToString/989.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
@@ -135,7 +135,7 @@ convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpw6aplhfd.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmps6vb_yy_.txt' @ error/string.c/FileToString/989.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
@@ -186,7 +186,7 @@ convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpka80c07s.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmp8gd34lr3.txt' @ error/string.c/FileToString/989.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
@@ -237,7 +237,7 @@ convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpkybra082.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpcs7g0i0i.txt' @ error/string.c/FileToString/989.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
@@ -288,7 +288,7 @@ convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpq0tsu0pt.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpgz1hqefo.txt' @ error/string.c/FileToString/989.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
@@ -339,7 +339,7 @@ convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmp40jvwmqu.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmps4ywtf08.txt' @ error/string.c/FileToString/989.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
@@ -388,13 +388,13 @@ convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 .
 
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
-      Expected final duration before render: 58.91s
-      [CHECK] Actual rendered file duration (ffprobe): 58.916667s
-[4/4] Done. Final video: output/MONEY_The_Football_War_Between_El_Salvador_and_Honduras_long.mp4
-      Platform-specific captions saved: output/MONEY_The_Football_War_Between_El_Salvador_and_Honduras_long_captions.txt
+      Expected final duration before render: 60.81s
+      [CHECK] Actual rendered file duration (ffprobe): 60.833333s
+[4/4] Done. Final video: output/MONEY_The_Pig_War_Between_the_US_and_Britain_long.mp4
+      Platform-specific captions saved: output/MONEY_The_Pig_War_Between_the_US_and_Britain_long_captions.txt
       Pollinations attempt 1/3...
-      [OK] Pollinations image saved: output/tmp_MONEY_The_Football_War_Between_El_Salvador_and_Honduras_long/thumbnail.png
-      [OK] Thumbnail generated: output/tmp_MONEY_The_Football_War_Between_El_Salvador_and_Honduras_long/thumbnail.png
-Uploaded successfully: https://youtube.com/watch?v=6YfR93JsAIo
-      [OK] Thumbnail set for 6YfR93JsAIo
+      [OK] Pollinations image saved: output/tmp_MONEY_The_Pig_War_Between_the_US_and_Britain_long/thumbnail.png
+      [OK] Thumbnail generated: output/tmp_MONEY_The_Pig_War_Between_the_US_and_Britain_long/thumbnail.png
+Uploaded successfully: https://youtube.com/watch?v=u6v2k0siqGA
+      [OK] Thumbnail set for u6v2k0siqGA
       Logged to video_manifest.json for performance tracking.
