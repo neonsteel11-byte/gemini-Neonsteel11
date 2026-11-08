@@ -3479,5 +3479,26 @@
     "privacy": "unlisted",
     "auto_published": false,
     "content_format": "money_story"
+  },
+  {
+    "video_id": "DDS3llYsCXM",
+    "company": "Super Glue",
+    "video_type": "short",
+    "uploaded_at": "2026-11-08T23:21:05.578072+00:00",
+    "title_variants": [
+      "You Use Super Glue Every Day and Never Knew This",
+      "The Mistake That Turned Into Super Glue",
+      "Super Glue: The Billion-Dollar Accident"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#accidentalgenius",
+      "#superglue"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
