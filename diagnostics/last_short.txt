@@ -1,54 +1,5 @@
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
-.
 
-.This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
-      [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
-
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmp_8e_42z5.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpdmj6x1po.txt' @ error/string.c/FileToString/989.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
@@ -104,7 +55,7 @@ convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmp8cg8br1s.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpm_jcqugp.txt' @ error/string.c/FileToString/989.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
@@ -160,7 +111,7 @@ convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpa3ma_tra.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpz9u6akb7.txt' @ error/string.c/FileToString/989.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
@@ -216,7 +167,7 @@ convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpydutfkn8.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpx4gcfnlc.txt' @ error/string.c/FileToString/989.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
@@ -272,7 +223,7 @@ convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmp4nndlcru.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpz2tr4a7z.txt' @ error/string.c/FileToString/989.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
@@ -328,7 +279,7 @@ convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpqi9kg54y.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmp6jh20vbw.txt' @ error/string.c/FileToString/989.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
@@ -382,19 +333,68 @@ convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 .
 
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
-      Expected final duration before render: 54.91s
-      [CHECK] Actual rendered file duration (ffprobe): 54.916667s
-[4/4] Done. Final video: output/LISTICLE_Household_Items_You_Never_Knew_Had_a_Wild_History_short.mp4
-      Platform-specific captions saved: output/LISTICLE_Household_Items_You_Never_Knew_Had_a_Wild_History_short_captions.txt
-      [OK] Real Pexels photo saved: output/tmp_LISTICLE_Household_Items_You_Never_Knew_Had_a_Wild_History_short/infographic_portrait_0.png
-      [OK] Real Pexels photo saved: output/tmp_LISTICLE_Household_Items_You_Never_Knew_Had_a_Wild_History_short/infographic_portrait_1.png
-      [OK] Real Pexels photo saved: output/tmp_LISTICLE_Household_Items_You_Never_Knew_Had_a_Wild_History_short/infographic_portrait_2.png
-      [OK] Real Pexels photo saved: output/tmp_LISTICLE_Household_Items_You_Never_Knew_Had_a_Wild_History_short/infographic_portrait_3.png
-      [OK] Real Pexels photo saved: output/tmp_LISTICLE_Household_Items_You_Never_Knew_Had_a_Wild_History_short/infographic_portrait_4.png
-      [OK] Infographic saved: output/LISTICLE_Household_Items_You_Never_Knew_Had_a_Wild_History_short_infographic.png
-      Pollinations attempt 1/3...
-      [OK] Pollinations image saved: output/tmp_LISTICLE_Household_Items_You_Never_Knew_Had_a_Wild_History_short/thumbnail.png
-      [OK] Thumbnail generated: output/tmp_LISTICLE_Household_Items_You_Never_Knew_Had_a_Wild_History_short/thumbnail.png
-Uploaded successfully: https://youtube.com/watch?v=tMWONnpMQ5s
-      [OK] Thumbnail set for tMWONnpMQ5s
+      [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
+
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpl5wypku5.txt' @ error/string.c/FileToString/989.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
+.
+
+.This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
+      Expected final duration before render: 122.23s
+      [CHECK] Actual rendered file duration (ffprobe): 122.250000s
+[4/4] Done. Final video: output/INVENTION_Sunglasses_Sam_Foster_short.mp4
+      Platform-specific captions saved: output/INVENTION_Sunglasses_Sam_Foster_short_captions.txt
+      [OK] Real Pexels photo saved: output/tmp_INVENTION_Sunglasses_Sam_Foster_short/thumbnail.png
+      [OK] Thumbnail generated: output/tmp_INVENTION_Sunglasses_Sam_Foster_short/thumbnail.png
+Uploaded successfully: https://youtube.com/watch?v=N1mPA7eJzjo
+      [OK] Thumbnail set for N1mPA7eJzjo
       Logged to video_manifest.json for performance tracking.

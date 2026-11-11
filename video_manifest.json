@@ -3520,5 +3520,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "listicle"
+  },
+  {
+    "video_id": "N1mPA7eJzjo",
+    "company": "Sunglasses",
+    "video_type": "short",
+    "uploaded_at": "2026-11-11T00:26:25.491318+00:00",
+    "title_variants": [
+      "One Hundred Dollar Mistake That Sparked a Two Billion Dollar Sunglass Empire",
+      "You Wear These Every Day and Never Knew This Secret History",
+      "The Hidden Reason Sunglasses Almost Got Banned"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
