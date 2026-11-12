@@ -3540,5 +3540,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "98yuOL9Np94",
+    "company": "Play-Doh",
+    "video_type": "short",
+    "uploaded_at": "2026-11-12T01:52:05.643483+00:00",
+    "title_variants": [
+      "One Hundred Thousand Dollars in Play\u2011Doh Secrets Revealed",
+      "You\u2019ve Been Using Play\u2011Doh Wrong Your Whole Life",
+      "The Hidden Reason Play\u2011Doh Almost Got Banned"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
