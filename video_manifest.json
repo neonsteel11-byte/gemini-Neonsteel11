@@ -3579,5 +3579,25 @@
     "privacy": "public",
     "auto_published": true,
     "content_format": "money_story"
+  },
+  {
+    "video_id": "v-QswrbL3hw",
+    "company": "Umbrella",
+    "video_type": "short",
+    "uploaded_at": "2026-11-13T00:52:38.315169+00:00",
+    "title_variants": [
+      "This One Dollar Mistake Made Ten Billion Dollars",
+      "You Use This Every Day and Never Knew This",
+      "The Real Reason Umbrella Almost Got Banned"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
