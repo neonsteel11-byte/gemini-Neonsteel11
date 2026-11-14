@@ -3620,5 +3620,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "G6Z-XOqzcKI",
+    "company": "Corn Flakes",
+    "video_type": "short",
+    "uploaded_at": "2026-11-14T23:37:21.572803+00:00",
+    "title_variants": [
+      "One Dime Breakfast Spawned A Billion Dollar Empire",
+      "You Eat This Every Morning And Never Knew Its Dark Past",
+      "The Secret Eugenics Origin Of Corn Flakes"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
