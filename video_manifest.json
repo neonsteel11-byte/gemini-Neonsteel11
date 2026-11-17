@@ -3655,7 +3655,7 @@
       "#truestory"
     ],
     "variant_index": 0,
-    "optimized": false,
+    "optimized": true,
     "privacy": "public",
     "auto_published": true,
     "content_format": "money_story"
@@ -3675,8 +3675,8 @@
       "#accidentalgenius",
       "#sillyputty"
     ],
-    "variant_index": 0,
-    "optimized": false,
+    "variant_index": 1,
+    "optimized": true,
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
