@@ -1,5 +1,5 @@
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmp8iyn9a9f.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmp5pe4ydgj.txt' @ error/string.c/FileToString/989.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
@@ -55,7 +55,7 @@ convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpeq89e5ak.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpqx4f1wyf.txt' @ error/string.c/FileToString/989.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
@@ -111,7 +111,7 @@ convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmp5xbtanj8.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmphyhzb7p5.txt' @ error/string.c/FileToString/989.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
@@ -167,7 +167,7 @@ convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmppt9ct4gs.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmp1v7ykgiu.txt' @ error/string.c/FileToString/989.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
@@ -223,7 +223,7 @@ convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmp8u4hggng.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmppthgncaa.txt' @ error/string.c/FileToString/989.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
@@ -279,7 +279,7 @@ convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpku6p_r2c.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmprwbsbbot.txt' @ error/string.c/FileToString/989.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
@@ -335,7 +335,7 @@ convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpc7rxo8nj.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpag9kdkqr.txt' @ error/string.c/FileToString/989.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
@@ -389,12 +389,12 @@ convert: unable to read font `Arial-Bold' @ warning/annotate.c/RenderType/1026.
 .
 
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
-      Expected final duration before render: 55.86s
-      [CHECK] Actual rendered file duration (ffprobe): 55.875000s
-[4/4] Done. Final video: output/INVENTION_Silly_Putty_James_Wright_short.mp4
-      Platform-specific captions saved: output/INVENTION_Silly_Putty_James_Wright_short_captions.txt
-      [OK] Real Pexels photo saved: output/tmp_INVENTION_Silly_Putty_James_Wright_short/thumbnail.png
-      [OK] Thumbnail generated: output/tmp_INVENTION_Silly_Putty_James_Wright_short/thumbnail.png
-Uploaded successfully: https://youtube.com/watch?v=8Z2iV3MNegc
-      [OK] Thumbnail set for 8Z2iV3MNegc
+      Expected final duration before render: 54.64s
+      [CHECK] Actual rendered file duration (ffprobe): 54.666667s
+[4/4] Done. Final video: output/INVENTION_Coca-Cola_John_Pemberton_short.mp4
+      Platform-specific captions saved: output/INVENTION_Coca-Cola_John_Pemberton_short_captions.txt
+      [OK] Real Pexels photo saved: output/tmp_INVENTION_Coca-Cola_John_Pemberton_short/thumbnail.png
+      [OK] Thumbnail generated: output/tmp_INVENTION_Coca-Cola_John_Pemberton_short/thumbnail.png
+Uploaded successfully: https://youtube.com/watch?v=sUbALkD9DAI
+      [OK] Thumbnail set for sUbALkD9DAI
       Logged to video_manifest.json for performance tracking.
