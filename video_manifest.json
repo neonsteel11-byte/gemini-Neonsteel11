@@ -3722,5 +3722,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "EQh5CRzgxac",
+    "company": "Scientists Who Changed Everything By Accident",
+    "video_type": "short",
+    "uploaded_at": "2026-11-19T01:37:30.624687+00:00",
+    "title_variants": [
+      "5 Accidental Discoveries That Changed the World",
+      "What If Scientists Never Made These Mistakes?",
+      "How Mistakes Became Breakthroughs"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "listicle"
   }
 ]
