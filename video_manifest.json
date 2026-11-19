@@ -3742,5 +3742,24 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "listicle"
+  },
+  {
+    "video_id": "309KpFzyY2k",
+    "company": "The Pastry War Between France and Mexico",
+    "video_type": "long",
+    "uploaded_at": "2026-11-19T05:24:23.466330+00:00",
+    "title_variants": [
+      "The Pastry War Between France and Mexico"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts",
+      "#truestory"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "unlisted",
+    "auto_published": false,
+    "content_format": "money_story"
   }
 ]
