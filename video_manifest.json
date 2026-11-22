@@ -3824,5 +3824,24 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "hOL8KVFGkaw",
+    "company": "Dancing Plague of 1518",
+    "video_type": "long",
+    "uploaded_at": "2026-11-22T19:23:45.219472+00:00",
+    "title_variants": [
+      "Dancing Plague of 1518"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts",
+      "#truestory"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "unlisted",
+    "auto_published": false,
+    "content_format": "money_story"
   }
 ]
