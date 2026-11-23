@@ -42,6 +42,7 @@ jobs:
           GEMINI_IMAGE_MODE: "false"
           # ADDED: These were missing, causing image generation to fail!
           PEXELS_API_KEY: ${{ secrets.PEXELS_API_KEY }}
+          HF_API_TOKEN: ${{ secrets.HF_API_TOKEN }}
           REPLICATE_API_TOKEN: ${{ secrets.REPLICATE_API_TOKEN }}
           USE_PEXELS: "true"
           USE_REPLICATE: "true"
@@ -52,7 +53,7 @@ jobs:
           RC=0
           python -u main.py "$COMPANY" --type short --upload --privacy public 2>&1 | tee run_full.log || RC=$?
           mkdir -p diagnostics
-          grep -v "ElevenLabs" run_full.log | tail -n 400 > diagnostics/last_short.txt || true
+          grep -v "ElevenLabs\|unable to read font" run_full.log | tail -n 700 > diagnostics/last_short.txt || true
           exit $RC
       
       - name: Upload captions as downloadable artifact

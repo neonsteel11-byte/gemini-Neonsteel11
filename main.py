@@ -182,13 +182,13 @@ def run(company: str, video_type: str, upload: bool, privacy: str):
         # and correlated with subscriber drop-off.
         if i == 0 and content_format == "invention_history":
             generate_image(f"a realistic photographic portrait of {inventor}, historical inventor of {company}, mid-20th century business attire appropriate to their era, plain studio background, dignified expression, natural lighting, no fantasy or sci-fi clothing",
-                         image_path, size, seed=video_seed)
+                         image_path, size, seed=video_seed, allow_pexels=False)
             image_path_2 = image_path
             print(f"      [OK] Generated cartoon portrait of inventor for Scene 1")
         else:
             use_pexels = content_format == "invention_history"
             generate_image(scene["image_prompt"], image_path, size, seed=video_seed + i, specific_object=company, allow_pexels=use_pexels)
-            generate_image(scene["image_prompt"], image_path_2, size, seed=video_seed + 1000 + i, allow_pexels=use_pexels)
+            image_path_2 = image_path  # the video builder never used a 2nd image; it only doubled the requests
         scene_data.append({
             "image_path": image_path,
             "image_path_2": image_path_2,

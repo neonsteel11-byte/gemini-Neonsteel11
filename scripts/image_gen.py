@@ -1,4 +1,4 @@
-import sys, time, os, requests, zlib
+import sys, time, os, requests, zlib, shutil
 from io import BytesIO
 from PIL import Image
 from urllib.parse import quote
@@ -46,8 +46,14 @@ def _validate_and_save(img_bytes: bytes, output_path: str, size: tuple):
         return False
 
 
+_WARNED = {}
+
+
 def _generate_image_huggingface(full_prompt: str, output_path: str, size: tuple):
     if not HF_API_TOKEN:
+        if not _WARNED.get('hf'):
+            print('      [!] HF_API_TOKEN is not set - Hugging Face is being skipped')
+            _WARNED['hf'] = True
         return False
     try:
         from huggingface_hub import InferenceClient
@@ -62,19 +68,31 @@ def _generate_image_huggingface(full_prompt: str, output_path: str, size: tuple)
         return False
 
 
+_POLL = {"t": 0.0}
+
+
 def _generate_image_pollinations(full_prompt: str, output_path: str, size: tuple, seed: int):
     url = f"https://image.pollinations.ai/prompt/{quote(full_prompt)}?width={size[0]}&height={size[1]}&model=flux&seed={seed}&nologo=true"
+    gap = float(os.getenv("POLLINATIONS_GAP", "15"))
     for attempt in range(3):
+        wait = gap - (time.time() - _POLL["t"])
+        if wait > 0:
+            time.sleep(wait)
         try:
             print(f"      Pollinations attempt {attempt+1}/3...")
             resp = requests.get(url, timeout=120)
+            _POLL["t"] = time.time()
             if resp.status_code == 200 and len(resp.content) > 5000:
                 if _validate_and_save(resp.content, output_path, size):
                     print(f"      [OK] Pollinations image saved: {output_path}")
                     return True
+            else:
+                print(f"      [!] Pollinations HTTP {resp.status_code}, {len(resp.content)} bytes: {resp.text[:120]!r}")
+                time.sleep(5 * (attempt + 1))
         except Exception as e:
+            _POLL["t"] = time.time()
             print(f"      [!] Pollinations attempt {attempt+1} failed: {e}")
-            time.sleep(2)
+            time.sleep(3)
     return False
 
 
@@ -114,7 +132,19 @@ def _pexels_query(prompt, specific_object=None):
             break
     if not words and specific_object:
         words = specific_object.split()[:5]
-    return " ".join(words)
+    q = " ".join(words)
+    obj = (specific_object or "").strip()
+    if obj and obj.lower() not in q.lower():
+        q = f"{obj} {q}"
+    return " ".join(q.split()[:6])
+
+
+_STATE = {"last_good": None, "fails": 0}
+
+
+def _ok(path):
+    _STATE["last_good"] = path
+    _STATE["fails"] = 0
 
 
 def generate_image(prompt: str, output_path: str, size: tuple = (1920, 1080), seed: int = 42, specific_object: str = None, allow_pexels: bool = True):
@@ -126,24 +156,35 @@ def generate_image(prompt: str, output_path: str, size: tuple = (1920, 1080), se
     else:
         full = prompt + ", realistic photography style, natural lighting, high detail, no fantasy or sci-fi elements, no text"
 
-    # Vary the Pexels search term per scene using the actual prompt content,
-    # not just the constant topic name -- otherwise every scene searches the
-    # same term and Pexels returns the identical top result every time.
     pexels_query = _pexels_query(prompt, specific_object)
     if allow_pexels and pexels_query and _generate_image_pexels(pexels_query, output_path, size):
-        return
+        return _ok(output_path)
 
     if _generate_image_huggingface(full, output_path, size):
-        return
+        return _ok(output_path)
 
     if _generate_image_pollinations(full, output_path, size, seed):
+        return _ok(output_path)
+
+    # Rate limits often clear after a pause: one more pass (skipped after 2 failures in a row)
+    if _STATE["fails"] < 2:
+        print("      [!] All image sources failed - pausing 20s, then one more try...")
+        time.sleep(20)
+        if _generate_image_huggingface(full, output_path, size) or _generate_image_pollinations(full, output_path, size, seed + 1):
+            return _ok(output_path)
+
+    _STATE["fails"] += 1
+    last = _STATE["last_good"]
+    if last and os.path.exists(last) and last != output_path:
+        shutil.copyfile(last, output_path)
+        print(f"      [WARNING] No image source worked - reusing this video's previous image for {output_path}")
         return
 
     label = specific_object or prompt.split(",")[0][:40]
     if _generate_title_card(label, output_path, size):
         return
 
-    print(f"      [FATAL] All image methods failed", file=sys.stderr)
+    print("      [FATAL] All image methods failed", file=sys.stderr)
     sys.exit(1)
 
 

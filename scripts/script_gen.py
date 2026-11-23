@@ -4,13 +4,39 @@ from config import GROQ_API_KEY, GROQ_MODEL
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 
+def _extract_json(text):
+    """Pull a JSON object out of a model reply (handles code fences / extra text)."""
+    if not text:
+        return None
+    s, e = text.find("{"), text.rfind("}")
+    if s == -1 or e <= s:
+        return None
+    try:
+        return json.loads(text[s:e + 1])
+    except Exception:
+        return None
+
+
 def _post_with_retry(url, **kwargs):
-    """POST to Groq with retries. Backs off on 429/5xx, drops strict JSON mode
-    after a 400 json_validate_failed, and cleans the reply down to pure JSON."""
+    """POST to Groq up to 3 times. A reply only counts as success when it holds real,
+    parseable JSON (an HTTP 200 with an empty reply used to slip through and trigger the
+    generic fallback). Logs finish_reason/usage so failures can be diagnosed."""
+    import os, re
+    body = dict(kwargs.get("json", {}))
+    body.setdefault("max_tokens", 8000)
     last = None
     for attempt in range(3):
+        b = dict(body)
+        if "gpt-oss" in str(b.get("model", "")):
+            b["reasoning_effort"] = "low"
+        if attempt >= 1:
+            b.pop("response_format", None)
+        if attempt == 2:
+            b["model"] = os.getenv("GROQ_FALLBACK_MODEL", "openai/gpt-oss-20b")
+        kw = dict(kwargs)
+        kw["json"] = b
         try:
-            resp = requests.post(url, **kwargs)
+            resp = requests.post(url, **kw)
         except Exception as e:
             print(f"      [RETRY] Groq request error (attempt {attempt+1}/3): {e}")
             time.sleep(3 * (attempt + 1))
@@ -21,21 +47,21 @@ def _post_with_retry(url, **kwargs):
         except Exception:
             data = {}
         if resp.status_code == 200 and data.get("choices"):
-            try:
-                content = data["choices"][0]["message"]["content"]
-                start, end = content.find("{"), content.rfind("}")
-                if start != -1 and end > start:
-                    parsed = json.loads(content[start:end + 1])
-                    data["choices"][0]["message"]["content"] = json.dumps(parsed)
-                    resp._content = json.dumps(data).encode("utf-8")
-            except Exception:
-                pass
-            return resp
-        print(f"      [RETRY] Groq attempt {attempt+1}/3 failed: HTTP {resp.status_code} {str(data)[:200]}")
-        if resp.status_code == 400:
-            body = dict(kwargs.get("json", {}))
-            body.pop("response_format", None)
-            kwargs["json"] = body
+            ch = data["choices"][0]
+            content = (ch.get("message") or {}).get("content") or ""
+            parsed = _extract_json(content)
+            if parsed is not None:
+                tv = parsed.get("title_variants")
+                if isinstance(tv, list):
+                    parsed["title_variants"] = [re.sub(r"^\s*\d+[.)]\s+", "", str(t)).strip() for t in tv]
+                data["choices"][0]["message"]["content"] = json.dumps(parsed)
+                resp._content = json.dumps(data).encode("utf-8")
+                return resp
+            print(f"      [RETRY] Groq attempt {attempt+1}/3: HTTP 200 but no usable JSON "
+                  f"(finish_reason={ch.get('finish_reason')}, reply_chars={len(content)}, usage={data.get('usage')}, "
+                  f"start={content[:120]!r})")
+        else:
+            print(f"      [RETRY] Groq attempt {attempt+1}/3 failed: HTTP {resp.status_code} {str(data)[:200]}")
         wait = 3 * (attempt + 1)
         if resp.status_code == 429:
             try:
@@ -48,6 +74,13 @@ def _post_with_retry(url, **kwargs):
     raise RuntimeError("Groq request failed after 3 attempts")
 
 
+def _refuse_fallback():
+    """Publishing the generic fallback script hurts the channel, so stop the run instead."""
+    import os
+    if os.getenv("ALLOW_FALLBACK_SCRIPT", "0") != "1":
+        raise RuntimeError("Groq script generation failed after retries - refusing to publish the generic "
+                           "fallback script (set ALLOW_FALLBACK_SCRIPT=1 to allow it)")
+
 
 def generate_invention_script(invention, inventor, facts, info, video_type="short"):
     if video_type == "long":
@@ -59,7 +92,8 @@ def generate_invention_script(invention, inventor, facts, info, video_type="shor
 
     prompt = f"""Write an educational short-video script about {invention}, invented by {inventor}.
 Length: {length}.
-Structure: 1) Shock hook 2) Weird origin story 3) What it actually is 4) How it is used today 5) What it could be used for in the future.
+Structure: 1) In the very first sentence, name {invention} and say plainly what it is and who invented it 2) How it was invented by accident: who, when, where, and what went wrong or was noticed 3) How it works or what it is made of, in simple words 4) How it is used today, with real examples and numbers 5) What it could be used for in the future. End with one plain factual closing sentence.
+Style: You are a clear, calm explainer. State facts directly and never hold information back. NEVER tease or build suspense: no cliffhangers, no 'you won't believe', 'wait for it', 'nobody knew', 'most people don't know' or 'the twist', and do not end on a question. Every sentence must contain a concrete fact (a name, date, place, number, or how-it-works detail). Image rule: each image_prompt must show exactly what that scene's narration says, naming the specific invention, person or place, as one concrete visual.
 Facts to include: {facts}
 
 Return ONLY valid JSON in EXACTLY this structure, with no missing fields:
@@ -121,6 +155,8 @@ Every scene MUST include narration, image_prompt, and on_screen_text. Do not ski
         print(f"      [!] API Error: {e}")
 
     print("      [!] Using dynamic fallback...")
+
+    _refuse_fallback()
 
     fallback_scenes = [
         {"narration": f"Did you know {invention} was created completely by accident?", "image_prompt": f"cartoon of {invention} with explosion effect", "on_screen_text": "By Accident!"},
@@ -201,7 +237,8 @@ def generate_money_story_script(topic, facts, video_type="short"):
 
     prompt = f"""Write an educational short-video script telling the true story of: {topic}.
 Length: {length}.
-Structure: 1) Shock hook 2) How the events unfolded 3) The surprising twist or consequence 4) Why it still matters today.
+Structure: 1) In the very first sentence, say plainly what happened, where and when 2) How the events unfolded step by step, with names, dates and numbers 3) The outcome and its consequences, stated directly 4) Why it still matters today. End with one plain factual closing sentence.
+Style: You are a clear, calm explainer. State facts directly and never hold information back. NEVER tease or build suspense: no cliffhangers, no 'you won't believe', 'wait for it', 'nobody knew', 'most people don't know' or 'the twist', and do not end on a question. Every sentence must contain a concrete fact (a name, date, place, number, or how-it-works detail). Image rule: each image_prompt must show exactly what that scene's narration says, naming the specific invention, person or place, as one concrete visual.
 Facts to include: {facts}
 
 Return ONLY valid JSON in EXACTLY this structure, with no missing fields:
@@ -257,6 +294,8 @@ Every scene MUST include narration, image_prompt, and on_screen_text. Do not ski
         print(f"      [!] Story API Error: {e}")
 
     print("      [!] Using dynamic story fallback...")
+
+    _refuse_fallback()
     fallback_scenes = [
         {"narration": f"Here is a true story: {topic}.", "image_prompt": f"realistic illustration depicting {topic}", "on_screen_text": topic[:30]},
         {"narration": "Most people have never heard the full story behind this.", "image_prompt": f"realistic illustration, early events related to {topic}", "on_screen_text": "The Untold Story"},
@@ -365,6 +404,8 @@ Include exactly {num_entries} scenes, one per entry, each with a DIFFERENT real 
             print(f"      [!] Listicle API Error (attempt {attempt+1}): {e}")
 
     print("      [!] Using dynamic listicle fallback...")
+
+    _refuse_fallback()
     return {
         "title_variants": [f"{num_entries} Things About {topic}"],
         "description": f"A countdown about {topic}.",

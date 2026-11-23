@@ -7,6 +7,18 @@ ALLTIME_USED_PATH = "topics_used_alltime.json"
 GROQ_URL = "https://api.groq.com/openai/v1/chat/completions"
 
 TOPICS = [
+    "INVENTION:Teflon:Roy Plunkett",
+    "INVENTION:Saccharin:Constantin Fahlberg",
+    "INVENTION:Pacemaker:Wilson Greatbatch",
+    "INVENTION:Stainless Steel:Harry Brearley",
+    "INVENTION:Vulcanized Rubber:Charles Goodyear",
+    "INVENTION:X-Rays:Wilhelm Roentgen",
+    "INVENTION:Safety Glass:Edouard Benedictus",
+    "INVENTION:Scotchgard:Patsy Sherman",
+    "INVENTION:Mauve Dye:William Henry Perkin",
+    "INVENTION:Aspartame:James Schlatter",
+    "INVENTION:Smoke Detector:Walter Jaeger",
+    "INVENTION:Tea Bags:Thomas Sullivan",
     # Daily-use physical objects (highest priority -- proven best performer: Zipper at 243 views)
     "INVENTION:Zipper:Whitcomb Judson",
     "INVENTION:Velcro:George de Mestral",
@@ -53,6 +65,13 @@ TOPICS = [
 # events (Emu War-style) -- kept separate from Shorts, which stays focused on
 # famous, everyday accidental inventions only.
 LONGFORM_TOPICS = [
+    "MONEY:The War of the Stray Dog Between Greece and Bulgaria",
+    "MONEY:The Aroostook War Between Maine and New Brunswick",
+    "MONEY:The Honey War Between Iowa and Missouri",
+    "MONEY:The Whisky War Over Hans Island",
+    "MONEY:The Rum Rebellion in Australia",
+    "MONEY:The Chesapeake Bay Oyster Wars",
+    "MONEY:The Dogger Bank Incident Between Russia and Britain",
     "MONEY:The Great Emu War",
     "MONEY:The Cod Wars Between Iceland and Britain",
     "MONEY:The War of the Bucket",
@@ -136,11 +155,24 @@ def _pop_hot_topic():
         return None
 
 
-def _load_alltime_used():
+def _norm(s):
+    return (s or "").strip().lower()
+
+
+def _load_alltime_used(video_type="short"):
+    """Every topic already used: the tracker file PLUS every video in the manifest
+    of the same type, so repeats are blocked even if the tracker file is missing."""
+    used = set()
     if os.path.exists(ALLTIME_USED_PATH):
-        with open(ALLTIME_USED_PATH, "r", encoding="utf-8") as f:
-            return set(json.load(f))
-    return set()
+        try:
+            with open(ALLTIME_USED_PATH, "r", encoding="utf-8") as f:
+                used |= {_norm(x) for x in json.load(f)}
+        except Exception:
+            pass
+    for entry in _load_manifest():
+        if entry.get("video_type", video_type) == video_type and entry.get("company"):
+            used.add(_norm(entry["company"]))
+    return used
 
 
 def _save_alltime_used(used):
@@ -149,19 +181,18 @@ def _save_alltime_used(used):
 
 
 def _brainstorm_new_topic(video_type, used_names):
-    """Ask Groq for a brand-new topic, in the channel's existing style, that
-    hasn't been used before. Returns None if Groq is unavailable or fails."""
+    """Ask Groq for a brand-new topic that hasn't been used. Returns None on failure."""
     if not GROQ_API_KEY:
         return None
     if video_type == "long":
-        style = "a bizarre, little-known true historical event (in the style of The Great Emu War, Tulip Mania, The Cod Wars) that would make a compelling story-driven video"
-        prefix = "MONEY"
+        ask = ("a bizarre, little-known true historical WAR or conflict (in the style of The Great Emu War, "
+               "The Cod Wars, The Pig War) that makes a compelling story-driven video. Return ONLY the event name.")
     else:
-        style = "a famous everyday object that was invented completely by accident"
-        prefix = "INVENTION"
-    prompt = f"""Suggest ONE topic for a YouTube video about {style}.
-Do not suggest any of these already-used topics: {', '.join(sorted(used_names)) or 'none yet'}.
-Return ONLY the topic name, nothing else, no quotes, no explanation."""
+        ask = ("a famous everyday object that was invented completely by accident, with a real, well-documented "
+               "inventor. Return ONLY: Object Name | Inventor Full Name")
+    prompt = (f"Suggest ONE topic for a YouTube video about {ask}\n"
+              f"Do not suggest any of these already-used topics: {', '.join(sorted(used_names)) or 'none yet'}.\n"
+              "No quotes, no explanation.")
     try:
         resp = requests.post(GROQ_URL,
             headers={"Authorization": f"Bearer {GROQ_API_KEY}", "Content-Type": "application/json"},
@@ -169,44 +200,46 @@ Return ONLY the topic name, nothing else, no quotes, no explanation."""
             timeout=30)
         if resp.status_code == 200:
             data = resp.json()
-            if "choices" in data and data["choices"]:
-                title = data["choices"][0]["message"]["content"].strip().strip('"')
-                if title:
-                    if prefix == "INVENTION":
-                        return f"INVENTION:{title}:Unknown"
-                    return f"{prefix}:{title}"
+            if data.get("choices"):
+                text = data["choices"][0]["message"]["content"].strip().strip('"').split("\n")[0].strip()
+                if video_type == "long":
+                    return f"MONEY:{text}" if text else None
+                if "|" in text:
+                    obj, inv = [x.strip() for x in text.split("|", 1)]
+                    if obj and inv:
+                        return f"INVENTION:{obj}:{inv}"
     except Exception as e:
         print(f"[WARNING] Groq brainstorm failed: {e}", file=sys.stderr)
     return None
 
 
 def pick_company(video_type="short"):
-    alltime_used = _load_alltime_used()
+    alltime_used = _load_alltime_used(video_type)
     manifest = _load_manifest()
-    recent = [entry.get("company", "") for entry in manifest[-15:]]
+    recent = {_norm(e.get("company", "")) for e in manifest[-15:]}
 
     if video_type == "long":
         hot = _pop_hot_topic()
-        if hot and _short_name(hot) not in alltime_used:
-            alltime_used.add(_short_name(hot))
+        if hot and _norm(_short_name(hot)) not in alltime_used:
+            alltime_used.add(_norm(_short_name(hot)))
             _save_alltime_used(alltime_used)
             return hot
 
     pool = LONGFORM_TOPICS if video_type == "long" else TOPICS
-    available = [t for t in pool if _short_name(t) not in alltime_used]
+    available = [t for t in pool if _norm(_short_name(t)) not in alltime_used]
 
     if not available:
-        new_topic = _brainstorm_new_topic(video_type, alltime_used)
-        if new_topic:
-            alltime_used.add(_short_name(new_topic))
-            _save_alltime_used(alltime_used)
-            return new_topic
-        # Groq brainstorm unavailable/failed -- fall back to least-recently-used
-        # repeat rather than a hard failure.
-        available = [t for t in pool if _short_name(t) not in recent] or pool
+        for _ in range(3):
+            new_topic = _brainstorm_new_topic(video_type, alltime_used)
+            if new_topic and _norm(_short_name(new_topic)) not in alltime_used:
+                alltime_used.add(_norm(_short_name(new_topic)))
+                _save_alltime_used(alltime_used)
+                return new_topic
+        # Groq unavailable: least-recent repeat rather than a hard failure.
+        available = [t for t in pool if _norm(_short_name(t)) not in recent] or pool
 
     chosen = random.choice(available)
-    alltime_used.add(_short_name(chosen))
+    alltime_used.add(_norm(_short_name(chosen)))
     _save_alltime_used(alltime_used)
     return chosen
 
