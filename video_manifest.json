@@ -3883,5 +3883,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "Io8f5S0kP-w",
+    "company": "Vulcanized Rubber",
+    "video_type": "short",
+    "uploaded_at": "2026-11-25T03:20:14.213709+00:00",
+    "title_variants": [
+      "Six Hundred Thousand Dollars Lost, One Rubber Invention Gained Millions",
+      "You Touch This Every Day and It Was Invented By One Man in 1844",
+      "The Secret Patent That Saved the Tire Industry"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
