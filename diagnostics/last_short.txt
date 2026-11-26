@@ -1,204 +1,212 @@
-[1/4] Generating script for 'INVENTION:Vulcanized Rubber:Charles Goodyear' (short)...
-      Invention mode: Vulcanized Rubber by Charles Goodyear
-      [WARNING] Wikipedia lookup failed for 'Vulcanized Rubber' (404), no real image available.
+[1/4] Generating script for 'INVENTION:Mauve Dye:William Henry Perkin' (short)...
+      Invention mode: Mauve Dye by William Henry Perkin
+      [WARNING] Wikipedia lookup failed for 'Mauve Dye' (404), no real image available.
       Calling Groq API...
       [DEBUG] Groq HTTP status: 200
       [OK] Script generated: 12 scenes
-      ✓ Found real photo of Charles Goodyear
-      Title: Six Hundred Thousand Dollars Lost, One Rubber Invention Gained Millions
-      Visual seed: 295234
+      ✓ Found real photo of William Henry Perkin
+      Title: One Hundred Dollar Mistake Created a Billion Dollar Dye Industry
+      Visual seed: 287948
       Scenes: 12
 [2/4] Generating voiceover + images per scene...
       scene 1/12: generating voiceover...
       Processing audio file generation...
       Attempting Edge TTS (free fallback, try 1/3)...
       [OK] Edge TTS generation successful
-      Voice: Edge TTS, 16 word timings captured
-      scene 1 audio duration: 7.20s
+      Voice: Edge TTS, 17 word timings captured
+      scene 1 audio duration: 7.80s
       scene 1: generating images...
       [!] Hugging Face image failed: Model black-forest-labs/FLUX.1-schnell is not supported by provider together.
       Pollinations attempt 1/3...
-      [OK] Pollinations image saved: output/tmp_INVENTION_Vulcanized_Rubber_Charles_Goodyear_short/image_0.png
+      [!] Pollinations HTTP 503, 338 bytes: '{"status":503,"success":false,"error":{"code":"SERVICE_UNAVAILABLE","message":"The Classic API is at its limit right now'
+      Pollinations attempt 2/3...
+      [!] Pollinations HTTP 402, 329 bytes: '{"status":402,"success":false,"error":{"code":"FREE_LIMIT","message":"Free limit reached: 1 image every 45 seconds per I'
+      Pollinations attempt 3/3...
+      [!] Pollinations HTTP 402, 329 bytes: '{"status":402,"success":false,"error":{"code":"FREE_LIMIT","message":"Free limit reached: 1 image every 45 seconds per I'
+      [!] All image sources failed - pausing 20s, then one more try...
+      [!] Hugging Face image failed: Model black-forest-labs/FLUX.1-schnell is not supported by provider together.
+      Pollinations attempt 1/3...
+      [OK] Pollinations image saved: output/tmp_INVENTION_Mauve_Dye_William_Henry_Perkin_short/image_0.png
       [OK] Generated cartoon portrait of inventor for Scene 1
       scene 2/12: generating voiceover...
       Processing audio file generation...
       Attempting Edge TTS (free fallback, try 1/3)...
       [OK] Edge TTS generation successful
-      Voice: Edge TTS, 21 word timings captured
-      scene 2 audio duration: 8.86s
+      Voice: Edge TTS, 27 word timings captured
+      scene 2 audio duration: 11.18s
       scene 2: generating images...
-      [OK] Real Pexels photo saved: output/tmp_INVENTION_Vulcanized_Rubber_Charles_Goodyear_short/image_1.png
+      [OK] Real Pexels photo saved: output/tmp_INVENTION_Mauve_Dye_William_Henry_Perkin_short/image_1.png
       scene 3/12: generating voiceover...
       Processing audio file generation...
       Attempting Edge TTS (free fallback, try 1/3)...
       [OK] Edge TTS generation successful
-      Voice: Edge TTS, 18 word timings captured
-      scene 3 audio duration: 6.82s
+      Voice: Edge TTS, 25 word timings captured
+      scene 3 audio duration: 8.54s
       scene 3: generating images...
-      [OK] Real Pexels photo saved: output/tmp_INVENTION_Vulcanized_Rubber_Charles_Goodyear_short/image_2.png
+      [OK] Real Pexels photo saved: output/tmp_INVENTION_Mauve_Dye_William_Henry_Perkin_short/image_2.png
       scene 4/12: generating voiceover...
       Processing audio file generation...
       Attempting Edge TTS (free fallback, try 1/3)...
       [OK] Edge TTS generation successful
-      Voice: Edge TTS, 18 word timings captured
-      scene 4 audio duration: 8.16s
+      Voice: Edge TTS, 25 word timings captured
+      scene 4 audio duration: 11.35s
       scene 4: generating images...
-      [OK] Real Pexels photo saved: output/tmp_INVENTION_Vulcanized_Rubber_Charles_Goodyear_short/image_3.png
+      [OK] Real Pexels photo saved: output/tmp_INVENTION_Mauve_Dye_William_Henry_Perkin_short/image_3.png
       scene 5/12: generating voiceover...
       Processing audio file generation...
       Attempting Edge TTS (free fallback, try 1/3)...
       [OK] Edge TTS generation successful
-      Voice: Edge TTS, 16 word timings captured
-      scene 5 audio duration: 9.74s
+      Voice: Edge TTS, 21 word timings captured
+      scene 5 audio duration: 9.36s
       scene 5: generating images...
-      [OK] Real Pexels photo saved: output/tmp_INVENTION_Vulcanized_Rubber_Charles_Goodyear_short/image_4.png
+      [OK] Real Pexels photo saved: output/tmp_INVENTION_Mauve_Dye_William_Henry_Perkin_short/image_4.png
       scene 6/12: generating voiceover...
       Processing audio file generation...
       Attempting Edge TTS (free fallback, try 1/3)...
       [OK] Edge TTS generation successful
-      Voice: Edge TTS, 23 word timings captured
-      scene 6 audio duration: 9.86s
+      Voice: Edge TTS, 20 word timings captured
+      scene 6 audio duration: 8.71s
       scene 6: generating images...
-      [OK] Real Pexels photo saved: output/tmp_INVENTION_Vulcanized_Rubber_Charles_Goodyear_short/image_5.png
+      [OK] Real Pexels photo saved: output/tmp_INVENTION_Mauve_Dye_William_Henry_Perkin_short/image_5.png
       scene 7/12: generating voiceover...
       Processing audio file generation...
       Attempting Edge TTS (free fallback, try 1/3)...
       [OK] Edge TTS generation successful
-      Voice: Edge TTS, 21 word timings captured
-      scene 7 audio duration: 9.67s
+      Voice: Edge TTS, 18 word timings captured
+      scene 7 audio duration: 9.48s
       scene 7: generating images...
-      [OK] Real Pexels photo saved: output/tmp_INVENTION_Vulcanized_Rubber_Charles_Goodyear_short/image_6.png
+      [OK] Real Pexels photo saved: output/tmp_INVENTION_Mauve_Dye_William_Henry_Perkin_short/image_6.png
       scene 8/12: generating voiceover...
       Processing audio file generation...
       Attempting Edge TTS (free fallback, try 1/3)...
       [OK] Edge TTS generation successful
-      Voice: Edge TTS, 20 word timings captured
-      scene 8 audio duration: 8.59s
+      Voice: Edge TTS, 22 word timings captured
+      scene 8 audio duration: 10.68s
       scene 8: generating images...
-      [OK] Real Pexels photo saved: output/tmp_INVENTION_Vulcanized_Rubber_Charles_Goodyear_short/image_7.png
+      [OK] Real Pexels photo saved: output/tmp_INVENTION_Mauve_Dye_William_Henry_Perkin_short/image_7.png
       scene 9/12: generating voiceover...
       Processing audio file generation...
       Attempting Edge TTS (free fallback, try 1/3)...
       [OK] Edge TTS generation successful
       Voice: Edge TTS, 18 word timings captured
-      scene 9 audio duration: 8.42s
+      scene 9 audio duration: 9.65s
       scene 9: generating images...
-      [OK] Real Pexels photo saved: output/tmp_INVENTION_Vulcanized_Rubber_Charles_Goodyear_short/image_8.png
+      [OK] Real Pexels photo saved: output/tmp_INVENTION_Mauve_Dye_William_Henry_Perkin_short/image_8.png
       scene 10/12: generating voiceover...
       Processing audio file generation...
       Attempting Edge TTS (free fallback, try 1/3)...
       [OK] Edge TTS generation successful
-      Voice: Edge TTS, 15 word timings captured
-      scene 10 audio duration: 7.75s
+      Voice: Edge TTS, 21 word timings captured
+      scene 10 audio duration: 9.43s
       scene 10: generating images...
-      [OK] Real Pexels photo saved: output/tmp_INVENTION_Vulcanized_Rubber_Charles_Goodyear_short/image_9.png
+      [OK] Real Pexels photo saved: output/tmp_INVENTION_Mauve_Dye_William_Henry_Perkin_short/image_9.png
       scene 11/12: generating voiceover...
       Processing audio file generation...
       Attempting Edge TTS (free fallback, try 1/3)...
       [OK] Edge TTS generation successful
-      Voice: Edge TTS, 21 word timings captured
-      scene 11 audio duration: 9.89s
+      Voice: Edge TTS, 19 word timings captured
+      scene 11 audio duration: 8.78s
       scene 11: generating images...
-      [OK] Real Pexels photo saved: output/tmp_INVENTION_Vulcanized_Rubber_Charles_Goodyear_short/image_10.png
+      [OK] Real Pexels photo saved: output/tmp_INVENTION_Mauve_Dye_William_Henry_Perkin_short/image_10.png
       scene 12/12: generating voiceover...
       Processing audio file generation...
       Attempting Edge TTS (free fallback, try 1/3)...
       [OK] Edge TTS generation successful
-      Voice: Edge TTS, 18 word timings captured
-      scene 12 audio duration: 7.20s
+      Voice: Edge TTS, 17 word timings captured
+      scene 12 audio duration: 8.42s
       scene 12: generating images...
-      [OK] Real Pexels photo saved: output/tmp_INVENTION_Vulcanized_Rubber_Charles_Goodyear_short/image_11.png
+      [OK] Real Pexels photo saved: output/tmp_INVENTION_Mauve_Dye_William_Henry_Perkin_short/image_11.png
       Generating subscribe call-to-action scene...
       Processing audio file generation...
       Attempting Edge TTS (free fallback, try 1/3)...
       [OK] Edge TTS generation successful
-      Voice: Edge TTS, 12 word timings captured
+      Voice: Edge TTS, 9 word timings captured
       Using lucky mascot for CTA scene.
 [3/4] Assembling final video...
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmp0giegkf4.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmp50n6vav7.txt' @ error/string.c/FileToString/989.
 .
 
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmprw_p8430.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmppvnxhgb1.txt' @ error/string.c/FileToString/989.
 .
 
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpmkdf5vl1.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmp_0a2kh_j.txt' @ error/string.c/FileToString/989.
 .
 
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmp1ves4bd6.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpt4eatwe0.txt' @ error/string.c/FileToString/989.
 .
 
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpdtapw605.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpnzbkltew.txt' @ error/string.c/FileToString/989.
 .
 
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmp9kx9ovuc.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmps5w3a77r.txt' @ error/string.c/FileToString/989.
 .
 
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpwrpfygcj.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmprbcxj75v.txt' @ error/string.c/FileToString/989.
 .
 
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmp_h272i6u.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpbgcchwc4.txt' @ error/string.c/FileToString/989.
 .
 
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmp1hdytu9x.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpl4r41j8c.txt' @ error/string.c/FileToString/989.
 .
 
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpculzv7un.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpoyf6ttd3.txt' @ error/string.c/FileToString/989.
 .
 
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpktd6da2a.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpna9vmh8e.txt' @ error/string.c/FileToString/989.
 .
 
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpxesxd4mf.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmpfge8398a.txt' @ error/string.c/FileToString/989.
 .
 
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
       [!] Caption render failed: MoviePy Error: creation of None failed because of the following error:
 
-convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmphxyyts8x.txt' @ error/string.c/FileToString/989.
+convert: attempt to perform an operation not allowed by the security policy `@/tmp/tmp8p03_3vg.txt' @ error/string.c/FileToString/989.
 .
 
 .This error can be due to the fact that ImageMagick is not installed on your computer, or (for Windows users) that you didn't specify the path to the ImageMagick binary in file conf.py, or that the path you specified is incorrect
-      Expected final duration before render: 107.69s
-      [CHECK] Actual rendered file duration (ffprobe): 107.708333s
-[4/4] Done. Final video: output/INVENTION_Vulcanized_Rubber_Charles_Goodyear_short.mp4
-      Platform-specific captions saved: output/INVENTION_Vulcanized_Rubber_Charles_Goodyear_short_captions.txt
-      [OK] Real Pexels photo saved: output/tmp_INVENTION_Vulcanized_Rubber_Charles_Goodyear_short/thumbnail.png
-      [OK] Thumbnail generated: output/tmp_INVENTION_Vulcanized_Rubber_Charles_Goodyear_short/thumbnail.png
-Uploaded successfully: https://youtube.com/watch?v=Io8f5S0kP-w
-      [OK] Thumbnail set for Io8f5S0kP-w
+      Expected final duration before render: 118.07s
+      [CHECK] Actual rendered file duration (ffprobe): 118.083333s
+[4/4] Done. Final video: output/INVENTION_Mauve_Dye_William_Henry_Perkin_short.mp4
+      Platform-specific captions saved: output/INVENTION_Mauve_Dye_William_Henry_Perkin_short_captions.txt
+      [OK] Real Pexels photo saved: output/tmp_INVENTION_Mauve_Dye_William_Henry_Perkin_short/thumbnail.png
+      [OK] Thumbnail generated: output/tmp_INVENTION_Mauve_Dye_William_Henry_Perkin_short/thumbnail.png
+Uploaded successfully: https://youtube.com/watch?v=ypfv2Vkj3Ow
+      [OK] Thumbnail set for ypfv2Vkj3Ow
       Logged to video_manifest.json for performance tracking.
