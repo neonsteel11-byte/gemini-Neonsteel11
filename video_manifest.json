@@ -3923,5 +3923,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "DCP_2VhvmgI",
+    "company": "Smoke Detector",
+    "video_type": "short",
+    "uploaded_at": "2026-11-27T02:37:56.860366+00:00",
+    "title_variants": [
+      "One Accidental Test Saved Millions of Lives",
+      "You Walk Past This Device Every Day Without Knowing Its Origin",
+      "The Hidden Story Behind the First Smoke Detector"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
