@@ -3943,5 +3943,25 @@
     "privacy": "public",
     "auto_published": false,
     "content_format": "invention_history"
+  },
+  {
+    "video_id": "LGAcMSGKX4I",
+    "company": "Aspartame",
+    "video_type": "short",
+    "uploaded_at": "2026-11-28T02:27:36.655156+00:00",
+    "title_variants": [
+      "This One Sweet Mistake Made Four Billion Dollar Industry",
+      "You Use This Everyday and Never Knew Its Origin",
+      "The Hidden Story Behind Aspartamine's Rise"
+    ],
+    "hashtags": [
+      "#shorts",
+      "#facts"
+    ],
+    "variant_index": 0,
+    "optimized": false,
+    "privacy": "public",
+    "auto_published": false,
+    "content_format": "invention_history"
   }
 ]
